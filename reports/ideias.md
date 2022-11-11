@@ -45,15 +45,16 @@ https://neovera.com/choosing-right-rdbms-oracle-mysql-sql-server/
 - tracking da frota
 - tracking de packages (entrada e saida na rede de distribuição)
 - adicionar veiculos à sua frota 
-- adicionar packages à sua frota 
-- organizar a rota de entrega dos packages
+<!-- - adicionar packages à sua frota -> gerado com eventos -->
 
 (cliente)
 - permitir o cliente localizar o package com um codigo
 - notificar o cliente (email) quando ha mudança de estado
+- confirmar a entrega do package
 
 (transportador)
 - paragens destino (destino final ou armazens)
 - tempo total
 - packages a entregar em cada paragem
 - atualizar estado do package (entregue, em viagem, etc)
+- atualizar estado do veiculo (em viagem, parado, etc)
