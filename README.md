@@ -5,7 +5,7 @@
 |-|-|
 | Team Manager (Coordinator) | Pedro Rodrigues (102778) |
 | Product Owner| Leonardo Almeida (102536) |
-| Architect | Rafael Remígio (INSERT) |
+| Architect | Rafael Remígio (102435) |
 | DevOps Master| Rafael Gonçalves (102534) |
 | Developers | Todos os supracitados |
 
