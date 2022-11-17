@@ -41,3 +41,15 @@ LogiPack é um sistema de logística de transportes que permite a uma distribuid
 | Backend | SpringBoot (Java) |
 | Message queue | RabbitMQ |
 | Base de dados | PostgreSQL |
+
+<br />
+
+## Jira 
+
+https://pedro535.atlassian.net/jira/software/projects/LOG/boards/1
+
+<br />
+
+## Report
+
+https://docs.google.com/document/d/1NsjOoFR-VR5tmH4ELemQEX0nGNToCANMTpgr-9esZek
