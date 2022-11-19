@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route} from "react-router-dom";
 
 import Home from './Home.jsx';
 import ClientePage from './cliente/pages/Home.jsx';
-import DistribuidoraPage from './distribuidora/pages/Home.jsx';
+import DistribuidoraPage from './distribuidora/pages/Dashboard';
 import Transportador from './transportador/pages/Home.jsx';
 
 function App() {
