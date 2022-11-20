@@ -2,16 +2,12 @@ import '../../App.css';
 
 import Container from '@mui/material/Container';
 
-import { useNavigate } from 'react-router-dom';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
 import { CarriersTable } from '../components/CarriersTable';
 import { GeneralInfo } from '../components/GeneralInfo';
 
-
 function Dashboard() {
-
-    const navigate = useNavigate();
 
     return (
         <>
