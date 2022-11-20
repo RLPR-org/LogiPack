@@ -139,7 +139,7 @@ function DistribuidoraBox(props) {
         {/* -------------------------------------------- nav-links -------------------------------------------- */}
 
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/')}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/distribuidora')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
                         <DashboardIcon></DashboardIcon>
@@ -150,7 +150,7 @@ function DistribuidoraBox(props) {
         </List>
 
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/distribuidora/transportadores')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
                         <LocalShippingIcon></LocalShippingIcon>
@@ -161,7 +161,7 @@ function DistribuidoraBox(props) {
         </List>
 
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/distribuidora/encomendas')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
                         <Inventory2Icon></Inventory2Icon>
