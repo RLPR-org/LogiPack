@@ -28,7 +28,7 @@ const status = {
     4: <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#3DDE5F", color: "white"}}/>,
 }
 
-function PackagesTable() {
+function PackagesTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -44,7 +44,9 @@ function PackagesTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell>{row.packageID}</TableCell>
+
+              {/* TODO: CHANGE THIS PATH */}
+              <TableCell><a href={"/#/distribuidora/encomendas/" + row.packageID}>{row.packageID}</a></TableCell>
               <TableCell>{status[row.packageStatus]}</TableCell>
               <TableCell>{row.carrierID}</TableCell>
               <TableCell>{row.vehicleID}</TableCell>
