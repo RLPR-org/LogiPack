@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
+import InfoIcon from '@mui/icons-material/Info';
 
 function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp) {
   return {packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp};
@@ -29,6 +31,8 @@ const status = {
 }
 
 function PackagesTable(props) {
+  const navigate = useNavigate();
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,18 +43,20 @@ function PackagesTable(props) {
             <TableCell style={{fontWeight: "bold"}}>Transportador</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Veículo</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Última atualização</TableCell>
+            <TableCell align="right" style={{fontWeight: "bold"}}>Info.</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-
-              {/* TODO: CHANGE THIS PATH */}
-              <TableCell><a href={"/#/distribuidora/encomendas/" + row.packageID}>{row.packageID}</a></TableCell>
+              <TableCell>{row.packageID}</TableCell>
               <TableCell>{status[row.packageStatus]}</TableCell>
               <TableCell>{row.carrierID}</TableCell>
               <TableCell>{row.vehicleID}</TableCell>
               <TableCell align="right" style={{color: "gray"}}>{row.lastUpdateTimestamp}</TableCell>
+              <TableCell align="right">
+                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.packageID)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

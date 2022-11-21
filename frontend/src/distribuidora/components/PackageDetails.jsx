@@ -15,15 +15,14 @@ function createData(packageFields, packageData) {
 function PackageDetails(props) {
 
     // pass as prop the api data of a specific package
-    const rows = [
-        createData("ID", 1),
-        createData("Emissor", "Nome do emissor"),
-        createData("Recetor", "Nome do recetor/cliente"),
-        createData("peso", "20 Kg"),
-        createData("Estado atual", "Em distribuição"),
-        createData("Transportador ID", 21)
-
-    ];
+    const packageData = {
+        "packageID": 1,
+        "sender": "João",
+        "receiver": "Maria",
+        "weight": 2.5,
+        "packageStatus": "Em distribuição",
+        "carrierID": 6
+    }
 
   return (
     <>
@@ -34,16 +33,38 @@ function PackageDetails(props) {
 
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-
-                    </TableHead>
                     <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell>{row.packageFields}</TableCell>
-                        <TableCell align="right">{row.packageData}</TableCell>
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>ID</TableCell>
+                            <TableCell align="right">{packageData.packageID}</TableCell>
                         </TableRow>
-                    ))}
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>Emissor</TableCell>
+                            <TableCell align="right">{packageData.sender}</TableCell>
+                        </TableRow>
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>Recetor</TableCell>
+                            <TableCell align="right">{packageData.receiver}</TableCell>
+                        </TableRow>
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>Peso</TableCell>
+                            <TableCell align="right">{packageData.weight}</TableCell>
+                        </TableRow>
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>Estado</TableCell>
+                            <TableCell align="right">{packageData.packageStatus}</TableCell>
+                        </TableRow> 
+
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell>Transportador</TableCell>
+                            <TableCell align="right">{packageData.carrierID}</TableCell>
+                        </TableRow>
+                                                                       
                     </TableBody>
                 </Table>
             </TableContainer>

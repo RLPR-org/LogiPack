@@ -10,6 +10,10 @@ function Carrier() {
         <>
             <DistribuidoraBox>
 
+                <h1 style={{margin: "0"}}>Transportadores</h1>
+                <hr style={{height: "1px"}}/>
+
+                {/* ------- Encomendas ativas ------- */}
                 <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
                     <h3>Transportadores Ativos</h3>
                     <CarriersTable></CarriersTable>
