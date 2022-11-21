@@ -27,3 +27,27 @@ body {
   padding: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+
+
+
+/* ------------- Package page ------------- */
+.package-history {
+  margin-top: 50px;
+  border-left-style: dotted;
+  border-width: 2px;
+}
+
+.package-state {
+  margin: 0 0 40px 15px;
+}
+
+.package-state-active {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.package-history-time {
+  font-size: 11px;
+  color: gray;
+  margin: 0px;
+}
