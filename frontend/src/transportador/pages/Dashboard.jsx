@@ -3,7 +3,7 @@ import '../../App.css';
 import Container from '@mui/material/Container';
 
 import { TransportadorBox } from '../components/TransportadorBox';
-import { PackagesTable } from '../../distribuidora/components/PackagesTable';
+import { PackagesTable } from '../components/PackagesTable';
 
 function Dashboard() {
 
@@ -19,7 +19,7 @@ function Dashboard() {
 
                 {/* ------- Encomendas ativas ------- */}
                 <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                    <h3>Encomendas Ativas</h3>
+                    <h3>Encomendas</h3>
                     <PackagesTable></PackagesTable>
                 </Container>
 
