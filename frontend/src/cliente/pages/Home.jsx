@@ -1,17 +1,28 @@
 import '../../App.css';
 
-import { Button } from '@mui/material/';
+import Container from '@mui/material/Container';
 
-import { useNavigate } from 'react-router-dom';
+import { ClienteBox } from '../components/ClienteBox';
+import { PackagesTable } from '../components/PackagesTable';
 
 function Home() {
 
-    const navigate = useNavigate();
+    const packagesData = null
 
     return (
         <>
-            <Button  variant="contained" color="primary" onClick={() => navigate('/')}>back</Button>
-            <h1>Home cliente</h1>
+            <ClienteBox>
+
+                <h1 style={{margin: "0"}}>Encomendas</h1>
+                <hr style={{height: "1px"}}/>
+
+                {/* ------- Encomendas ativas ------- */}
+                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                    <PackagesTable packagesData={packagesData}></PackagesTable>
+                </Container>
+
+            </ClienteBox>
+           
         </>
     )
 }
