@@ -9,7 +9,7 @@ import Carrier from './distribuidora/pages/Carrier.jsx';
 import Packages from './distribuidora/pages/Packages';
 import Package from './distribuidora/pages/Package';
 
-import Transportador from './transportador/pages/Home.jsx';
+import Transportador from './transportador/pages/Dashboard.jsx';
 
 function App() {
   return (
