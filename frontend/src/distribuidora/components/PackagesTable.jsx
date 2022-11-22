@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
+import InfoIcon from '@mui/icons-material/Info';
 
 function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp) {
   return {packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp};
@@ -28,7 +30,9 @@ const status = {
     4: <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#3DDE5F", color: "white"}}/>,
 }
 
-function PackagesTable() {
+function PackagesTable(props) {
+  const navigate = useNavigate();
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,6 +43,7 @@ function PackagesTable() {
             <TableCell style={{fontWeight: "bold"}}>Transportador</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Veículo</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Última atualização</TableCell>
+            <TableCell align="right" style={{fontWeight: "bold"}}>Info.</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,6 +54,9 @@ function PackagesTable() {
               <TableCell>{row.carrierID}</TableCell>
               <TableCell>{row.vehicleID}</TableCell>
               <TableCell align="right" style={{color: "gray"}}>{row.lastUpdateTimestamp}</TableCell>
+              <TableCell align="right">
+                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.packageID)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

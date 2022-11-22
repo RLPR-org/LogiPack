@@ -54,7 +54,7 @@ function GeneralInfo() {
             {/* ---------- general info ---------- */}
             <Grid container spacing={2}>
 
-                <Grid xs style={{height: "300px"}}>
+                <Grid item xs={4} style={{height: "300px"}}>
                     <Box className='info-box'>
                         <h3 style={{margin: "0"}}>Encomendas em distribuição</h3>
                         <div style={{textAlign: "center"}}>
@@ -70,11 +70,11 @@ function GeneralInfo() {
                     </Box>
                 </Grid>
         
-                <Grid xs display="flex" justifyContent="center" alignItems="center"  style={{height: "300px"}}>
+                <Grid item xs={4} display="flex" justifyContent="center" alignItems="center"  style={{height: "300px"}}>
                     <Chart data={encomendasDataChart}></Chart>
                 </Grid>
         
-                <Grid xs display="flex" justifyContent="center" alignItems="center"  style={{height: "300px"}}>
+                <Grid item xs={4} display="flex" justifyContent="center" alignItems="center"  style={{height: "300px"}}>
                     <Chart data={CarriersDataChart}></Chart>
                 </Grid>
         

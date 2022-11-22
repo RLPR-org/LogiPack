@@ -6,6 +6,7 @@ import ClientePage from './cliente/pages/Home.jsx';
 
 import DistribuidoraPage from './distribuidora/pages/Dashboard.jsx';
 import Carrier from './distribuidora/pages/Carrier.jsx';
+import Packages from './distribuidora/pages/Packages';
 import Package from './distribuidora/pages/Package';
 
 import Transportador from './transportador/pages/Dashboard.jsx';
@@ -19,7 +20,8 @@ function App() {
           <Route path="/cliente" element={<ClientePage />} />
           <Route path="/distribuidora" element={<DistribuidoraPage />} />
           <Route path="/distribuidora/transportadores" element={<Carrier />} />
-          <Route path="/distribuidora/encomendas" element={<Package />} />
+          <Route path="/distribuidora/encomendas" element={<Packages />} />
+          <Route path="/distribuidora/encomendas/:id" element={<Package />} />
           <Route path="/transportador" element={<Transportador />} />
         </Routes>
       </Router>
