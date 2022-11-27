@@ -1,18 +1,58 @@
 import pika
 import json
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
-channel = connection.channel()
 
-channel.exchange_declare("LogiPack", durable=True, exchange_type="topic")
+class Sender():
 
-channel.queue_declare(queue= "A")
-channel.queue_bind(exchange="LogiPack", queue="A", routing_key="A")
+    def  __init__(self,channelName='hello'):
+        self.startConnection(channelName=channelName)   
 
-# # TODO: Add more queues and routing keys here
+        return
 
-message = {"message": "Hello World!"}
 
-channel.basic_publish(exchange='LogiPack', routing_key="A", body=json.dumps(message))
-print(" [x] Sent %r" % message)
-connection.close()
+    def startConnection(self,channelName):
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='localhost'))
+            
+        self.channel = self.connection.channel()
+
+        # declares the chanel if it doent not exist
+
+        self.channel.exchange_declare("LogiPack", durable=True, exchange_type="topic")
+        self.channel.queue_declare(queue= "A")
+        self.channel.queue_bind(exchange="LogiPack", queue="A", routing_key="A")
+
+
+        return
+    
+    def sendMessage(self,message):
+
+        self.channel.basic_publish(exchange='', routing_key='hello', body=json.dumps(message))
+
+        return
+
+
+
+    def closeConnection(self):
+        self.connection.close()
+        return
+
+        
+
+if __name__== "__main__":
+
+    sender = Sender()
+
+    while True:
+
+        messageText = input("Your message is: ")
+        
+        if messageText=="exit":
+            break
+        
+        message = {"message": messageText}
+
+
+        sender.sendMessage(message)    
+
+    sender.closeConnection()
