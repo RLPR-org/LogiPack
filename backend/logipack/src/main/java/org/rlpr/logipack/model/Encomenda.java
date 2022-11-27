@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_encomendas")
-public class Encomendas {
+@Table(name = "tbl_encomenda")
+public class Encomenda {
 
     @Id
     @GeneratedValue
