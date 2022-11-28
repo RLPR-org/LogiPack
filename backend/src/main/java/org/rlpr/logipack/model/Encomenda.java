@@ -18,7 +18,8 @@ public class Encomenda {
     private Estado estado;
     private String emissor;
     private String destinatario;
+    private Localizacao localizacao;
     private Double peso;
-
     private int transportador_id;
+    private String timestamp;
 }

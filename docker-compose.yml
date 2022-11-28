@@ -1,0 +1,70 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: logipack-frontend:latest
+    container_name: logipack-frontend
+    ports:
+      - "3000:3000"
+    # volumes:
+    #   - ./frontend:/app
+    # depends_on:
+    #   - backend
+    # environment:
+    #   - REACT_APP_BACKEND_URL=http://backend:5000
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: logipack-backend:latest
+    container_name: logipack-backend
+    ports:
+      - "8080:8080"
+    # environment:
+    #  - spring.datasource.url=jdbc:mysql://mysqldb:3306/demo
+    networks:
+      - logipack-net
+    depends_on:
+      - datagen
+
+    # db_service:
+      # TODO
+  
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    ports:
+        # AMQP protocol port
+        - '5672:5672'
+        # HTTP management UI
+        - '15672:15672'
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 10
+    networks:
+      - logipack-net
+
+  datagen:
+    build:
+      context: data_gen
+      dockerfile: Dockerfile
+    image: logipack-datagen:latest
+    container_name: logipack-datagen
+    environment:
+      - HOSTNAMERABBIT=localhost
+    depends_on:
+      - rabbitmq
+    networks:
+      - logipack-net
+
+#volumes:
+#  logipack-data:/var/lib/mysql
+
+networks:
+  logipack-net:
+    driver: bridge
