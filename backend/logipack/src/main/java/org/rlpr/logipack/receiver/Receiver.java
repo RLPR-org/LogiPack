@@ -11,7 +11,7 @@ public class Receiver {
     public void listen(byte[] data) {
         String strData = new String(data);
         JSONObject jsonData = new JSONObject(strData);
-        System.out.printf("Message from: %s\n", jsonData.getString("queue"));
+        System.out.printf("Message from: %s\n", jsonData);
 
         //dispatch the queue to a specific service
     }

@@ -21,8 +21,8 @@ public class LogipackApplication {
 	static final String topicExchangeName = "LogiPack";
 
 	@Bean
-	Queue queue1() {return new Queue("queue1", false);}
-	Queue queue2() {return new Queue("queue2", false);}
+	Queue queue1() {return new Queue("A", false);}
+	Queue queue2() {return new Queue("B", false);}
 
 	@Bean
 	TopicExchange exchange() {
@@ -38,7 +38,7 @@ public class LogipackApplication {
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames("queue1", "queue2");
+		container.setQueueNames("A", "B");
 		container.setMessageListener(listenerAdapter);
 		return container;
 	}
