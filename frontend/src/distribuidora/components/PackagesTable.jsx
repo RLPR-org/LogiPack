@@ -39,6 +39,8 @@ function PackagesTable(props) {
           <TableRow>
             <TableCell style={{fontWeight: "bold"}}>ID</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Estado</TableCell>
+            <TableCell style={{fontWeight: "bold"}}>Origem</TableCell>
+            <TableCell style={{fontWeight: "bold"}}>Destino</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Transportador</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Última atualização</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Info.</TableCell>
@@ -49,6 +51,8 @@ function PackagesTable(props) {
             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{status[between(1, 5)]}</TableCell>
+              <TableCell>{row.origem}</TableCell>
+              <TableCell>{row.destino}</TableCell>
               <TableCell>{row.transportador}</TableCell>
               <TableCell align="right" style={{color: "gray"}}>{row.lastUpdate}</TableCell>
               <TableCell align="right">
