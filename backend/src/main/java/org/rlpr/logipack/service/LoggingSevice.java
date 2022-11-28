@@ -5,8 +5,12 @@ import org.json.JSONObject;
 
 public class LoggingSevice {
 
-    public void CarLog(JSONObject data) {
-        System.out.println("appends the car Log -> " +  data);
+    public static void packageLog(JSONObject data) {
+        System.out.println("Nova encomenda: " +  data);
+    }
+
+    public static void carLog(JSONObject data) {
+        System.out.println("Novo transportador: " +  data);
     }
     
 }

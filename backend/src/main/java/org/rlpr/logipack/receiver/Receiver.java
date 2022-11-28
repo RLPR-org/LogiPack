@@ -9,14 +9,13 @@ import org.rlpr.logipack.service.LoggingSevice;
 public class Receiver {
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private LoggingSevice loggingSevice;
-
     public void listen(byte[] data) {
         String strData = new String(data);
         JSONObject jsonData = new JSONObject(strData);
         System.out.printf("Message from: %s\n", jsonData);
 
-        loggingSevice.CarLog(jsonData);
+        //this class must be static. Why?? Dont know, otherwise this will print things in loop
+        LoggingSevice.packageLog(jsonData);
     }
 
     public CountDownLatch getLatch() {
