@@ -12,7 +12,7 @@ public class Receiver {
     public void listen(byte[] data) {
         String strData = new String(data);
         JSONObject jsonData = new JSONObject(strData);
-        System.out.printf("Message from: %s\n", jsonData);
+        System.out.printf("\n\nMessage from: %s\n", jsonData);
 
         //this class must be static. Why?? Dont know, otherwise this will print things in loop
         LoggingSevice.packageLog(jsonData);
