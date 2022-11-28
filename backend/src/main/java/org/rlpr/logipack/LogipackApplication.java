@@ -20,13 +20,11 @@ import org.rlpr.logipack.receiver.Receiver;
 @SpringBootApplication
 public class LogipackApplication {
 
-
-
 	static final String topicExchangeName = "LogiPack";
 
 	@Bean
-	Queue queue1() {return new Queue("A", false);}
-	Queue queue2() {return new Queue("B", false);}
+	Queue queue1() {return new Queue("queue_encomendas", false);}
+	Queue queue2() {return new Queue("queue_transportadores", false);}
 
 	@Bean
 	TopicExchange exchange() {
@@ -42,7 +40,7 @@ public class LogipackApplication {
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames("A", "B");
+		container.setQueueNames("queue_encomendas", "queue_transportadores");
 		container.setMessageListener(listenerAdapter);
 		return container;
 	}
