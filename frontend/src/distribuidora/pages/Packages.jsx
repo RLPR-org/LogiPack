@@ -2,15 +2,50 @@ import '../../App.css';
 
 import Container from '@mui/material/Container';
 
+import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
-
-import { Grid, Button } from '@mui/material/';
-
 import { useNavigate } from 'react-router-dom';
 
 function Packages() {
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [packages, setPackages] = useState([])
+
+    //API call
+    useEffect(() => {
+
+        fetch("https://6383db854ce192ac604c09da.mockapi.io/logipack/encomendas")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setPackages(result);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }, [])
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
+    else {
+        return (
+            <ul>
+                {packages.map(obj => (
+                <li key={obj.id}>
+                    {obj.peso} {obj.emissor} {obj.destinatario}
+                </li>
+                ))}
+          </ul>
+        )
+    }
 
     //make an API call and pass the data to component
     const packagesData = null
