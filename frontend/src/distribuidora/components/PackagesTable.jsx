@@ -15,10 +15,10 @@ function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTi
 }
 
 const status = {
-    1: <Chip label="Registada" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
-    2: <Chip label="Em trânsito" size="small" style={{backgroundColor: "#EA7F00", color: "white"}}/>,
-    3: <Chip label="Em distribuição" color="info" size="small" style={{backgroundColor: "#4B84FF", color: "white"}}/>,
-    4: <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#48AD32", color: "white"}}/>,
+    'EM_ESPERA' : <Chip label="Registada" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
+    'EM_TRANSITO' : <Chip label="Em trânsito" size="small" style={{backgroundColor: "#EA7F00", color: "white"}}/>,
+    'EM_DISTRIBUICAO' : <Chip label="Em distribuição" color="info" size="small" style={{backgroundColor: "#4B84FF", color: "white"}}/>,
+    'ENTREGUE': <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#48AD32", color: "white"}}/>,
 }
 
 function between(min, max) {  
@@ -49,7 +49,7 @@ function PackagesTable(props) {
           {packages.map((row) => (
             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell>{row.id}</TableCell>
-              <TableCell>{status[between(1, 5)]}</TableCell>
+              <TableCell>{status[row.estado]}</TableCell>
               <TableCell>{row.localizacao.distrito}</TableCell>
               <TableCell>{row.transportador_id}</TableCell>
               <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
