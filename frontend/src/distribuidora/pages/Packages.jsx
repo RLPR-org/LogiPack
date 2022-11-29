@@ -19,7 +19,7 @@ function Packages() {
     //API call
     useEffect(() => {
 
-        fetch("https://6383db854ce192ac604c09da.mockapi.io/logipack/encomendas")
+        fetch("http://localhost:8080/encomendas")
             .then(res => res.json())
             .then(
                 (result) => {

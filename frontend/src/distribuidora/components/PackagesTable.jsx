@@ -50,9 +50,9 @@ function PackagesTable(props) {
             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{status[between(1, 5)]}</TableCell>
-              <TableCell>{row.destino}</TableCell>
-              <TableCell>{row.transportador}</TableCell>
-              <TableCell align="right" style={{color: "gray"}}>{row.lastUpdate}</TableCell>
+              <TableCell>{row.localizacao.distrito}</TableCell>
+              <TableCell>{row.transportador_id}</TableCell>
+              <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
                 <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.id)} />
               </TableCell>
