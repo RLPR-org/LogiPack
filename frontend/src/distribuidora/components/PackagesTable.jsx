@@ -14,24 +14,23 @@ function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTi
   return {packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp};
 }
 
-const rows = [
-    createData(1, 1, 6, 24, "2021-10-01 12:00:00"),
-    createData(2, 2, 9, 37, "2021-10-01 12:00:00"),
-    createData(4, 4, 3, 67, "2021-10-01 12:00:00"),
-    createData(6, 3, 16, 49, "2021-10-01 12:00:00"),
-    createData(5, 4, 10, 49, "2021-10-01 12:00:00"),
-    createData(3, 3, 16, 24, "2021-10-01 12:00:00")
-];
-
 const status = {
-    1: <Chip label="Em espera" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
-    2: <Chip label="Em trânsito" size="small" style={{backgroundColor: "#F3B104", color: "white"}}/>,
-    3: <Chip label="Em distribuição" color="info" size="small" style={{backgroundColor: "#4393F3", color: "white"}}/>,
-    4: <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#3DDE5F", color: "white"}}/>,
+    'EM_ESPERA' : <Chip label="Registada" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
+    'EM_TRANSITO' : <Chip label="Em trânsito" size="small" style={{backgroundColor: "#EA7F00", color: "white"}}/>,
+    'EM_DISTRIBUICAO' : <Chip label="Em distribuição" color="info" size="small" style={{backgroundColor: "#4B84FF", color: "white"}}/>,
+    'ENTREGUE': <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#48AD32", color: "white"}}/>,
 }
+
+function between(min, max) {  
+  return Math.floor(
+    Math.random() * (max - min) + min
+  )
+}
+
 
 function PackagesTable(props) {
   const navigate = useNavigate();
+  const packages = props.packages
 
   return (
     <TableContainer component={Paper}>
@@ -40,22 +39,22 @@ function PackagesTable(props) {
           <TableRow>
             <TableCell style={{fontWeight: "bold"}}>ID</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Estado</TableCell>
+            <TableCell style={{fontWeight: "bold"}}>Destino</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Transportador</TableCell>
-            <TableCell style={{fontWeight: "bold"}}>Veículo</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Última atualização</TableCell>
             <TableCell align="right" style={{fontWeight: "bold"}}>Info.</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell>{row.packageID}</TableCell>
-              <TableCell>{status[row.packageStatus]}</TableCell>
-              <TableCell>{row.carrierID}</TableCell>
-              <TableCell>{row.vehicleID}</TableCell>
-              <TableCell align="right" style={{color: "gray"}}>{row.lastUpdateTimestamp}</TableCell>
+          {packages.map((row) => (
+            <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableCell>{row.id}</TableCell>
+              <TableCell>{status[row.estado]}</TableCell>
+              <TableCell>{row.localizacao.distrito}</TableCell>
+              <TableCell>{row.transportador_id}</TableCell>
+              <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
-                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.packageID)} />
+                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.id)} />
               </TableCell>
             </TableRow>
           ))}
