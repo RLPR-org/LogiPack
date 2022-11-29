@@ -8,6 +8,8 @@ import org.rlpr.logipack.service.AppService;
 
 import java.util.List;
 
+
+@RestController
 public class AppController {
 
     @Autowired

@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "tbl_encomenda")
 public class Encomenda {
-
     @Id
     @GeneratedValue
     private int id;
     private Estado estado;
     private String emissor;
     private String destinatario;
+    @OneToOne
     private Localizacao localizacao;
     private Double peso;
     private int transportador_id;
