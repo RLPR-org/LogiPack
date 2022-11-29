@@ -4,7 +4,6 @@ import java.util.concurrent.CountDownLatch;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.rlpr.logipack.service.LoggingSevice;
 import org.rlpr.logipack.service.EventHandlerService;
 
 
