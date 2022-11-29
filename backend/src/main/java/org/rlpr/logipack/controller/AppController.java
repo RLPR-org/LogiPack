@@ -10,11 +10,12 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")   //TODO: SEE LATER
 public class AppController {
-
+    
     @Autowired
     private AppService appService;
-
+    
     @GetMapping("/encomendas")
     public List<Encomenda> getAllEncomendas() {
         return appService.getAllEncomendas();

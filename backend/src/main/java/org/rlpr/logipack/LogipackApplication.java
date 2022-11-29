@@ -14,6 +14,9 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 import org.rlpr.logipack.receiver.Receiver;
 
@@ -24,7 +27,7 @@ public class LogipackApplication {
 
 	@Bean
 	Queue queue1() {return new Queue("queue_encomendas", false);}
-	Queue queue2() {return new Queue("queue_transportadores", false);}
+	//Queue queue2() {return new Queue("queue_transportadores", false);}
 
 	@Bean
 	TopicExchange exchange() {
@@ -40,7 +43,8 @@ public class LogipackApplication {
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames("queue_encomendas", "queue_transportadores");
+		//container.setQueueNames("queue_encomendas", "queue_transportadores");
+		container.setQueueNames("queue_encomendas");
 		container.setMessageListener(listenerAdapter);
 		return container;
 	}
@@ -55,6 +59,17 @@ public class LogipackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LogipackApplication.class, args);
+	}
+
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/encomendas").allowedOrigins("http://localhost:8080");
+			}
+		};
 	}
 
 }

@@ -8,12 +8,20 @@ services:
     container_name: logipack-frontend
     ports:
       - "3000:3000"
-    # volumes:
-    #   - ./frontend:/app
-    # depends_on:
-    #   - backend
-    # environment:
-    #   - REACT_APP_BACKEND_URL=http://backend:5000
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=test1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=logipack
+    networks:
+      - logipack-net
 
   backend:
     build:
@@ -23,16 +31,15 @@ services:
     container_name: logipack-backend
     ports:
       - "8080:8080"
-    # environment:
-    #  - spring.datasource.url=jdbc:mysql://mysqldb:3306/demo
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/logipack
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test1234
     networks:
       - logipack-net
     depends_on:
-      - datagen
+      - postgres
 
-    # db_service:
-      # TODO
-  
   rabbitmq:
     container_name: "rabbitmq"
     image: rabbitmq:3.8-management-alpine
@@ -62,8 +69,8 @@ services:
     networks:
       - logipack-net
 
-#volumes:
-#  logipack-data:/var/lib/mysql
+volumes:
+  - postgres-data:/var/lib/postgresql/data
 
 networks:
   logipack-net:

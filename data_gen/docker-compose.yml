@@ -19,7 +19,6 @@ services:
 
   datagen:
     build:
-      context: data_gen
       dockerfile: Dockerfile
     image: logipack-datagen:latest
     container_name: logipack-datagen
