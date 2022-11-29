@@ -8,6 +8,7 @@ import org.rlpr.logipack.repository.*;
 
 import java.util.List;
 
+
 public class AppService {
 
     @Autowired
