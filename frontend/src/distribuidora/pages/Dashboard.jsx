@@ -21,13 +21,13 @@ function Dashboard() {
     //API CALL - PACKAGES
     useEffect(() => {
 
-        fetch("https://6383db854ce192ac604c09da.mockapi.io/logipack/encomendas")
+        fetch("http://localhost:8080/encomendas")
             .then(res => res.json())
             .then(
                 (result) => {
                     setIsLoaded(true);
-                    const resultsSorted = result.sort((a, b) => (a.lastUpdate < b.lastUpdate) ? 1 : -1) 
-                    setPackages(resultsSorted.slice(0, 10));
+                    const resultsSorted = result.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1) 
+                    setPackages(resultsSorted.slice(0, 5));
                 },
                 (error) => {
                     setIsLoaded(true);
