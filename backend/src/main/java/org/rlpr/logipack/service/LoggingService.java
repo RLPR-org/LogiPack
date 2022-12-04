@@ -9,8 +9,8 @@ import org.rlpr.logipack.repository.*;
 
 
 @Service
-public class EventHandlerService {
-    
+public class LoggingService {
+
     @Autowired
     private EncomendaRepository encomendaRepo;
 
@@ -38,4 +38,12 @@ public class EventHandlerService {
 
     }
 
+
+    public void insertTransportador(String data) {
+        
+        System.out.printf("[T]  %s\n", data);
+        //TODO: insert into db
+
+    }
+    
 }

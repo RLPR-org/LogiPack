@@ -10,11 +10,25 @@ spring:
     driverClassName: org.postgresql.Driver
 
   jpa:
-    show-sql: true
+    show-sql: false
     database: POSTGRESQL
     hibernate:
       ddl-auto: update
       # ddl-auto: create-drop
+
+
+# Rabbitmq env variables
+rabbitmq:
+  queues:
+    encomendas: queue_encomendas
+    transportadores: queue_transportadores
+
+  exchange: logipack_exchange
+
+  routing:
+    keys:
+      encomendas: routing_key_encomendas
+      transportadores: routing_key_transportadores
 
 logging:
   level:
