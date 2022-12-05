@@ -28,19 +28,20 @@ public class LoggingService {
 
             //convert json to POJO
             ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             Encomenda encomenda = mapper.readValue(data, Encomenda.class);
 
             //save first the package location
-            //localizacaoRepo.save(encomenda.getLocalizacao());
+            localizacaoRepo.save(encomenda.getLocalizacao());
 
             //then save the package
-            //encomendaRepo.save(encomenda);            
+            encomendaRepo.save(encomenda);            
 
             //test mongodb
             // encomendaMongoRepository.save(new EncomendaMongo());
         
         } catch (Exception e) {
-            System.out.println("ERROR: error while storing package in the database.");
+            System.out.println(e );
         }
 
     }
