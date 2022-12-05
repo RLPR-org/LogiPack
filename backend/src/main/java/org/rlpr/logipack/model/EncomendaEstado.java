@@ -1,6 +1,6 @@
 package org.rlpr.logipack.model;
 
-public enum Estado {
+public enum EncomendaEstado {
     EM_ESPERA,
     EM_TRANSITO,
     ENTREGUE,

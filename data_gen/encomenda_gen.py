@@ -10,8 +10,6 @@ locations = open("static/locations.txt", "r", encoding='utf-8').readlines()
 
 print("INFO: Initializing data generation...")
 
-encomendas = []
-
 def get_location(data):
     distrito = data[0]
     concelho = data[1]
@@ -49,12 +47,10 @@ with open("generated/encomendas.json", "w", encoding='utf-8') as f:
             "transportador_id": random.randint(0, 100),
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
-        print(encomenda)
         f.write("\t" + str(encomenda).replace("'", '"'))
         if i != 99:
             f.write(",")
         f.write("\n")
-        encomendas.append(encomendas)
     f.write("]")
 
 print("INFO: Data generation complete!")

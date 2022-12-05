@@ -14,7 +14,7 @@ public class Encomenda {
     @Id
     @GeneratedValue
     private int id;
-    private Estado estado;
+    private EncomendaEstado estado;
     private String emissor;
     private String destinatario;
     @OneToOne
@@ -22,4 +22,5 @@ public class Encomenda {
     private Double peso;
     private int transportador_id;
     private String timestamp;
+    private boolean confirmacao;
 }
