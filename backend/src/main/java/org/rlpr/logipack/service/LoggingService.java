@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.*;
 
 import org.rlpr.logipack.model.Encomenda;
 import org.rlpr.logipack.repository.*;
-
+import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
+import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
 
 @Service
 public class LoggingService {
@@ -16,6 +17,9 @@ public class LoggingService {
 
     @Autowired
     private LocalizacaoRepository localizacaoRepo;
+
+    //@Autowired
+    //private EncomendaMongoRepository encomendaMongoRepository;
 
 
     public void insertEncomenda(String data) {
@@ -27,10 +31,13 @@ public class LoggingService {
             Encomenda encomenda = mapper.readValue(data, Encomenda.class);
 
             //save first the package location
-            localizacaoRepo.save(encomenda.getLocalizacao());
+            //localizacaoRepo.save(encomenda.getLocalizacao());
 
             //then save the package
-            encomendaRepo.save(encomenda);            
+            //encomendaRepo.save(encomenda);            
+
+            //test mongodb
+            // encomendaMongoRepository.save(new EncomendaMongo());
         
         } catch (Exception e) {
             System.out.println("ERROR: error while storing package in the database.");

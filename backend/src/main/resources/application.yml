@@ -16,6 +16,13 @@ spring:
       ddl-auto: update
       # ddl-auto: create-drop
 
+  data:
+      mongodb:
+        user: admin
+        password: admin
+        uri: mongodb://host:9000/logipack
+
+
 
 # Rabbitmq env variables
 rabbitmq:
