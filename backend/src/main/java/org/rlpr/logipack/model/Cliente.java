@@ -18,6 +18,6 @@ public class Cliente {
     @GeneratedValue
     private int id;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente")
     private List<Encomenda> encomendas;
 }

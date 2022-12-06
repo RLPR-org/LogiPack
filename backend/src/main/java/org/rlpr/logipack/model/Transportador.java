@@ -18,8 +18,13 @@ public class Transportador {
     @GeneratedValue
     private int id;
 
+    private String nome;
+    private String email;
+    private String telefone;
+    private String matricula;
+    private String timestamp;
     private TransportadorEstado estado;
 
-    @OneToMany(mappedBy = "transportador")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Encomenda> encomendas;
 }

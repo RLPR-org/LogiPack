@@ -1,5 +1,6 @@
 package org.rlpr.logipack.service;
 
+import org.json.JSONObject;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,45 @@ public class Consumer {
 
     
     @RabbitListener(queues = "${rabbitmq.queues.encomendas}")
-    public void consumeEncomendas(String message){        
-        loggingService.insertEncomenda(message);
+    public void consumeEncomendas(String message){       
+        
+        JSONObject jsonMessage = new JSONObject(message);
+        String type = jsonMessage.getString("type");
+
+        switch (type) {
+            case "insert":
+                loggingService.insertEncomenda(message);
+                break;
+
+            case "update":
+                loggingService.updateEncomenda(message);
+                break;
+        
+            default:
+                System.out.println("Not insert, TODO");
+        }
     }
 
 
     @RabbitListener(queues = "${rabbitmq.queues.transportadores}")
     public void consumeTransportadores(String message){
-        loggingService.insertTransportador(message);
+
+        JSONObject jsonMessage = new JSONObject(message);
+        String type = jsonMessage.getString("type");
+
+        switch (type) {
+            case "insert":
+                loggingService.insertTransportador(message);
+                break;
+
+            case "update":
+                loggingService.updateTransportador(message);
+                break;
+        
+            default:
+                System.out.println("Not insert, TODO");
+        }
+
     }
 
 }

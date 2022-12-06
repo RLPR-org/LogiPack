@@ -13,8 +13,17 @@ spring:
     show-sql: false
     database: POSTGRESQL
     hibernate:
-      ddl-auto: update
-      # ddl-auto: create-drop
+      # ddl-auto: update
+      ddl-auto: create-drop
+
+  data:
+      mongodb:
+        host: 127.0.0.1
+        port: 27017
+        authentication-database: admin
+        # username: admin
+        # password: admin
+        database: logipack
 
 
 # Rabbitmq env variables

@@ -18,7 +18,7 @@ public interface EncomendaRepository extends JpaRepository<Encomenda, Integer> {
     @Query("update Encomenda e set e.estado = ?1 where e.id = ?2")
     Encomenda updateEstado(EncomendaEstado estado, int id);
 
-    @Query("update Encomenda e set.confirmacao = TRUE where e.id = ?1")
+    @Query("update Encomenda e set e.confirmacao = TRUE where e.id = ?1")
     Encomenda updateConfirmacao(int id);
 
 }
