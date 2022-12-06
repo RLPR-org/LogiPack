@@ -1,7 +1,6 @@
 package org.rlpr.logipack.service;
 
 import org.json.JSONObject;
-import org.rlpr.logipack.repository.TransportadorRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,6 @@ public class Consumer {
     @Autowired
     private LoggingService loggingService;
 
-    @Autowired
-    private TransportadorRepository transportadorRepo;
-
     
     @RabbitListener(queues = "${rabbitmq.queues.encomendas}")
     public void consumeEncomendas(String message){       
@@ -26,6 +22,10 @@ public class Consumer {
         switch (type) {
             case "insert":
                 loggingService.insertEncomenda(message);
+                break;
+
+            case "update":
+                loggingService.updateEncomenda(message);
                 break;
         
             default:

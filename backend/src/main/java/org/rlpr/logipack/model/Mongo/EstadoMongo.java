@@ -1,7 +1,6 @@
 package org.rlpr.logipack.model.Mongo;
 
 import org.springframework.data.annotation.Id;
-import java.util.Date;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +15,8 @@ public class EstadoMongo {
     @Id
     private String id;
 
-    private String state;
-    private Date timestamp;
+    private int encomenda;
+    private String estado;
+    private String timestamp;
+
 }

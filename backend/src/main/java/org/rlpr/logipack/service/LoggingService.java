@@ -9,6 +9,7 @@ import org.rlpr.logipack.model.Transportador;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.EstadoMongo;
 
 @Service
 public class LoggingService {
@@ -22,8 +23,8 @@ public class LoggingService {
     @Autowired
     private TransportadorRepository transportadorRepo;
 
-    //@Autowired
-    //private EncomendaMongoRepository encomendaMongoRepository;
+    @Autowired
+    private EncomendaMongoRepository encomendaMongoRepository;
 
 
     public void insertEncomenda(String message) {
@@ -40,7 +41,7 @@ public class LoggingService {
             //save first the package location
             localizacaoRepo.save(encomenda.getLocalizacao());
 
-            // //then save the package
+            //then save the package
             encomendaRepo.save(encomenda);
 
             Transportador transportador = transportadorRepo.findById(encomenda.getTransportador());
@@ -48,8 +49,31 @@ public class LoggingService {
             transportadorRepo.save(transportador);
 
 
-            //test mongodb
-            // encomendaMongoRepository.save(new EncomendaMongo());
+            //create encomenda in mongodb
+            encomendaMongoRepository.save(new EncomendaMongo(encomenda.getId()));
+        
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+
+    public void updateEncomenda(String message) {
+        System.out.printf("[UE]  %s\n", message);
+
+        try {
+            
+            //convert json to POJO
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            EstadoMongo estado = mapper.readValue(message, EstadoMongo.class);
+
+            
+            //add new state to encomenda history in mongodb
+            EncomendaMongo encomenda = encomendaMongoRepository.findByEncomenda(estado.getEncomenda());
+            encomenda.getHistory().add(estado);
+            encomendaMongoRepository.save(encomenda);
         
         } catch (Exception e) {
             System.out.println(e);
