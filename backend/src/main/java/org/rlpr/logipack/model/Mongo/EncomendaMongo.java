@@ -12,7 +12,7 @@ public class EncomendaMongo {
     @Id
     private String _id;
     private int encomenda;
-    private List<EstadoMongo> history;
+    private List<EncomendaEstadoMongo> history;
 
     public EncomendaMongo(int encomenda) {
         this.encomenda = encomenda;
@@ -23,7 +23,7 @@ public class EncomendaMongo {
         return encomenda;
     }
 
-    public List<EstadoMongo> getHistory() {
+    public List<EncomendaEstadoMongo> getHistory() {
         return history;
     }
 
@@ -35,7 +35,7 @@ public class EncomendaMongo {
         this._id = _id;
     }
 
-    public void setHistory(List<EstadoMongo> history) {
+    public void setHistory(List<EncomendaEstadoMongo> history) {
         this.history = history;
     }
 

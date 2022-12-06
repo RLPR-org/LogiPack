@@ -44,6 +44,10 @@ public class Consumer {
             case "insert":
                 loggingService.insertTransportador(message);
                 break;
+
+            case "update":
+                loggingService.updateTransportador(message);
+                break;
         
             default:
                 System.out.println("Not insert, TODO");

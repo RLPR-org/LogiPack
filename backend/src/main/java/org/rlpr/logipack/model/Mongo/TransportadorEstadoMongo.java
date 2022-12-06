@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("estados")
-public class EstadoMongo {
+@Document("transportadores_estados")
+public class TransportadorEstadoMongo {
 
     @Id
     private String id;
-
-    private int encomenda;
+    private int transportador;
     private String estado;
     private String timestamp;
-
+    
 }
+

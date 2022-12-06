@@ -8,8 +8,11 @@ import org.rlpr.logipack.model.Encomenda;
 import org.rlpr.logipack.model.Transportador;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
+import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
-import org.rlpr.logipack.model.Mongo.EstadoMongo;
+import org.rlpr.logipack.model.Mongo.TransportadorEstadoMongo;
+import org.rlpr.logipack.model.Mongo.TransportadorMongo;
+import org.rlpr.logipack.model.Mongo.EncomendaEstadoMongo;
 
 @Service
 public class LoggingService {
@@ -25,6 +28,9 @@ public class LoggingService {
 
     @Autowired
     private EncomendaMongoRepository encomendaMongoRepository;
+
+    @Autowired
+    private TransportadorMongoRepository transportadorMongoRepo;
 
 
     public void insertEncomenda(String message) {
@@ -67,7 +73,7 @@ public class LoggingService {
             //convert json to POJO
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            EstadoMongo estado = mapper.readValue(message, EstadoMongo.class);
+            EncomendaEstadoMongo estado = mapper.readValue(message, EncomendaEstadoMongo.class);
 
             
             //add new state to encomenda history in mongodb
@@ -96,6 +102,32 @@ public class LoggingService {
 
             //then save the carrier
             transportadorRepo.save(transportador);
+
+            //create transportador in mongodb
+            transportadorMongoRepo.save(new TransportadorMongo(transportador.getId()));
+        
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+
+    public void updateTransportador(String message) {
+        System.out.printf("[UT]  %s\n", message);
+
+        try {
+            
+            //convert json to POJO
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            TransportadorEstadoMongo estado = mapper.readValue(message, TransportadorEstadoMongo.class);
+
+            
+            //add new state to transportadores history in mongodb
+            TransportadorMongo transportador = transportadorMongoRepo.findByTransportador(estado.getTransportador());
+            transportador.getHistory().add(estado);
+            transportadorMongoRepo.save(transportador);
         
         } catch (Exception e) {
             System.out.println(e);
