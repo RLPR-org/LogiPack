@@ -13,8 +13,8 @@ spring:
     show-sql: false
     database: POSTGRESQL
     hibernate:
-      ddl-auto: update
-      # ddl-auto: create-drop
+      # ddl-auto: update
+      ddl-auto: create-drop
 
   data:
       mongodb:

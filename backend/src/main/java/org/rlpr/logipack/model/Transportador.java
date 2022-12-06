@@ -25,6 +25,6 @@ public class Transportador {
     private String timestamp;
     private TransportadorEstado estado;
 
-    @OneToMany(mappedBy = "transportador")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Encomenda> encomendas;
 }

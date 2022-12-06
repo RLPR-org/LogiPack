@@ -20,13 +20,8 @@ public class Encomenda {
     @OneToOne
     private Localizacao localizacao;
     private Double peso;
-    // private int transportador_id;
+    private int transportador;
     private String timestamp;
     private boolean confirmacao;
-
-    @ManyToOne
-    private Cliente cliente;
-
-    @ManyToOne
-    private Transportador transportador;
+    private int cliente;
 }
