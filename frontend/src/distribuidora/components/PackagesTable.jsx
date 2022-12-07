@@ -21,12 +21,6 @@ const status = {
     'ENTREGUE': <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#48AD32", color: "white"}}/>,
 }
 
-function between(min, max) {  
-  return Math.floor(
-    Math.random() * (max - min) + min
-  )
-}
-
 
 function PackagesTable(props) {
   const navigate = useNavigate();

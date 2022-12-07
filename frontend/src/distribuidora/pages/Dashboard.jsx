@@ -40,6 +40,26 @@ function Dashboard() {
     }, [])
 
 
+    //API CALL - CARRIERS
+    useEffect(() => {
+
+        fetch("http://localhost:8080/transportadores")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setTotalTransportadores(result.length);
+                    const resultsSorted = result.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1) 
+                    setCarriers(resultsSorted.slice(0, 5));
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }, [])
+
+
     if (error) {
         return <div>Error: {error.message}</div>;
     }
@@ -86,7 +106,7 @@ function Dashboard() {
                     {/* ------- Transportadores ativos ------- */}
                     <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
                         <h3>Transportadores Ativos</h3>
-                        <CarriersTable></CarriersTable>
+                        <CarriersTable carriers={carriers}></CarriersTable>
                     </Container>
 
                 </DistribuidoraBox>
