@@ -1,7 +1,5 @@
 package org.rlpr.logipack.repository;
 
-import org.rlpr.logipack.model.Encomenda;
-import org.rlpr.logipack.model.EncomendaEstado;
 import org.rlpr.logipack.model.TransportadorEstado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
