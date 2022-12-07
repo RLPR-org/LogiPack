@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 public class TransportadorController {
 
     @Autowired
