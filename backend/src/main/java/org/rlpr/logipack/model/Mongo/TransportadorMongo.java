@@ -22,7 +22,7 @@ public class TransportadorMongo {
 
     public void initalizeHistory(String timestamp) {
         TransportadorEstadoMongo initialState = new TransportadorEstadoMongo();
-        initialState.setTransportador(this.transportador);
+        // initialState.setTransportador(this.transportador);
         initialState.setEstado("EM_TRANSITO");
         initialState.setTimestamp(timestamp);
         this.history.add(initialState);

@@ -21,7 +21,6 @@ public class EncomendaMongo {
 
     public void initalizeHistory(String timestamp) {
         EncomendaEstadoMongo initialState = new EncomendaEstadoMongo();
-        initialState.setEncomenda(this.encomenda);
         initialState.setEstado("REGISTADA");
         initialState.setTimestamp(timestamp);
         initialState.setConfirmacao(false);

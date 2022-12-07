@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.*;
 
+import org.json.JSONObject;
 import org.rlpr.logipack.model.Encomenda;
 import org.rlpr.logipack.model.EncomendaEstado;
 import org.rlpr.logipack.model.Transportador;
@@ -73,6 +74,8 @@ public class LoggingService {
         System.out.printf("[UE]  %s\n", message);
 
         try {
+
+            JSONObject messageJSON = new JSONObject(message);
             
             //convert json to POJO
             ObjectMapper mapper = new ObjectMapper();
@@ -81,13 +84,13 @@ public class LoggingService {
 
             
             //add new state to encomenda history in mongodb
-            EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(estado.getEncomenda());
+            EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(messageJSON.getInt("encomenda"));
             encomendaMongo.getHistory().add(estado);
             encomendaMongoRepository.save(encomendaMongo);
 
 
             //update encomenda state in relational DB (it will be only the last state)
-            Encomenda encomenda = encomendaRepo.findById(estado.getEncomenda());
+            Encomenda encomenda = encomendaRepo.findById(messageJSON.getInt("encomenda"));
             encomenda.setEstado(EncomendaEstado.valueOf(estado.getEstado()));
             encomenda.setTimestamp(estado.getTimestamp());
             encomendaRepo.save(encomenda);
@@ -131,6 +134,8 @@ public class LoggingService {
         System.out.printf("[UT]  %s\n", message);
 
         try {
+
+            JSONObject messageJSON = new JSONObject(message);
             
             //convert json to POJO
             ObjectMapper mapper = new ObjectMapper();
@@ -139,12 +144,12 @@ public class LoggingService {
 
             
             //add new state to transportadores history in mongodb
-            TransportadorMongo transportadorMongo = transportadorMongoRepo.findByTransportador(estado.getTransportador());
+            TransportadorMongo transportadorMongo = transportadorMongoRepo.findByTransportador(messageJSON.getInt("transportador"));
             transportadorMongo.getHistory().add(estado);
             transportadorMongoRepo.save(transportadorMongo);
 
             //update transportador in the relational db
-            Transportador transportador = transportadorRepo.findById(estado.getTransportador());
+            Transportador transportador = transportadorRepo.findById(messageJSON.getInt("transportador"));
             transportador.setEstado(TransportadorEstado.valueOf(estado.getEstado()));
             transportador.setTimestamp(estado.getTimestamp());
             transportadorRepo.save(transportador);

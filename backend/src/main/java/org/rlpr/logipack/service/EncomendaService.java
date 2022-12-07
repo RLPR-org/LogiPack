@@ -3,8 +3,9 @@ package org.rlpr.logipack.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.rlpr.logipack.model.*;
+import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.repository.*;
-
+import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import java.util.List;
 
 
@@ -17,9 +18,16 @@ public class EncomendaService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private EncomendaMongoRepository encomendaMongoRepository;
+
+
     public Encomenda getEncomendaById(int id) {
-        // TODO mudar para ter o historico
         return encomendaRepository.findById(id);
+    }
+
+    public EncomendaMongo getEncomendaDetailsById(int id) {
+        return encomendaMongoRepository.findByEncomenda(id);
     }
 
     public List<Encomenda> getAllEncomendas() {
