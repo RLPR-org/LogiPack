@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")   //TODO: SEE LATER
 public class EncomendaController {
     
     @Autowired

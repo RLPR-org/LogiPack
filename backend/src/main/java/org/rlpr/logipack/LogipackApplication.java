@@ -10,18 +10,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class LogipackApplication {
 
+	public static void main(String[] args) {
+		SpringApplication.run(LogipackApplication.class, args);
+	}
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/encomendas").allowedOrigins("http://localhost:8080");
+				registry.addMapping("/**").allowedOrigins("*");
 			}
 		};
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(LogipackApplication.class, args);
 	}
 
 }
