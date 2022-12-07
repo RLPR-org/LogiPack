@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.rlpr.logipack.model.*;
+import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class EncomendaController {
     @GetMapping("/encomendas/{id}")
     public Encomenda getEncomendaById(@PathVariable int id) {
         return encomendaService.getEncomendaById(id);
+    }
+
+    @GetMapping("/encomendas/{id}/details")
+    public EncomendaMongo getEncomendaDetailsById(@PathVariable int id) {
+        return encomendaService.getEncomendaDetailsById(id);
     }
 
     @PutMapping("estados/encomendas/{id}")
