@@ -18,5 +18,6 @@ public class EncomendaEstadoMongo {
     private int encomenda;
     private String estado;
     private String timestamp;
+    private boolean confirmacao;
 
 }

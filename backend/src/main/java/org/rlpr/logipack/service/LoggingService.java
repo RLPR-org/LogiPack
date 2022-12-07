@@ -16,22 +16,22 @@ import org.rlpr.logipack.model.Mongo.EncomendaEstadoMongo;
 
 @Service
 public class LoggingService {
-
+    
     @Autowired
     private EncomendaRepository encomendaRepo;
-
+    
     @Autowired
     private LocalizacaoRepository localizacaoRepo;
-
+    
     @Autowired
     private TransportadorRepository transportadorRepo;
-
+    
     @Autowired
     private EncomendaMongoRepository encomendaMongoRepository;
-
+    
     @Autowired
     private TransportadorMongoRepository transportadorMongoRepo;
-
+    
 
     public void insertEncomenda(String message) {
         
@@ -128,7 +128,7 @@ public class LoggingService {
             TransportadorMongo transportador = transportadorMongoRepo.findByTransportador(estado.getTransportador());
             transportador.getHistory().add(estado);
             transportadorMongoRepo.save(transportador);
-        
+
         } catch (Exception e) {
             System.out.println(e);
         }
