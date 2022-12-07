@@ -2,15 +2,12 @@ import pika
 import json
 import time
 
-with open("generated/encomendas.json", "r", encoding='utf-8') as f:
-    encomendas = json.load(f)
-
-with open("generated/transportadores.json", "r", encoding='utf-8') as f:
-    transportadores = json.load(f)
+with open("dataset.json", "r", encoding='utf-8') as f:
+    registos = json.load(f)
 
 while True:
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         break
     except:
         time.sleep(1)
@@ -28,10 +25,16 @@ channel.queue_declare(queue= "queue_transportadores")
 channel.queue_bind(exchange="LogiPack", queue="queue_transportadores", routing_key="queue_transportadores")
 
 while True:
-    encomenda = encomendas.pop(0)
-    transportador = transportadores.pop(0)
-    channel.basic_publish(exchange='LogiPack', routing_key="queue_encomendas", body=json.dumps(encomenda))
-    channel.basic_publish(exchange='LogiPack', routing_key="queue_transportadores", body=json.dumps(transportador))
-    print(" [x] Sent %r" % encomenda, flush=True)
-    print(" [x] Sent %r" % transportador, flush=True)
-    time.sleep(30)
+    registo = registos.pop(0)
+    prox_registo = registos[0]
+    if "encomenda" in registo:
+        channel.basic_publish(exchange='LogiPack', routing_key="queue_encomendas", body=json.dumps(registo))
+        print(" [x] Sent %r" % registo, flush=True)
+        if "encomenda" not in prox_registo: # é um novo transportador
+            time.sleep(10)
+            continue
+        time.sleep(1)
+    else:
+        channel.basic_publish(exchange='LogiPack', routing_key="queue_transportadores", body=json.dumps(registo))
+        print(" [x] Sent %r" % registo, flush=True)
+        time.sleep(1)
