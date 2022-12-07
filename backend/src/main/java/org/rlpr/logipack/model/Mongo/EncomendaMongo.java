@@ -19,6 +19,15 @@ public class EncomendaMongo {
         history = new ArrayList<>();
     }
 
+    public void initalizeHistory(String timestamp) {
+        EncomendaEstadoMongo initialState = new EncomendaEstadoMongo();
+        initialState.setEncomenda(this.encomenda);
+        initialState.setEstado("REGISTADA");
+        initialState.setTimestamp(timestamp);
+        initialState.setConfirmacao(false);
+        this.history.add(initialState);
+    }
+
     public int getEncomenda() {
         return encomenda;
     }
@@ -42,5 +51,6 @@ public class EncomendaMongo {
     public void setEncomenda(int encomenda) {
         this.encomenda = encomenda;
     }
+
 
 }

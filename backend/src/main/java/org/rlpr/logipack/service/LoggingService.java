@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.*;
 
 import org.rlpr.logipack.model.Encomenda;
+import org.rlpr.logipack.model.EncomendaEstado;
 import org.rlpr.logipack.model.Transportador;
+import org.rlpr.logipack.model.TransportadorEstado;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
@@ -50,13 +52,15 @@ public class LoggingService {
             //then save the package
             encomendaRepo.save(encomenda);
 
+            //add it to transportador
             Transportador transportador = transportadorRepo.findById(encomenda.getTransportador());
             transportador.getEncomendas().add(encomenda);
             transportadorRepo.save(transportador);
 
-
             //create encomenda in mongodb
-            encomendaMongoRepository.save(new EncomendaMongo(encomenda.getId()));
+            EncomendaMongo encomendaMongo = new EncomendaMongo(encomenda.getId());
+            encomendaMongo.initalizeHistory(encomenda.getTimestamp());
+            encomendaMongoRepository.save(encomendaMongo);
         
         } catch (Exception e) {
             System.out.println(e);
@@ -77,10 +81,18 @@ public class LoggingService {
 
             
             //add new state to encomenda history in mongodb
-            EncomendaMongo encomenda = encomendaMongoRepository.findByEncomenda(estado.getEncomenda());
-            encomenda.getHistory().add(estado);
-            encomendaMongoRepository.save(encomenda);
-        
+            EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(estado.getEncomenda());
+            encomendaMongo.getHistory().add(estado);
+            encomendaMongoRepository.save(encomendaMongo);
+
+
+            //update encomenda state in relational DB (it will be only the last state)
+            Encomenda encomenda = encomendaRepo.findById(estado.getEncomenda());
+            encomenda.setEstado(EncomendaEstado.valueOf(estado.getEstado()));
+            encomenda.setTimestamp(estado.getTimestamp());
+            encomendaRepo.save(encomenda);
+
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -104,7 +116,9 @@ public class LoggingService {
             transportadorRepo.save(transportador);
 
             //create transportador in mongodb
-            transportadorMongoRepo.save(new TransportadorMongo(transportador.getId()));
+            TransportadorMongo transportadorMongo = new TransportadorMongo(transportador.getId());
+            transportadorMongo.initalizeHistory(transportador.getTimestamp());
+            transportadorMongoRepo.save(transportadorMongo);
         
         } catch (Exception e) {
             System.out.println(e);
@@ -125,9 +139,15 @@ public class LoggingService {
 
             
             //add new state to transportadores history in mongodb
-            TransportadorMongo transportador = transportadorMongoRepo.findByTransportador(estado.getTransportador());
-            transportador.getHistory().add(estado);
-            transportadorMongoRepo.save(transportador);
+            TransportadorMongo transportadorMongo = transportadorMongoRepo.findByTransportador(estado.getTransportador());
+            transportadorMongo.getHistory().add(estado);
+            transportadorMongoRepo.save(transportadorMongo);
+
+            //update transportador in the relational db
+            Transportador transportador = transportadorRepo.findById(estado.getTransportador());
+            transportador.setEstado(TransportadorEstado.valueOf(estado.getEstado()));
+            transportador.setTimestamp(estado.getTimestamp());
+            transportadorRepo.save(transportador);
 
         } catch (Exception e) {
             System.out.println(e);
