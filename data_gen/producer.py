@@ -7,7 +7,7 @@ with open("dataset.json", "r", encoding='utf-8') as f:
 
 while True:
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
         break
     except:
         time.sleep(1)
