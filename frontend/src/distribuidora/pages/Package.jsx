@@ -98,63 +98,6 @@ function Package() {
             </>
         )
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return (
-        <>
-            <DistribuidoraBox>
-                <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
-                <hr style={{height: "1px"}}/>
-
-                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                    <PackageDetails packageId={packageId} packageData={packageData}></PackageDetails>
-                </Container> 
-
-            </DistribuidoraBox>
-        </>
-    )
 }
 
 export default Package;
