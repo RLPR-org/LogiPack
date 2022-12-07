@@ -58,6 +58,7 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
             encomenda = {
                 "type": "update",
                 "encomenda": encomenda["encomenda"],
+                "transportador": transportador["transportador"],
                 "estado": estado_encomenda,
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "confirmacao": 1
@@ -96,7 +97,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
                 "destinatario": f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}",
                 "localizacao": location,
                 "peso": 1 + random.random() * 100,
-                "transportador_id": random.randint(0, 100),
+                "transportador": i,
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "confirmacao": 0
             }
