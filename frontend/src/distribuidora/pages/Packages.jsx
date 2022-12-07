@@ -24,7 +24,8 @@ function Packages() {
             .then(
                 (result) => {
                     setIsLoaded(true);
-                    setPackages(result);
+                    const resultsSorted = result.sort((a, b) => (a.id > b.id) ? 1 : -1) 
+                    setPackages(resultsSorted);
                 },
                 (error) => {
                     setIsLoaded(true);

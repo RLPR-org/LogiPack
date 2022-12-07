@@ -16,6 +16,8 @@ function Dashboard() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [packages, setPackages] = useState([])
     const [carriers, setCarriers] = useState([])
+    const [totalEncomendas, setTotalEncomendas] = useState(0)
+    const [totalTransportadores, setTotalTransportadores] = useState(0)
 
     
     //API CALL - PACKAGES
@@ -26,6 +28,7 @@ function Dashboard() {
             .then(
                 (result) => {
                     setIsLoaded(true);
+                    setTotalEncomendas(result.length);
                     const resultsSorted = result.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1) 
                     setPackages(resultsSorted.slice(0, 5));
                 },
@@ -69,7 +72,7 @@ function Dashboard() {
 
                     {/* ------- Dashboard general info ------- */}
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <GeneralInfo></GeneralInfo>
+                        <GeneralInfo totalEncomendas={totalEncomendas} totalTransportadores={totalTransportadores}></GeneralInfo>
                     </Container>  
                     
 
