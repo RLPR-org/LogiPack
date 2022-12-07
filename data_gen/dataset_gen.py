@@ -80,6 +80,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
             "email": name.replace(" ", "").lower() + "@ua.pt",
             "telefone": fake.phone_number(),
             "matricula": fake.license_plate(),
+            "estado": "INATIVO",
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         transportadores.append(transportador)
