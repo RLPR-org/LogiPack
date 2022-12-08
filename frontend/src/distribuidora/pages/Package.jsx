@@ -16,14 +16,8 @@ function Package() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
-    const [carriers, setCarriers] = useState([])
 
     let packageId = useParams().id;
-    
-
-    //make an API call with the packageId and pass to component
-    const packageData = null
-    var aux = 0;
 
     //API CALL - PACKAGE
     useEffect(() => {

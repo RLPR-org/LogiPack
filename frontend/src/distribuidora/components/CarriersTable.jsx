@@ -10,10 +10,6 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import InfoIcon from '@mui/icons-material/Info';
 
-function createData(packageID, packageStatus, packages, vehicleID, lastUpdateTimestamp) {
-  return {packageID, packageStatus, packages, vehicleID, lastUpdateTimestamp};
-}
-
 
 const status = {
   "INATIVO": <Chip label="Inativo" color="success" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
@@ -48,7 +44,7 @@ function CarriersTable(props) {
               <TableCell>{row.matricula}</TableCell>
               <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
-                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/transportadores/' + row.packageID)} />
+                <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/transportadores/' + row.id)} />
               </TableCell>
             </TableRow>
           ))}

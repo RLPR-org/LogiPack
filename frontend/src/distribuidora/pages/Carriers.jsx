@@ -2,29 +2,28 @@ import '../../App.css';
 
 import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
-import { PackagesTable } from '../components/PackagesTable';
-import { useNavigate } from 'react-router-dom';
+import { CarriersTable } from '../components/CarriersTable';
 
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 
-function Packages() {
+function Carriers() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [packages, setPackages] = useState([])
+    const [carriers, setCarriers] = useState([])
 
     //API call
     useEffect(() => {
 
-        fetch("http://localhost:8080/encomendas")
+        fetch("http://localhost:8080/transportadores")
             .then(res => res.json())
             .then(
                 (result) => {
                     setIsLoaded(true);
                     const resultsSorted = result.sort((a, b) => (a.id > b.id) ? 1 : -1) 
-                    setPackages(resultsSorted);
+                    setCarriers(resultsSorted);
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -42,7 +41,7 @@ function Packages() {
             <>
                 <DistribuidoraBox>
     
-                    <h1 style={{margin: "0"}}>Encomendas</h1>
+                    <h1 style={{margin: "0"}}>Transportadores</h1>
                     <hr style={{height: "1px"}}/>
     
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
@@ -58,20 +57,21 @@ function Packages() {
     else {
         return (
             <>
-                <DistribuidoraBox>
-    
-                    <h1 style={{margin: "0"}}>Encomendas</h1>
-                    <hr style={{height: "1px"}}/>
-    
-                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>Encomendas Ativas</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
-                    </Container>
-    
-                </DistribuidoraBox>
-            </>
+            <DistribuidoraBox>
+
+                <h1 style={{margin: "0"}}>Transportadores</h1>
+                <hr style={{height: "1px"}}/>
+
+                {/* ------- Encomendas ativas ------- */}
+                <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
+                    <h3>Transportadores Ativos</h3>
+                    <CarriersTable carriers={carriers}></CarriersTable>
+                </Container>
+
+            </DistribuidoraBox>
+        </>
         )
     }
 }
 
-export default Packages;
+export default Carriers;
