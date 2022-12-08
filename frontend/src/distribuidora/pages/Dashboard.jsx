@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
@@ -12,58 +13,45 @@ import { GeneralInfo } from '../components/GeneralInfo';
 
 
 function Dashboard() {
-    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [packages, setPackages] = useState([])
     const [carriers, setCarriers] = useState([])
     const [totalEncomendas, setTotalEncomendas] = useState(0)
     const [totalTransportadores, setTotalTransportadores] = useState(0)
 
-    
-    //API CALL - PACKAGES
-    useEffect(() => {
 
-        fetch("http://localhost:8080/encomendas")
-            .then(res => res.json())
-            .then(
-                (result) => {
+    function fetchData() {
+        const packagesURL = "http://localhost:8080/encomendas";
+        const carriersURL = "http://localhost:8080/transportadores";
+
+        const getPackages = axios.get(packagesURL);
+        const getCarriers = axios.get(carriersURL);
+
+        axios.all([getPackages, getCarriers]).then(
+            axios.spread(
+                (...allData) => {
+                    const packages = allData[0].data;
+                    const carriers = allData[1].data;
+
+                    setTotalEncomendas(packages.length);
+                    setTotalTransportadores(carriers.length);
+
+                    setPackages(packages.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                    setCarriers(carriers.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+
                     setIsLoaded(true);
-                    setTotalEncomendas(result.length);
-                    const resultsSorted = result.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1) 
-                    setPackages(resultsSorted.slice(0, 5));
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
                 }
             )
-    }, [])
-
-
-    //API CALL - CARRIERS
-    useEffect(() => {
-
-        fetch("http://localhost:8080/transportadores")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setTotalTransportadores(result.length);
-                    const resultsSorted = result.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1) 
-                    setCarriers(resultsSorted.slice(0, 5));
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
-
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
+        )
     }
-    else if (!isLoaded) {
+
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    
+
+    if (!isLoaded) {
         return (
             <>
                 <DistribuidoraBox>

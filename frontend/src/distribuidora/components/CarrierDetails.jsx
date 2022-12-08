@@ -12,6 +12,7 @@ function CarrierDetails(props) {
 
     const carrierInfo = props.carrierInfo;
     const carrierDetails = props.carrierDetails;
+    var componentID = 0;
 
     const status = {
         "INATIVO": <Chip label="Inativo" color="success" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
@@ -128,7 +129,7 @@ function CarrierDetails(props) {
             <div className='package-history'>
 
                 {carrierDetails.history.slice(0, carrierDetails.history.length-1).map((event) => (
-                    <div className='package-state'>
+                    <div key={componentID+=1} className='package-state'>
                         <p style={{margin: "0"}}>{statusText[event.estado]}</p>
                         <p className='package-history-time'>{event.timestamp}</p>
                     </div>

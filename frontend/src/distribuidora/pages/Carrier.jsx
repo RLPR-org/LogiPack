@@ -9,56 +9,40 @@ import Box from '@mui/material/Box';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { CarrierDetails } from '../components/CarrierDetails';
+import axios from 'axios';
 
 function Carrier() {
 
     let carrierId = useParams().id;
-    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [carrierInfo, setCarrierInfo] = useState(null)
     const [carrierDetails, setCarrierDetails] = useState(null)
 
+    function fetchData() {
+        const infoURL = "http://localhost:8080/transportadores/" + carrierId;
+        const detailsURL = "http://localhost:8080/transportadores/" + carrierId + "/details";
 
-    //API CALL - CARRIER
-    useEffect(() => {
-        fetch("http://localhost:8080/transportadores/" + carrierId)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setCarrierInfo(result);
-                },
-                (error) => {
+        const getInfo = axios.get(infoURL);
+        const getDetails = axios.get(detailsURL);
+
+        axios.all([getInfo, getDetails]).then(
+            axios.spread(
+                (...allData) => {
+                    setCarrierInfo(allData[0].data);
+                    setCarrierDetails(allData[1].data);
                     setIsLoaded(true);
-                    setError(error);
                 }
             )
-    }, [])
+        )
 
-
-
-    //API CALL - CARRIER DETAILS
-    useEffect(() => {
-
-        fetch("http://localhost:8080/transportadores/" + carrierId + "/details")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setCarrierDetails(result);
-                    setIsLoaded(true);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
-
-
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
     }
-    else if (!isLoaded) {
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    if (!isLoaded) {
         return (
             <>
                 <DistribuidoraBox>

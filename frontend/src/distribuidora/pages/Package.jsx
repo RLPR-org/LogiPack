@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import { useParams } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackageDetails } from '../components/PackageDetails';
@@ -19,41 +20,29 @@ function Package() {
 
     let packageId = useParams().id;
 
-    //API CALL - PACKAGE
-    useEffect(() => {
+    //API CALLs
+    function fetchData() {
+        const infoURL = "http://localhost:8080/encomendas/" + packageId;
+        const detailsURL = "http://localhost:8080/encomendas/" + packageId + "/details";
 
-        fetch("http://localhost:8080/encomendas/" + packageId)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setPackageInfo(result);
-                },
-                (error) => {
+        const getInfo = axios.get(infoURL);
+        const getDetails = axios.get(detailsURL);
+
+        axios.all([getInfo, getDetails]).then(
+            axios.spread(
+                (...allData) => {
+                    setPackageInfo(allData[0].data);
+                    setPackageDetails(allData[1].data);
                     setIsLoaded(true);
-                    setError(error);
                 }
             )
-    }, [])
+        )
 
+    }
 
-
-    //API CALL - PACKAGE DETAILS
     useEffect(() => {
-
-        fetch("http://localhost:8080/encomendas/" + packageId + "/details")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setPackageDetails(result);
-                    setIsLoaded(true);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
-
+        fetchData();
+    }, []);
 
 
     if (error) {

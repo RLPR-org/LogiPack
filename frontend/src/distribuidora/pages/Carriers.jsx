@@ -7,36 +7,32 @@ import { CarriersTable } from '../components/CarriersTable';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 
 function Carriers() {
-    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [carriers, setCarriers] = useState([])
 
     //API call
-    useEffect(() => {
+    function fetchData() {
+        const carriersURL = "http://localhost:8080/transportadores";
 
-        fetch("http://localhost:8080/transportadores")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    const resultsSorted = result.sort((a, b) => (a.id > b.id) ? 1 : -1) 
-                    setCarriers(resultsSorted);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
+        axios.get(carriersURL).then(
+            (response) => {
+                setCarriers(response.data);
+                setIsLoaded(true);
+            }
+        )
 
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
     }
-    else if (!isLoaded) {
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    
+
+    if (!isLoaded) {
         return (
             <>
                 <DistribuidoraBox>

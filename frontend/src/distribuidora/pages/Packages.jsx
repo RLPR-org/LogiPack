@@ -3,7 +3,7 @@ import '../../App.css';
 import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -11,33 +11,28 @@ import Box from '@mui/material/Box';
 
 
 function Packages() {
-    const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [packages, setPackages] = useState([])
 
     //API call
-    useEffect(() => {
+    function fetchData() {
+        const packagesURL = "http://localhost:8080/encomendas";
 
-        fetch("http://localhost:8080/encomendas")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    const resultsSorted = result.sort((a, b) => (a.id > b.id) ? 1 : -1) 
-                    setPackages(resultsSorted);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
+        axios.get(packagesURL).then(
+            (response) => {
+                setPackages(response.data);
+                setIsLoaded(true);
+            }
+        )
 
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
     }
-    else if (!isLoaded) {
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    if (!isLoaded) {
         return (
             <>
                 <DistribuidoraBox>
