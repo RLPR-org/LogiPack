@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import PersonIcon from '@mui/icons-material/Person';
+import MapIcon from '@mui/icons-material/Map';
 
 const drawerWidth = 250;
 
@@ -153,6 +154,15 @@ function TransportadorBox(props) {
                         <Inventory2Icon></Inventory2Icon>
                     </ListItemIcon>
                     <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/transportador/' + props.carrierId + '/trajeto')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <MapIcon></MapIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Trajeto'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
 

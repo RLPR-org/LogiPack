@@ -6,14 +6,13 @@ import { useParams } from "react-router-dom";
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import { TransportadorBox } from '../components/TransportadorBox';
-import { PackagesTable } from '../components/PackagesTable';
 import CircularProgress from '@mui/material/CircularProgress';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 
-function Dashboard() {
+function PathInfo() {
     const API_KEY = "AIzaSyBhIQVqF_gxcKuvVy0f5q-Nif5u5MWCAto";
 
     const ORIGIN = {
@@ -36,8 +35,7 @@ function Dashboard() {
 
         axios.get(packagesURL).then(
             (response) => {
-                const packagesAux = response.data.encomendas;
-                setPackages(packagesAux.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                setPackages(response.data.encomendas);
                 setIsLoaded(true);
             }
         )
@@ -54,7 +52,7 @@ function Dashboard() {
             <>
                 <TransportadorBox carrierId={carrierId}>
     
-                    <h1 style={{margin: "0"}}>Encomendas</h1>
+                    <h1 style={{margin: "0"}}>Trajeto</h1>
                     <hr style={{height: "1px"}}/>
     
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
@@ -68,29 +66,36 @@ function Dashboard() {
         )
     }
     else {
+
+        if (packages.length == 0) {
+            return (
+                <>
+                    <TransportadorBox carrierId={carrierId}>
+        
+                        <h1 style={{margin: "0"}}>Trajeto</h1>
+                        <hr style={{height: "1px"}}/>
+        
+                        <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                            <h2>Não tem encomendas para entregar</h2>
+                        </Container>
+        
+                    </TransportadorBox>
+                </>
+            )
+        }
+
         return (
             <>
                 <TransportadorBox carrierId={carrierId}>
 
-                    <h1 style={{margin: "0"}}>Dashboard</h1>
+                    <h1 style={{margin: "0"}}>Trajeto</h1>
                     <hr style={{height: "1px"}}/>
-
-
-                    {/* ------- Encomendas ativas ------- */}
-                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>Alguma da sua mercadoria</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
-
-                        <div style={{"textAlign": "center", "paddingTop": "10px"}}>
-                            <span className='seeMoreLink' onClick={()=> navigate('/transportador/' + carrierId + "/mercadoria")}>Ver toda a mercadoria</span>
-                        </div>
-                    </Container>
 
 
                     {packages.length > 0 &&
 
                         <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                            <h2>Trajeto de entrega</h2>
+                            <h2>Informações sobre o trajeto de entrega</h2>
 
                             <Box sx={{ flexGrow: 1 }} style={{"margin": "20px 0 30px 0"}}>
                                 
@@ -190,4 +195,4 @@ function Dashboard() {
 
 }
 
-export default Dashboard;
+export default PathInfo;

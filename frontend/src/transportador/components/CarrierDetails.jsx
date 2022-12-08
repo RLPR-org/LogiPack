@@ -32,7 +32,7 @@ function CarrierDetails(props) {
         {/* ---------------------- Carrier info table ---------------------- */}
 
         <div>
-            <h2>Informações</h2>
+            <h2>As suas informações</h2>
 
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
