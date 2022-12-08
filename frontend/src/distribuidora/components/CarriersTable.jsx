@@ -15,7 +15,7 @@ const status = {
   "INATIVO": <Chip label="Inativo" color="success" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
   "EM_TRANSITO": <Chip label="Em trânsito" size="small" style={{backgroundColor: "#EA7F00", color: "white"}}/>,
   "PARADO": <Chip label="Parado" size="small" style={{backgroundColor: "#8618ee", color: "white"}}/>,
-  "EM_PAUSA": <Chip label="Em pausa" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>
+  "EM_PAUSA": <Chip label="Em pausa" size="small" style={{backgroundColor: "#4B84FF", color: "white"}}/>
 }
 
 function CarriersTable(props) {

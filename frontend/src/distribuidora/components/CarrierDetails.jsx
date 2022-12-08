@@ -81,44 +81,48 @@ function CarrierDetails(props) {
         </div>
 
 
-{/* ---------------------- Transportador destiny table ---------------------- */}
 
-        {/* <div style={{marginTop: "80px"}}>
-            <h2>Destino da encomenda</h2>
+        {/* ---------------------- Transportador destiny table (if there is at leat 1 package) ---------------------- */}
+        {carrierInfo.encomendas.length > 0 &&
 
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableBody>
+            <div style={{marginTop: "80px"}}>
+                <h2>Destino atribuído</h2>
 
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell>Distrito</TableCell>
-                            <TableCell align="right">{packageInfo.localizacao.distrito}</TableCell>
-                        </TableRow>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableBody>
 
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell>Concelho</TableCell>
-                            <TableCell align="right">{packageInfo.localizacao.concelho}</TableCell>
-                        </TableRow>
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableCell>Distrito</TableCell>
+                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.distrito}</TableCell>
+                            </TableRow>
 
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell>Freguesia</TableCell>
-                            <TableCell align="right">{packageInfo.localizacao.freguesia}</TableCell>
-                        </TableRow>
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableCell>Concelho</TableCell>
+                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.concelho}</TableCell>
+                            </TableRow>
 
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell>Rua</TableCell>
-                            <TableCell align="right">{packageInfo.localizacao.rua}</TableCell>
-                        </TableRow>
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableCell>Freguesia</TableCell>
+                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.freguesia}</TableCell>
+                            </TableRow>
 
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell>Código Postal</TableCell>
-                            <TableCell align="right">{packageInfo.localizacao.codigopostal} {packageInfo.localizacao.distrito}</TableCell>
-                        </TableRow>
-                                                                       
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div> */}
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableCell>Rua</TableCell>
+                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.rua}</TableCell>
+                            </TableRow>
+
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableCell>Código Postal</TableCell>
+                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.codigopostal} {carrierInfo.encomendas[0].localizacao.distrito}</TableCell>
+                            </TableRow>
+                                                                        
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        }
+
 
 
         {/* ---------------------- Carrier event history ---------------------- */}

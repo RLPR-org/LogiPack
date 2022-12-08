@@ -10,9 +10,6 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import InfoIcon from '@mui/icons-material/Info';
 
-function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp) {
-  return {packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp};
-}
 
 const status = {
     'REGISTADA' : <Chip label="Registada" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
@@ -45,7 +42,11 @@ function PackagesTable(props) {
               <TableCell>{row.id}</TableCell>
               <TableCell>{status[row.estado]}</TableCell>
               <TableCell>{row.localizacao.distrito}</TableCell>
-              <TableCell>{row.transportador}</TableCell>
+
+              <TableCell>
+                <span className='linkPage' onClick={()=> navigate('/distribuidora/transportadores/' + row.transportador)}>{row.transportador}</span>
+              </TableCell>
+
               <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
                 <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.id)} />

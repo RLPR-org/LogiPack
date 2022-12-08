@@ -14,10 +14,10 @@ import { GeneralInfo } from '../components/GeneralInfo';
 
 function Dashboard() {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [packagesView, setPackagesView] = useState([])
+    const [carriersView, setCarriersView] = useState([])
     const [packages, setPackages] = useState([])
     const [carriers, setCarriers] = useState([])
-    const [totalEncomendas, setTotalEncomendas] = useState(0)
-    const [totalTransportadores, setTotalTransportadores] = useState(0)
 
 
     function fetchData() {
@@ -33,11 +33,11 @@ function Dashboard() {
                     const packages = allData[0].data;
                     const carriers = allData[1].data;
 
-                    setTotalEncomendas(packages.length);
-                    setTotalTransportadores(carriers.length);
+                    setPackages(packages);
+                    setCarriers(carriers);
 
-                    setPackages(packages.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
-                    setCarriers(carriers.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                    setPackagesView(packages.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                    setCarriersView(carriers.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
 
                     setIsLoaded(true);
                 }
@@ -80,21 +80,27 @@ function Dashboard() {
 
                     {/* ------- Dashboard general info ------- */}
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <GeneralInfo totalEncomendas={totalEncomendas} totalTransportadores={totalTransportadores}></GeneralInfo>
+                        <GeneralInfo
+                            packages={packages}
+                            carriers={carriers}
+
+                    >
+                            
+                            </GeneralInfo>
                     </Container>  
                     
 
                     {/* ------- Encomendas ativas ------- */}
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
                         <h3>Encomendas Ativas</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
+                        <PackagesTable packages={packagesView}></PackagesTable>
                     </Container>
 
 
                     {/* ------- Transportadores ativos ------- */}
                     <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
                         <h3>Transportadores Ativos</h3>
-                        <CarriersTable carriers={carriers}></CarriersTable>
+                        <CarriersTable carriers={carriersView}></CarriersTable>
                     </Container>
 
                 </DistribuidoraBox>
