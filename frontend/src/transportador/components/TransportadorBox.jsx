@@ -153,7 +153,7 @@ function TransportadorBox(props) {
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
                         <Inventory2Icon></Inventory2Icon>
                     </ListItemIcon>
-                    <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary={'Mercadoria'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
 
