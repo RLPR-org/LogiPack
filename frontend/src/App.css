@@ -73,3 +73,31 @@ body {
   color: gray;
   margin: 0px;
 }
+
+
+/* ------------- Carrier dashboard ------------- */
+.labelLocation {
+  font-size: 12px;
+  color: gray;
+  margin: 0px;
+  padding: 0px;
+}
+
+.location {
+  font-size: 13pt;
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px;
+}
+
+.locationContainer {
+  background-color: white;
+  padding: 20px !important;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.map {
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 10px 0px;
+}
