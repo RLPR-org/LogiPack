@@ -20,10 +20,9 @@ import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DeleteIcon from '@mui/icons-material/Delete';
+import PersonIcon from '@mui/icons-material/Person';
+import MapIcon from '@mui/icons-material/Map';
 
 const drawerWidth = 250;
 
@@ -139,14 +138,45 @@ function TransportadorBox(props) {
         {/* -------------------------------------------- nav-links -------------------------------------------- */}
 
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/transportador')}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/transportador/' + props.carrierId)}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
-                      <LocalShippingIcon></LocalShippingIcon>
+                      <DashboardIcon></DashboardIcon>
                     </ListItemIcon>
-                    <ListItemText primary={'Ver trajeto'} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary={'Dashboard'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
+
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/transportador/' + props.carrierId + '/mercadoria')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <Inventory2Icon></Inventory2Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Mercadoria'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/transportador/' + props.carrierId + '/trajeto')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <MapIcon></MapIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Trajeto'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/transportador/' + props.carrierId + '/conta')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <PersonIcon></PersonIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Informações de conta'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+
+
         </List>
 
         {/* ------------------------------------------- end nav-links -------------------------------------------- */}

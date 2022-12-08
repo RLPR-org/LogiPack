@@ -7,8 +7,7 @@ import { useParams } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axios from 'axios';
-
-import { DistribuidoraBox } from '../components/DistribuidoraBox';
+import { TransportadorBox } from '../components/TransportadorBox';
 import { PackageDetails } from '../components/PackageDetails';
 
 
@@ -17,7 +16,8 @@ function Package() {
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
 
-    let packageId = useParams().id;
+    let carrierId = useParams().id;
+    let packageId = useParams().package;
 
     //API CALLs
     function fetchData() {
@@ -47,7 +47,7 @@ function Package() {
     if (!isLoaded) {
         return (
             <>
-                <DistribuidoraBox>
+                <TransportadorBox carrierId={carrierId}>
 
                     <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
                     <hr style={{height: "1px"}}/>
@@ -58,14 +58,14 @@ function Package() {
                         </Box>
                     </Container>
 
-                </DistribuidoraBox>
+                </TransportadorBox>
             </>
         )
     }
     else {
         return (
             <>
-                <DistribuidoraBox>
+                <TransportadorBox carrierId={carrierId}>
                     <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
                     <hr style={{height: "1px"}}/>
 
@@ -73,7 +73,7 @@ function Package() {
                         <PackageDetails packageInfo={packageInfo} packageDetails={packageDetails}></PackageDetails>
                     </Container> 
 
-                </DistribuidoraBox>
+                </TransportadorBox>
             </>
         )
     }
