@@ -17,6 +17,12 @@ body {
   cursor: pointer;
 }
 
+.seeMoreLink {
+  color: gray;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 
 
 /* ------------- Admin Dashboard ------------- */

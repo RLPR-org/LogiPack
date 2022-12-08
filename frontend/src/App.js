@@ -10,7 +10,10 @@ import Carriers from './distribuidora/pages/Carriers.jsx';
 import Packages from './distribuidora/pages/Packages';
 import Package from './distribuidora/pages/Package';
 
-import Transportador from './transportador/pages/Dashboard.jsx';
+import CarrierDashboar from './transportador/pages/Dashboard.jsx';
+import CarrierPackages from './transportador/pages/Packages.jsx';
+import CarrierPackage from './transportador/pages/Package';
+
 
 function App() {
   return (
@@ -24,7 +27,9 @@ function App() {
           <Route path="/distribuidora/transportadores/:id" element={<Carrier />} />
           <Route path="/distribuidora/encomendas" element={<Packages />} />
           <Route path="/distribuidora/encomendas/:id" element={<Package />} />
-          <Route path="/transportador" element={<Transportador />} />
+          <Route path="/transportador" element={<CarrierDashboar />} />
+          <Route path="/transportador/:id/mercadoria" element={<CarrierPackages />} />
+          <Route path="/transportador/:id/mercadoria/:package" element={<CarrierPackage />} />
         </Routes>
       </Router>
     </>

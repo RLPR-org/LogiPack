@@ -147,6 +147,17 @@ function TransportadorBox(props) {
                     <ListItemText primary={'Ver trajeto'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
+
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/transportador/' + props.carrierId + '/mercadoria')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <Inventory2Icon></Inventory2Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
         </List>
 
         {/* ------------------------------------------- end nav-links -------------------------------------------- */}
