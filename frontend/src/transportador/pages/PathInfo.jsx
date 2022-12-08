@@ -76,7 +76,9 @@ function PathInfo() {
                         <hr style={{height: "1px"}}/>
         
                         <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                            <h2>Não tem encomendas para entregar</h2>
+                            <div style={{"textAlign": "center"}}>
+                                <h2 style={{"color": "gray"}}>Não tem encomendas para entregar</h2>
+                            </div>
                         </Container>
         
                     </TransportadorBox>
