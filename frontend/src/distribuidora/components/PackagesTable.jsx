@@ -10,21 +10,12 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import InfoIcon from '@mui/icons-material/Info';
 
-function createData(packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp) {
-  return {packageID, packageStatus, carrierID, vehicleID, lastUpdateTimestamp};
-}
 
 const status = {
     'REGISTADA' : <Chip label="Registada" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
     'EM_TRANSITO' : <Chip label="Em trânsito" size="small" style={{backgroundColor: "#EA7F00", color: "white"}}/>,
     'EM_DISTRIBUICAO' : <Chip label="Em distribuição" color="info" size="small" style={{backgroundColor: "#4B84FF", color: "white"}}/>,
     'ENTREGUE': <Chip label="Entregue" color="success" size="small" style={{backgroundColor: "#48AD32", color: "white"}}/>,
-}
-
-function between(min, max) {  
-  return Math.floor(
-    Math.random() * (max - min) + min
-  )
 }
 
 
@@ -51,7 +42,11 @@ function PackagesTable(props) {
               <TableCell>{row.id}</TableCell>
               <TableCell>{status[row.estado]}</TableCell>
               <TableCell>{row.localizacao.distrito}</TableCell>
-              <TableCell>{row.transportador}</TableCell>
+
+              <TableCell>
+                <span className='linkPage' onClick={()=> navigate('/distribuidora/transportadores/' + row.transportador)}>{row.transportador}</span>
+              </TableCell>
+
               <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
                 <InfoIcon className='info-btn' onClick={()=> navigate('/distribuidora/encomendas/' + row.id)} />

@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import { useParams } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackageDetails } from '../components/PackageDetails';
@@ -16,50 +17,32 @@ function Package() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
-    const [carriers, setCarriers] = useState([])
 
     let packageId = useParams().id;
-    
 
-    //make an API call with the packageId and pass to component
-    const packageData = null
-    var aux = 0;
+    //API CALLs
+    function fetchData() {
+        const infoURL = "http://localhost:8080/encomendas/" + packageId;
+        const detailsURL = "http://localhost:8080/encomendas/" + packageId + "/details";
 
-    //API CALL - PACKAGE
-    useEffect(() => {
+        const getInfo = axios.get(infoURL);
+        const getDetails = axios.get(detailsURL);
 
-        fetch("http://localhost:8080/encomendas/" + packageId)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setPackageInfo(result);
-                },
-                (error) => {
+        axios.all([getInfo, getDetails]).then(
+            axios.spread(
+                (...allData) => {
+                    setPackageInfo(allData[0].data);
+                    setPackageDetails(allData[1].data);
                     setIsLoaded(true);
-                    setError(error);
                 }
             )
-    }, [])
+        )
 
+    }
 
-
-    //API CALL - PACKAGE DETAILS
     useEffect(() => {
-
-        fetch("http://localhost:8080/encomendas/" + packageId + "/details")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setPackageDetails(result);
-                    setIsLoaded(true);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
-
+        fetchData();
+    }, []);
 
 
     if (error) {

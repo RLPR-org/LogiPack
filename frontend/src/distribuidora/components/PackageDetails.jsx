@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,7 +17,8 @@ function getConfirmacao(confirmacao) {
 
 
 function PackageDetails(props) {
-
+    const navigate = useNavigate();
+    var componentID = 0;
     const packageInfo = props.packageInfo;
     const packageDetails = props.packageDetails;
     const status = {
@@ -71,7 +73,9 @@ function PackageDetails(props) {
 
                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell>Transportador</TableCell>
-                            <TableCell align="right">{packageInfo.transportador}</TableCell>
+                            <TableCell align="right">
+                                <span className='linkPage' onClick={()=> navigate('/distribuidora/transportadores/' + packageInfo.transportador)}>{packageInfo.transportador}</span>
+                            </TableCell>
                         </TableRow>
 
                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -140,7 +144,7 @@ function PackageDetails(props) {
             <div className='package-history'>
 
                 {packageDetails.history.slice(0, packageDetails.history.length-1).map((event) => (
-                    <div className='package-state'>
+                    <div key={componentID+=1} className='package-state'>
                         <p style={{margin: "0"}}>{statusText[event.estado]}</p>
                         <p className='package-history-time'>{event.timestamp}</p>
                     </div>
