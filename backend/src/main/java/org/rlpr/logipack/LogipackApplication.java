@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class LogipackApplication {
 
 	public static void main(String[] args) {
-		PostgresConfig.initializeDatabase();
+		//PostgresConfig.initializeDatabase();
 		SpringApplication.run(LogipackApplication.class, args);
 	}
 

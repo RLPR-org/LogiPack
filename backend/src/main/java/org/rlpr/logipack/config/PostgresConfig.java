@@ -13,7 +13,7 @@ public class PostgresConfig {
 		try {
 
             //connect to postgres database
-			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "test1234");
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://postgres:5432/", "postgres", "test1234");
             printInfo("[SUCCESS]  Postgres connection established");
 			
 
@@ -37,6 +37,7 @@ public class PostgresConfig {
 
 		} catch (Exception sQLException) {
 			System.out.println(sQLException);
+            printInfo("[ERROR]  Postgres connection failed");
 		}
 	}
 
