@@ -4,9 +4,57 @@ info:
   title: 'LogiPack Sample API'
   description: Logistics Managment System for a dsitributition company, allowing fleet and package managment and tracking by clients
 
+servers:
+  - url: logipack
+
 paths:
   
+  /encomendas:
+    get:
+      summary: Read all Encomendas
+      responses:
+        '200':
+          description: List of all Encomendas 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Encomenda'
+  
+  /encomendas/{encomendaID}:
+    parameters:
+      - name: encomendaID
+        description: The unique identifier of a Encomenda
+        in: path
+        required: true
+        schema:
+            type : integer
+            format: int32
+    get:
+      summary: Read all encomenda by unique identifier
+      responses:
+        '200':
+          description: Read Encomenda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Encomenda'
 
+  /estados/encomendas/{encomendaID}:
+    put:
+      summary: Update State of an Encomenda
+      parameters:
+        - name: encomendaID
+          description: The unique identifier of a Encomenda
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      requestBody:
+        $ref: '#/components/schemas/EncomendaEstado'
+      responses:
+        '200':
+          description: OK
 
   /spacecrafts/{spacecraftId}:
     parameters:
