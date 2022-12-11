@@ -1,6 +1,6 @@
 package org.rlpr.logipack;
 
-import org.rlpr.logipack.config.PostgresConfig;
+// import org.rlpr.logipack.config.PostgresConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

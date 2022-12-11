@@ -25,6 +25,12 @@ spring:
         # password: admin
         database: logipack
 
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
 
 # Rabbitmq env variables
 rabbitmq:

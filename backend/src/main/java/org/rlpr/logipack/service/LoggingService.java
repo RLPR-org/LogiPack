@@ -38,7 +38,7 @@ public class LoggingService {
 
     public void insertEncomenda(String message) {
         
-        System.out.printf("[E]  %s\n", message);
+        System.out.println("Nova encomenda");
         
         try {
             
@@ -71,7 +71,7 @@ public class LoggingService {
 
 
     public void updateEncomenda(String message) {
-        System.out.printf("[UE]  %s\n", message);
+        System.out.println("Novo update de encomenda");
 
         try {
 
@@ -105,7 +105,7 @@ public class LoggingService {
 
     public void insertTransportador(String message) {
         
-        System.out.printf("[T]  %s\n", message);
+        System.out.println("Novo transportador");
 
 
         try {
@@ -131,7 +131,7 @@ public class LoggingService {
 
 
     public void updateTransportador(String message) {
-        System.out.printf("[UT]  %s\n", message);
+        System.out.println("Novo update de transportador");
 
         try {
 

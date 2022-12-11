@@ -1,18 +1,42 @@
 version: "3"
+
 services:
   postgres:
     image: postgres:latest
     container_name: postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=test1234
-    networks:
-      - logipack-backend-net
     volumes:
       - postgres-data:/var/lib/postgresql/data
+
+
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    ports:
+        - 5672:5672
+        - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 60s
+      retries: 3
+
+
+  datagen:
+    # build: ../data_gen/Dockerfile
+    image: logipack-datagen:latest
+    container_name: logipack-datagen
+    environment:
+      - HOSTNAMERABBIT=localhost
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
 
   backend:
     build: .
@@ -25,15 +49,15 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=test1234
-    networks:
-      - logipack-backend-net
     depends_on:
-      - postgres
-      - datagen
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+      datagen:
+        condition: service_started
+
+
 
 volumes:
   postgres-data:
-
-networks:
-  logipack-backend-net:
-    driver: bridge
