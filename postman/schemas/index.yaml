@@ -18,7 +18,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Encomenda'
+                $ref: '#/components/schemas/ArrayofAllEncomendas'
   
   /encomendas/{encomendaID}:
     parameters:
@@ -30,7 +30,7 @@ paths:
             type : integer
             format: int32
     get:
-      summary: Read all encomenda by unique identifier
+      summary: Read Encomenda by unique identifier
       responses:
         '200':
           description: Read Encomenda
@@ -55,6 +55,55 @@ paths:
       responses:
         '200':
           description: OK
+
+  /cliente/confirmar/{encomendaID}:
+    put:
+      summary: Confirm arrival of Encomenda by Client
+      parameters:
+        - name: encomendaID
+          description: The unique identifier of a Encomenda
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      responses:
+        '200':
+          description: OK
+
+  
+  /cliente/encomendas/{encomendaID}:
+    get:
+      summary:  all Encomendas corresponding to a specific Client
+      parameters:
+        - name: encomendaID
+          description: The unique identifier of a Encomenda
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayofAllEncomendas'
+
+  /transportadores:
+    get:
+      summary: Read all Transportadores
+      responses:
+        '200':
+          description: List of all Transportadores 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayofAllTransportadores'
+
+
+      
 
   /spacecrafts/{spacecraftId}:
     parameters:
@@ -212,3 +261,15 @@ components:
         timestamp:
           type: string
     
+    ArrayofAllEncomendas:
+      type: array
+      items: 
+        type: object
+        $ref: '#/components/schemas/Encomenda'
+    
+    ArrayofAllTransportadores:
+      type: array
+      items: 
+        type: object
+        $ref: '#/components/schemas/Transportador'
+
