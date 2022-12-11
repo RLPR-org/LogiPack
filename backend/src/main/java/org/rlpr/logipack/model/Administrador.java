@@ -5,20 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_cliente")
-public class Cliente {
+@Table(name = "tbl_administrador")
+public class Administrador {
 
     @Id
     @GeneratedValue
     private int id;
+    private String email;
     private String password_hash;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente")
-    private List<Encomenda> encomendas;
 }

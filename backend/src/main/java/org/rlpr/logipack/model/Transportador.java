@@ -20,6 +20,7 @@ public class Transportador {
 
     private String nome;
     private String email;
+    private String password_hash;
     private String telefone;
     private String matricula;
     private String timestamp;

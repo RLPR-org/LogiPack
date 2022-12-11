@@ -11,6 +11,7 @@ import java.util.List;
 public interface TransportadorRepository extends JpaRepository<Transportador, Integer> {
 
     Transportador findById(int id);
+    Transportador findByEmail(String email);
 
     List<Transportador> findAll();
 
