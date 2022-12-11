@@ -1,0 +1,166 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'LogiPack Sample API'
+  description: Logistics Managment System for a dsitributition company, allowing fleet and package managment and tracking by clients
+
+paths:
+  
+
+
+  /spacecrafts/{spacecraftId}:
+    parameters:
+      - name: spacecraftId
+        description: The unique identifier of the spacecraft
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SpacecraftId'
+    get:
+      summary: Read a spacecraft
+      responses:
+        '200':
+          description: The spacecraft corresponding to the provided `spacecraftId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spacecraft'
+        404:
+          description: No spacecraft found for the provided `spacecraftId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+
+    Encomenda:
+      type: object
+      properties:
+        id:
+          type: integer
+        EncomendaEstado:
+          type: string
+          enum:    
+            - REGISTADA
+            - EM_TRANSITO
+            - ENTREGUE
+            - EM_DISTRIBUICAO
+        emissor:
+          type: string
+        destinatario:
+          type: string
+        Localizacao:
+          type: object
+          description: Localizacao object
+        peso:
+          type: number
+        transportador:
+          type: integer
+          description: Transportador identifier
+        timestamp:
+          type: string
+        confirmacao:
+          type: boolean
+        cliente:
+          type: integer
+          description: Cliente identifier
+    
+    Localizacao:
+      type: object
+      properties:
+        id:
+          type: integer
+        distrito:
+          type: string
+        concelho:
+          type: string
+        freguesia:
+          type: string
+        rua:
+          type: string
+        codigopostal:
+          type: string
+
+    EncomendaMongo:
+      type: object
+      description: History of Encomenda States
+      properties:
+        _id:
+          type: string
+        encomenda:
+          type: integer
+          description: encomenda identifier
+        history:
+          type: array
+          items:
+            type: object
+          description: array of EncomendaEstadoMongo objects
+
+    EncomendaEstadoMongo:
+      type: object
+      properties:
+        estado: 
+          type: string
+        timestamp:
+          type: string
+        confirmacao:
+          type: boolean
+
+    Transportador:
+      type: object
+      properties:
+        id: 
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        telefone:
+          type: string
+        matricula:
+          type: string
+        timestamp:
+          type: string
+        TransportadorEstado:
+          type: string
+          enum:    
+            - INATIVO
+            - EM_TRANSITO
+            - PARADO
+            - EM_PAUSA
+        encomendas:
+          description: array of encomenda Objects 
+          type: array
+          items: 
+            type: object
+
+    TransportadorMongo:
+      description: History of Transportador States
+      type: object
+      properties:
+        _id: 
+          type: string
+        transportador:
+          type: integer
+          description: Transportador identifier
+        history:
+          type: array
+          items:
+            type: object
+          description: array of TransportadorEstadoMongo objects
+
+    TransportadorEstadoMongo:
+      type: object
+      properties: 
+        estado:
+          type: string
+        timestamp:
+          type: string
+    
