@@ -8,7 +8,6 @@ servers:
   - url: logipack
 
 paths:
-  
   /encomendas:
     get:
       summary: Read all Encomendas
@@ -103,37 +102,42 @@ paths:
                 $ref: '#/components/schemas/ArrayofAllTransportadores'
 
 
-      
-
-  /spacecrafts/{spacecraftId}:
-    parameters:
-      - name: spacecraftId
-        description: The unique identifier of the spacecraft
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/SpacecraftId'
+  /transportadores/{TrasnportadorId}:
     get:
-      summary: Read a spacecraft
+      parameters:
+        - name: TrasnportadorId
+          description: The unique identifier of a Transportador
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      summary: Read Transportador by unique identifier
       responses:
         '200':
-          description: The spacecraft corresponding to the provided `spacecraftId`
+          description: Read Transportador
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Spacecraft'
-        404:
-          description: No spacecraft found for the provided `spacecraftId`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        500:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Transportador'
+
+  /estados/transportadores/{TrasnportadorId}:
+    put:
+      summary: Update State of a Transportador
+      parameters:
+        - name: TrasnportadorId
+          description: The unique identifier of a Trasnportador
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      requestBody:
+        $ref: '#/components/schemas/TransportadorEstado'
+      responses:
+        '200':
+          description: OK
+
 components:
   schemas:
 
