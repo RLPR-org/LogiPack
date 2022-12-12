@@ -104,14 +104,12 @@ with open("dataset.json", "w", encoding='utf-8') as f:
         encomendas[i] = []
         for j in range(1, random.randint(2, 20)):
             emissor_id, destinatario_id = random.sample(list(clientes.keys()), 2)
-            emissor = clientes[emissor_id]
-            destinatario = clientes[destinatario_id]
             encomenda = {
                 "type": "insert",
                 "encomenda": n_encomendas,
                 "estado": "REGISTADA",
-                "emissor": emissor,
-                "destinatario": destinatario,
+                "emissor": emissor_id,
+                "destinatario": destinatario_id,
                 "localizacao": location,
                 "peso": 1 + random.random() * 100,
                 "transportador": i,
