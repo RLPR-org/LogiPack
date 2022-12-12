@@ -2,6 +2,11 @@ import './App.css';
 import { HashRouter as Router, Routes, Route} from "react-router-dom";
 
 import Home from './Home.jsx';
+
+import ClienteLogin from './cliente/pages/ClienteLogin';
+import DistribuidoraLogin from './distribuidora/pages/DistribuidoraLogin';
+import TransportadorLogin from './transportador/pages/TransportadorLogin';
+
 import ClientePage from './cliente/pages/Home.jsx';
 
 import DistribuidoraPage from './distribuidora/pages/Dashboard.jsx';
@@ -23,12 +28,19 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cliente" element={<ClientePage />} />
+
+          <Route path="/cliente/login" element={<ClienteLogin />} />
+          <Route path="/distribuidora/login" element={<DistribuidoraLogin />} />
+          <Route path="/transportador/login" element={<TransportadorLogin />} />
+
+          <Route path="/cliente/:id" element={<ClientePage />} />
+
           <Route path="/distribuidora" element={<DistribuidoraPage />} />
           <Route path="/distribuidora/transportadores" element={<Carriers />} />
           <Route path="/distribuidora/transportadores/:id" element={<Carrier />} />
           <Route path="/distribuidora/encomendas" element={<Packages />} />
           <Route path="/distribuidora/encomendas/:id" element={<Package />} />
+
           <Route path="/transportador/:id" element={<CarrierDashboar />} />
           <Route path="/transportador/:id/trajeto" element={<CarrierPath />} />
           <Route path="/transportador/:id/conta" element={<CarrierAccount />} />
