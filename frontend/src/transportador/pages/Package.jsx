@@ -9,12 +9,16 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import { TransportadorBox } from '../components/TransportadorBox';
 import { PackageDetails } from '../components/PackageDetails';
+import { FormControl , FormLabel , FormHelperText,RadioGroup,FormControlLabel,Radio ,Button} from '@mui/material';
 
 
 function Package() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
+
+    var estados = ["REGISTADA","EM_TRANSITO","ENTREGUE","EM_DISTRIBUICAO"];
+
 
     let carrierId = useParams().id;
     let packageId = useParams().package;
@@ -23,11 +27,10 @@ function Package() {
     function fetchData() {
         const infoURL = "http://localhost:8080/encomendas/" + packageId;
         const detailsURL = "http://localhost:8080/encomendas/" + packageId + "/details";
-
         const getInfo = axios.get(infoURL);
         const getDetails = axios.get(detailsURL);
 
-        axios.all([getInfo, getDetails]).then(
+        axios.all([getInfo,getDetails]).then(
             axios.spread(
                 (...allData) => {
                     setPackageInfo(allData[0].data);
@@ -38,6 +41,36 @@ function Package() {
         )
 
     }
+
+
+
+
+    const [value, setValue] = React.useState('');
+    const [error, setError] = React.useState(false);
+    const [helperText, setHelperText] = React.useState('Escolha uma Opção');
+
+
+    const handleRadioChange = (event) => {
+        setValue(event.target.value);
+        setHelperText(' ');
+        setError(false);
+      };
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (value === '') {
+            setHelperText('Selectione uma opção.');
+            setError(true);
+        } else {
+            
+            const response = await axios.put('http://localhost:8080/estados/encomendas/17&estado=' +  value );
+            console.log(response);
+
+        } 
+
+      };
+
 
     useEffect(() => {
         fetchData();
@@ -63,6 +96,13 @@ function Package() {
         )
     }
     else {
+
+        const index = estados.indexOf(packageInfo.estado);
+        if (index > -1) { // only splice array when item is found
+            estados.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        
+        
         return (
             <>
                 <TransportadorBox carrierId={carrierId}>
@@ -73,9 +113,36 @@ function Package() {
                         <PackageDetails packageInfo={packageInfo} packageDetails={packageDetails}></PackageDetails>
                     </Container> 
 
+                    {MudarEstado()}
+
                 </TransportadorBox>
+
             </>
         )
+    }
+
+    function MudarEstado() {
+        return <form onSubmit={handleSubmit}>
+            <FormControl error={error} variant="standard">
+                <h2 >Mudar Estado de Encomenda</h2>
+                <RadioGroup
+                    aria-labelledby="demo-error-radios"
+                    name="quiz"
+                    value={value}
+                    onChange={handleRadioChange}
+                >
+
+                    {estados.map((estado) => (
+                        <FormControlLabel key={estado} value={estado} control={<Radio />} label={estado} />
+                    ))}
+
+                </RadioGroup>
+                <FormHelperText>{helperText}</FormHelperText>
+                <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+                    Atualizar
+                </Button>
+            </FormControl>
+        </form>;
     }
 }
 
