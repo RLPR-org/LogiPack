@@ -13,33 +13,46 @@ public class Consumer {
     private LoggingService loggingService;
 
     
-    @RabbitListener(queues = "${rabbitmq.queues.encomendas}")
-    public void consumeEncomendas(String message){       
+    @RabbitListener(queues = "${rabbitmq.queues.logipack}")
+    public void consume(String message){       
         
         JSONObject jsonMessage = new JSONObject(message);
+        String entity = jsonMessage.getString("entity");
         String type = jsonMessage.getString("type");
 
-        switch (type) {
-            case "insert":
-                loggingService.insertEncomenda(message);
+        switch (entity) {
+            case "cliente":
+                dispatcherClient(type, message);
                 break;
 
-            case "update":
-                loggingService.updateEncomenda(message);
+            case "transportador":
+                dispatcherTransportador(type, message);
+                break;
+
+            case "encomenda":
+                dispatcherEncomenda(type, message);
                 break;
         
             default:
-                System.out.println("Not insert, TODO");
+                System.out.println("UNKNOWN EVENT");
+        }
+    
+
+
+    }
+
+    public void dispatcherClient(String type, String message) {
+        switch (type) {
+            case "insert":
+                loggingService.insertCliente(message);
+                break;
+            default:
+                System.out.println("UNKNOWN EVENT");
         }
     }
 
 
-    @RabbitListener(queues = "${rabbitmq.queues.transportadores}")
-    public void consumeTransportadores(String message){
-
-        JSONObject jsonMessage = new JSONObject(message);
-        String type = jsonMessage.getString("type");
-
+    public void dispatcherTransportador(String type, String message) {
         switch (type) {
             case "insert":
                 loggingService.insertTransportador(message);
@@ -50,31 +63,24 @@ public class Consumer {
                 break;
         
             default:
-                System.out.println("Not insert, TODO");
+                System.out.println("UNKNOWN EVENT");
         }
-
     }
 
-
-    
-    @RabbitListener(queues = "${rabbitmq.queues.clientes}")
-    public void consumeClientes(String message){       
-        
-        JSONObject jsonMessage = new JSONObject(message);
-        String type = jsonMessage.getString("type");
-
+    public void dispatcherEncomenda(String type, String message) {
         switch (type) {
             case "insert":
-                loggingService.insertCliente(message);
+                loggingService.insertEncomenda(message);
                 break;
 
-            case "confirm":
-                System.out.println("TODO");
+            case "update":
+                loggingService.updateEncomenda(message);
                 break;
         
             default:
-                System.out.println("Unknown, TODO");
+                System.out.println("UNKNOWN EVENT");
         }
     }
+
 
 }
