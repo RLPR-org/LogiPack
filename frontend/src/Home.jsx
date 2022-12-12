@@ -12,9 +12,9 @@ function Home() {
         <>
             <Grid container justifyContent="center" alignItems="center" style={{height: '100vh'}}>
                 <Grid item>
-                    <Button className="index-btn" variant="contained" color="primary" onClick={() => navigate('/cliente')}>«Cliente</Button>
-                    <Button className="index-btn" variant="contained" color="secondary" onClick={() => navigate('/distribuidora')}>Distribuidora</Button>
-                    <Button className="index-btn" variant="contained" color="success" onClick={() => navigate('/transportador')}>Transportador</Button>
+                    <Button className="index-btn" variant="contained" color="primary" onClick={() => navigate('/cliente/login')}>Cliente</Button>
+                    <Button className="index-btn" variant="contained" color="secondary" onClick={() => navigate('/distribuidora/login')}>Distribuidora</Button>
+                    <Button className="index-btn" variant="contained" color="success" onClick={() => navigate('/transportador/login')}>Transportador</Button>
                 </Grid>
             </Grid>
         </>

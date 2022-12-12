@@ -2,6 +2,7 @@ import random
 import datetime
 import requests
 import faker
+from hashlib import sha256
 
 PACKAGES_STATES = ["EM_TRANSITO", "ENTREGUE", "EM_DISTRIBUICAO"]
 
@@ -70,6 +71,17 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
 
 with open("dataset.json", "w", encoding='utf-8') as f:
     f.write("[\n")
+    clientes = {}
+    for i in range(1, 4):
+        name = f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}"
+        cliente = {
+            "id": i,
+            "email": name.replace(" ", "").lower() + "@ua.pt",
+            "password_hash": sha256(fake.password().encode('utf-8')).hexdigest(),
+        }
+        clientes[i] = name
+        f.write("\t" + str(cliente).replace("'", '"') + ",\n")
+
     n_encomendas = 1
     for i in range(1, 21):
         name = f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}"
@@ -90,12 +102,15 @@ with open("dataset.json", "w", encoding='utf-8') as f:
         location = get_location(line)
         encomendas[i] = []
         for j in range(1, random.randint(2, 20)):
+            emissor_id, destinatario_id = random.sample(list(clientes.keys()), 2)
+            emissor = clientes[emissor_id]
+            destinatario = clientes[destinatario_id]
             encomenda = {
                 "type": "insert",
                 "encomenda": n_encomendas,
                 "estado": "REGISTADA",
-                "emissor": f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}",
-                "destinatario": f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}",
+                "emissor": emissor,
+                "destinatario": destinatario,
                 "localizacao": location,
                 "peso": 1 + random.random() * 100,
                 "transportador": i,
