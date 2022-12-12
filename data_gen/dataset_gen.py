@@ -47,6 +47,7 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
         if estado_transportador is not None:
             transportador_up = {
                 "type": "update",
+                "entity": "transportador",
                 "transportador": transportador["transportador"],
                 "estado": estado_transportador,
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -58,6 +59,7 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
             encomenda = encomendas_t.pop(0)
             encomenda = {
                 "type": "update",
+                "entity": "encomenda",
                 "encomenda": encomenda["encomenda"],
                 "transportador": transportador["transportador"],
                 "estado": estado_encomenda,
@@ -76,6 +78,8 @@ with open("dataset.json", "w", encoding='utf-8') as f:
         name = f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}"
         cliente = {
             "type": "insert",
+            "entity": "cliente",
+            "cliente": i,
             "id": i,
             "name": name,
             "email": name.replace(" ", "").lower() + "@ua.pt",
@@ -89,6 +93,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
         name = f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}"
         transportador = {
             "type": "insert",
+            "entity": "transportador",
             "transportador": i,
             "nome": name,
             "email": name.replace(" ", "").lower() + "@ua.pt",
@@ -107,6 +112,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
             emissor_id, destinatario_id = random.sample(list(clientes.keys()), 2)
             encomenda = {
                 "type": "insert",
+                "entity": "encomenda",
                 "encomenda": n_encomendas,
                 "estado": "REGISTADA",
                 "emissor": emissor_id,

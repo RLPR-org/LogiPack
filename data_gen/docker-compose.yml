@@ -2,30 +2,29 @@ version: "3"
 
 services:
   rabbitmq:
-    container_name: "rabbitmq"
+    container_name: logipack-rabbitmq
     image: rabbitmq:3.8-management-alpine
+    restart: always
     ports:
-        # AMQP protocol port
-        - '5672:5672'
-        # HTTP management UI
-        - '15672:15672'
+        - 5672:5672
+        - 15672:15672
     healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:15672"]
-        interval: 30s
-        timeout: 10s
-        retries: 10
+      test: rabbitmq-diagnostics -q ping
+      interval: 20s
+      timeout: 30s
+      retries: 7
     networks:
       - logipack-datagen-net
 
   datagen:
-    build:
-      dockerfile: Dockerfile
+    build: .
     image: logipack-datagen:latest
     container_name: logipack-datagen
     environment:
-      - HOSTNAMERABBIT=localhost
+      - HOSTNAMERABBITMQ=rabbitmq
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
     networks:
       - logipack-datagen-net
 
