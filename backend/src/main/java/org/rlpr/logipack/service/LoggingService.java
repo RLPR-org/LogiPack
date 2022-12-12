@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.json.JSONObject;
 import org.rlpr.logipack.model.Cliente;
 import org.rlpr.logipack.model.Encomenda;
@@ -15,6 +21,7 @@ import org.rlpr.logipack.repository.Mongo.ClienteMongoRepository;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.model.Mongo.TransportadorEstadoMongo;
 import org.rlpr.logipack.model.Mongo.TransportadorMongo;
 import org.rlpr.logipack.model.Mongo.ClienteMongo;
@@ -53,11 +60,13 @@ public class LoggingService {
             JSONObject messageJSON = new JSONObject(message);
             int emissorId = messageJSON.getInt("emissor");
             int destinatarioId = messageJSON.getInt("destinatario");
-            String emissorName = clienteMongoRepo.findByCliente(emissorId).getName();
-            String destinatarioName = clienteMongoRepo.findByCliente(destinatarioId).getName();
+            String emissorName = clienteRepo.findById(emissorId).getName();
+            String destinatarioName = clienteRepo.findById(destinatarioId).getName();
 
+            //refactor de json message
             messageJSON.put("emissor", emissorName);
             messageJSON.put("destinatario", destinatarioName);
+            messageJSON.put("destinatarioId", destinatarioId);
             message = messageJSON.toString();
 
             //convert json to POJO
@@ -80,7 +89,11 @@ public class LoggingService {
             EncomendaMongo encomendaMongo = new EncomendaMongo(encomenda.getId());
             encomendaMongo.initalizeHistory(encomenda.getTimestamp());
             encomendaMongoRepository.save(encomendaMongo);
-        
+
+
+            //create and save client notification
+            sendNotification(encomenda);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -112,6 +125,9 @@ public class LoggingService {
             encomenda.setEstado(EncomendaEstado.valueOf(estado.getEstado()));
             encomenda.setTimestamp(estado.getTimestamp());
             encomendaRepo.save(encomenda);
+
+            //create and save client notification
+            sendNotification(encomenda);
 
 
         } catch (Exception e) {
@@ -201,6 +217,26 @@ public class LoggingService {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+    }
+
+
+    public void sendNotification(Encomenda encomenda) {
+
+        //get current date
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date currentDate = Calendar.getInstance().getTime();        
+        String currentDateStr = df.format(currentDate);
+
+        //create message notification
+        String message = String.format("A encomenda %d passou para o estado %s.", encomenda.getId(), encomenda.getEstado());
+        NotificacaoCliente notification = new NotificacaoCliente(encomenda.getId(), message, currentDateStr);
+
+        //add notification to user in mongodb
+        ClienteMongo cliente = clienteMongoRepo.findByCliente(encomenda.getDestinatarioId());
+        List<NotificacaoCliente> notificacoes = cliente.getNotifications();
+        notificacoes.add(notification);
+        clienteMongoRepo.save(cliente);
 
     }
     

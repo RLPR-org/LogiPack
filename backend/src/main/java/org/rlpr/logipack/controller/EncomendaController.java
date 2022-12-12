@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.rlpr.logipack.model.*;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
@@ -41,15 +42,11 @@ public class EncomendaController {
         return encomendaService.getEncomendasByClienteId(id);
     }
 
+
     @GetMapping("/cliente/{id}/notificacoes")
-    public List<Encomenda> getNotificacoesByClienteId(@PathVariable int id) {
-        return encomendaService.getEncomendasByClienteId(id);
+    public List<NotificacaoCliente> getNotificacoesByClienteId(@PathVariable int id) {
+        return encomendaService.getNotificacoesByCliente(id);
     }
-
-
-
-
-
 
 
 

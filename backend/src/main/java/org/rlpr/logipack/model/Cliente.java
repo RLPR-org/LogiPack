@@ -21,6 +21,6 @@ public class Cliente {
     private String email;
     private String password_hash;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Encomenda> encomendas;
+    // @OneToMany(fetch = FetchType.EAGER)
+    // private List<Encomenda> encomendas;
 }
