@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("cliente_notificacoes")
-public class Notificacao {
+public class NotificacaoCliente {
     private int encomendaId;
     private String message;
     private String timestamp; 
