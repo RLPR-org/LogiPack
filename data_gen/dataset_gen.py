@@ -77,6 +77,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
         cliente = {
             "type": "insert",
             "id": i,
+            "name": name,
             "email": name.replace(" ", "").lower() + "@ua.pt",
             "password_hash": sha256(fake.password().encode('utf-8')).hexdigest(),
         }
