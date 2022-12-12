@@ -12,6 +12,8 @@ services:
       - POSTGRES_PASSWORD=test1234
     volumes:
       - data-postgres:/var/lib/postgresql/data
+    networks:
+      - logipack-net
 
   mongodb:
     image: mongo:latest
@@ -21,10 +23,13 @@ services:
       - 27017:27017
     volumes:
       - data-mongodb:/data/db
+    networks:
+      - logipack-net
 
   rabbitmq:
     container_name: logipack-rabbitmq
     image: rabbitmq:3.8-management-alpine
+    restart: always
     ports:
         - 5672:5672
         - 15672:15672
@@ -32,30 +37,34 @@ services:
       test: rabbitmq-diagnostics -q ping
       interval: 20s
       timeout: 30s
-      retries: 3
-
+      retries: 7
+    networks:
+      - logipack-net
 
   datagen:
     image: logipack-datagen:latest
     container_name: logipack-datagen
     environment:
-      - HOSTNAMERABBIT=localhost
+      - HOSTNAMERABBITMQ=rabbitmq
     depends_on:
       rabbitmq:
         condition: service_healthy
+    networks:
+      - logipack-net
 
 
   backend:
     build: .
     image: logipack-backend:latest
     container_name: logipack-backend
-    restart: always
+    restart: on-failure
     ports:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=test1234
+      - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -65,9 +74,13 @@ services:
         condition: service_started
       datagen:
         condition: service_started
-
-
+    networks:
+      - logipack-net
 
 volumes:
   data-postgres:
   data-mongodb:
+
+networks:
+  logipack-net:
+    driver: bridge
