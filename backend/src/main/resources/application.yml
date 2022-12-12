@@ -4,7 +4,7 @@ spring:
   
   datasource: 
     platform: postgres
-    url: "jdbc:postgresql://postgres:5432/postgres"
+    url: "jdbc:postgresql://localhost:5432/postgres"
     username: "postgres"
     password: "test1234"
     driverClassName: org.postgresql.Driver
@@ -18,12 +18,12 @@ spring:
 
   data:
       mongodb:
-        host: mongodb
+        host: localhost
         port: 27017
         database: logipack
 
   rabbitmq:
-    host: rabbitmq
+    host: localhost
     port: 5672
     username: guest
     password: guest
@@ -34,6 +34,7 @@ rabbitmq:
   queues:
     encomendas: queue_encomendas
     transportadores: queue_transportadores
+    clientes: queue_clientes
 
   exchange: logipack_exchange
 
@@ -41,6 +42,8 @@ rabbitmq:
     keys:
       encomendas: routing_key_encomendas
       transportadores: routing_key_transportadores
+      clientes: routing_key_clientes
+
 
 logging:
   level:

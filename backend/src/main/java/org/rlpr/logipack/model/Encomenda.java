@@ -17,6 +17,7 @@ public class Encomenda {
     private EncomendaEstado estado;
     private String emissor;
     private String destinatario;
+    private int destinatarioId;
     @OneToOne
     private Localizacao localizacao;
     private Double peso;
