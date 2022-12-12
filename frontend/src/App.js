@@ -7,7 +7,7 @@ import ClienteLogin from './cliente/pages/ClienteLogin';
 import DistribuidoraLogin from './distribuidora/pages/DistribuidoraLogin';
 import TransportadorLogin from './transportador/pages/TransportadorLogin';
 
-import ClientePage from './cliente/pages/Home.jsx';
+import ClientePage from './cliente/pages/Dashboard';
 
 import DistribuidoraPage from './distribuidora/pages/Dashboard.jsx';
 import Carrier from './distribuidora/pages/Carrier.jsx';
