@@ -13,6 +13,13 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo
+    container_name: mongoDB
+    restart: always
+    ports:
+      - 27017:27017
+
 
   rabbitmq:
     container_name: "rabbitmq"
@@ -22,8 +29,8 @@ services:
         - 15672:15672
     healthcheck:
       test: rabbitmq-diagnostics -q ping
-      interval: 30s
-      timeout: 60s
+      interval: 20s
+      timeout: 30s
       retries: 3
 
 
@@ -53,6 +60,8 @@ services:
       rabbitmq:
         condition: service_healthy
       postgres:
+        condition: service_started
+      mongodb:
         condition: service_started
       datagen:
         condition: service_started

@@ -18,7 +18,8 @@ public class Cliente {
     @GeneratedValue
     private int id;
     private String password_hash;
+    private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Encomenda> encomendas;
 }

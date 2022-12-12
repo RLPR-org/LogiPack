@@ -18,11 +18,8 @@ spring:
 
   data:
       mongodb:
-        host: 127.0.0.1
+        host: mongodb
         port: 27017
-        authentication-database: admin
-        # username: admin
-        # password: admin
         database: logipack
 
   rabbitmq:
