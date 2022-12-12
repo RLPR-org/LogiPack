@@ -12,17 +12,17 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/cliente/login")
-    public Boolean clienteLogin(@RequestBody Login login) {
+    public int clienteLogin(@RequestBody Login login) {
         return authService.clienteCheckLogin(login);
     }
 
     @PostMapping("/transportador/login")
-    public Boolean transportadorLogin(@RequestBody Login login) {
+    public int transportadorLogin(@RequestBody Login login) {
         return authService.transportadorCheckLogin(login);
     }
 
     @PostMapping("/administrador/login")
-    public Boolean administradorLogin(@RequestBody Login login) {
+    public int administradorLogin(@RequestBody Login login) {
         return authService.administradorCheckLogin(login);
     }
 
