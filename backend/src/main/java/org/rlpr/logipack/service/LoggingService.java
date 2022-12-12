@@ -50,7 +50,16 @@ public class LoggingService {
         System.out.println("Nova encomenda");
         
         try {
-            
+            JSONObject messageJSON = new JSONObject(message);
+            int emissorId = messageJSON.getInt("emissor");
+            int destinatarioId = messageJSON.getInt("destinatario");
+            String emissorName = clienteMongoRepo.findByCliente(emissorId).getName();
+            String destinatarioName = clienteMongoRepo.findByCliente(destinatarioId).getName();
+
+            messageJSON.put("emissor", emissorName);
+            messageJSON.put("destinatario", destinatarioName);
+            message = messageJSON.toString();
+
             //convert json to POJO
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);  //ignore "type" field
@@ -175,7 +184,6 @@ public class LoggingService {
         
         System.out.println("Novo cliente");
 
-
         try {
 
             //convert json to POJO
@@ -186,8 +194,8 @@ public class LoggingService {
             //then save the client
             clienteRepo.save(cliente);
 
-            //create transportador in mongodb
-            ClienteMongo clienteMongo = new ClienteMongo(cliente.getId(), cliente.getEmail());
+            //create client in mongodb
+            ClienteMongo clienteMongo = new ClienteMongo(cliente.getId(), cliente.getName(), cliente.getEmail());
             clienteMongoRepo.save(clienteMongo);
         
         } catch (Exception e) {

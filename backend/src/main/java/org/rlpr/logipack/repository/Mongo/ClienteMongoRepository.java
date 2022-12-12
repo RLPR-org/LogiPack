@@ -5,5 +5,7 @@ import org.rlpr.logipack.model.Mongo.ClienteMongo;
 
 
 public interface ClienteMongoRepository extends MongoRepository<ClienteMongo, String> {
+
+    ClienteMongo findByCliente(int cliente);
     
 }
