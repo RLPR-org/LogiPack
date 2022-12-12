@@ -1,5 +1,6 @@
 package org.rlpr.logipack.model.Mongo;
 
+import org.rlpr.logipack.model.EncomendaEstado;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
@@ -7,12 +8,12 @@ import lombok.Data;
 @Document("cliente_notificacoes")
 public class NotificacaoCliente {
     private int encomendaId;
-    private String message;
-    private String timestamp; 
+    private EncomendaEstado newState;
+    private String timestamp;
 
-    public NotificacaoCliente(int encomendaId, String message, String timestamp) {
+    public NotificacaoCliente(int encomendaId, EncomendaEstado newState, String timestamp) {
         this.encomendaId = encomendaId;
-        this.message = message;
+        this.newState = newState;
         this.timestamp = timestamp;
     }
 }

@@ -227,10 +227,8 @@ public class LoggingService {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date currentDate = Calendar.getInstance().getTime();        
         String currentDateStr = df.format(currentDate);
-
-        //create message notification
-        String message = String.format("A encomenda %d passou para o estado %s.", encomenda.getId(), encomenda.getEstado());
-        NotificacaoCliente notification = new NotificacaoCliente(encomenda.getId(), message, currentDateStr);
+        
+        NotificacaoCliente notification = new NotificacaoCliente(encomenda.getId(), encomenda.getEstado(), currentDateStr);
 
         //add notification to user in mongodb
         ClienteMongo cliente = clienteMongoRepo.findByCliente(encomenda.getDestinatarioId());
