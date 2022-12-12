@@ -55,4 +55,26 @@ public class Consumer {
 
     }
 
+
+    
+    @RabbitListener(queues = "${rabbitmq.queues.clientes}")
+    public void consumeClientes(String message){       
+        
+        JSONObject jsonMessage = new JSONObject(message);
+        String type = jsonMessage.getString("type");
+
+        switch (type) {
+            case "insert":
+                loggingService.insertCliente(message);
+                break;
+
+            case "confirm":
+                System.out.println("TODO");
+                break;
+        
+            default:
+                System.out.println("Unknown, TODO");
+        }
+    }
+
 }

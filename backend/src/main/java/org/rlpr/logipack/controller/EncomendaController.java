@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.rlpr.logipack.model.*;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
@@ -31,18 +32,28 @@ public class EncomendaController {
         return encomendaService.getEncomendaDetailsById(id);
     }
 
+    @PutMapping("cliente/{id}/confirmar/{packageId}")
+    public Encomenda updateConfirmacao(@PathVariable int packageId) {
+        return encomendaService.updateConfirmacao(packageId);
+    }
+
+    @GetMapping("/cliente/{id}/encomendas")
+    public List<Encomenda> getEncomendasByClienteId(@PathVariable int id) {
+        return encomendaService.getEncomendasByClienteId(id);
+    }
+
+
+    @GetMapping("/cliente/{id}/notificacoes")
+    public List<NotificacaoCliente> getNotificacoesByClienteId(@PathVariable int id) {
+        return encomendaService.getNotificacoesByCliente(id);
+    }
+
+
+
+
     @PutMapping("estados/encomendas/{id}")
     public Encomenda updateEstado(@PathVariable int id, @RequestBody EncomendaEstado estado) {
         return encomendaService.updateEstado(estado, id);
     }
 
-    @PutMapping("cliente/confirmar/{id}")
-    public Encomenda updateConfirmacao(@PathVariable int id) {
-        return encomendaService.updateConfirmacao(id);
-    }
-
-    @GetMapping("/cliente/encomendas/{id}")
-    public List<Encomenda> getEncomendasByClienteId(@PathVariable int id) {
-        return encomendaService.getEncomendasByClienteId(id);
-    }
 }

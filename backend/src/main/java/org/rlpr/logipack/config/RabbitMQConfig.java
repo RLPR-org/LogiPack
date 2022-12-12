@@ -18,6 +18,9 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.queues.transportadores}")
     private String queueTransportadores;
 
+    @Value("${rabbitmq.queues.clientes}")
+    private String queueClientes;
+
     @Value("${rabbitmq.exchange}")
     private String exchange;
 
@@ -26,6 +29,9 @@ public class RabbitMQConfig {
 
     @Value("${rabbitmq.routing.keys.transportadores}")
     private String routingKeyTransportadores;
+
+    @Value("${rabbitmq.routing.keys.clientes}")
+    private String routingKeyClientes;
 
 
 
@@ -39,6 +45,11 @@ public class RabbitMQConfig {
     @Bean
     public Queue queueTransportadores(){
         return new Queue(queueTransportadores, false);
+    }
+
+    @Bean
+    public Queue queueClientes(){
+        return new Queue(queueClientes, false);
     }
 
     @Bean
@@ -59,11 +70,19 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding jsonBinding(){
+    public Binding bindingTransportadores(){
         return BindingBuilder
             .bind(queueTransportadores())
             .to(exchange())
             .with(routingKeyTransportadores);
+    }
+
+    @Bean
+    public Binding bindingClientes(){
+        return BindingBuilder
+            .bind(queueClientes())
+            .to(exchange())
+            .with(routingKeyClientes);
     }
 
 }

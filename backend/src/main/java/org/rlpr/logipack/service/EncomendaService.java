@@ -2,9 +2,15 @@ package org.rlpr.logipack.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mongodb.client.MongoClient;
+
 import org.rlpr.logipack.model.*;
+import org.rlpr.logipack.model.Mongo.ClienteMongo;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.repository.*;
+import org.rlpr.logipack.repository.Mongo.ClienteMongoRepository;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import java.util.List;
 
@@ -20,6 +26,9 @@ public class EncomendaService {
 
     @Autowired
     private EncomendaMongoRepository encomendaMongoRepository;
+
+    @Autowired
+    private ClienteMongoRepository clienteMongoRepo;
 
 
     public Encomenda getEncomendaById(int id) {
@@ -47,7 +56,10 @@ public class EncomendaService {
     }
 
     public List<Encomenda> getEncomendasByClienteId(int id) {
-        // TODO mudar para ter o historico
-        return clienteRepository.findById(id).getEncomendas();
+        return encomendaRepository.findByDestinatarioId(id);
+    }
+
+    public List<NotificacaoCliente> getNotificacoesByCliente(int id) {
+        return clienteMongoRepo.findByCliente(id).getNotifications();
     }
 }
