@@ -16,27 +16,36 @@ public class AuthService {
     @Autowired
     private AdministradorRepository administradorRepository;
 
-    public Boolean clienteCheckLogin(Login login) {
+    public int clienteCheckLogin(Login login) {
         Cliente cliente = clienteRepository.findByEmail(login.getEmail());
         if (cliente == null) {
-            return false;
+            return -1;
         }
-        return login.checkLogin(cliente.getPassword_hash());
+        if (login.checkLogin(cliente.getPassword_hash())){
+            return cliente.getId();
+        }
+        return -1;
     }
 
-    public Boolean transportadorCheckLogin(Login login) {
+    public int transportadorCheckLogin(Login login) {
         Transportador transportador = transportadorRepository.findByEmail(login.getEmail());
         if (transportador == null) {
-            return false;
+            return -1;
         }
-        return login.checkLogin(transportador.getPassword_hash());
+        if (login.checkLogin(transportador.getPassword_hash())) {
+            return transportador.getId();
+        }
+        return -1;
     }
 
-    public Boolean administradorCheckLogin(Login login) {
+    public int administradorCheckLogin(Login login) {
         Administrador administrador = administradorRepository.findByEmail(login.getEmail());
         if (administrador == null) {
-            return false;
+            return -1;
         }
-        return login.checkLogin(administrador.getPassword_hash());
+        if (login.checkLogin(administrador.getPassword_hash())) {
+            return administrador.getId();
+        }
+        return -1;
     }
 }

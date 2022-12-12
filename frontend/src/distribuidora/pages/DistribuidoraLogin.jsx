@@ -12,8 +12,24 @@ function DistribuidoraLogin() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        console.log('email: ', document.getElementById('email').value);
-        console.log('password: ', document.getElementById('password').value);
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        if(email === '' || password === '') {
+            document.getElementById('error').innerHTML = 'Preencha todos os campos';
+            return;
+        }
+
+        // call api
+        // returns id, if not found returns -1
+        let id = 0;
+
+        if (id === -1) {
+            document.getElementById('error').innerHTML = 'Email ou senha incorretos';
+            return;
+        }
+        sessionStorage.setItem('user', 'distribuidora');
+        sessionStorage.setItem('id', id);
         navigate('/distribuidora');
     }
 
@@ -31,9 +47,24 @@ function DistribuidoraLogin() {
                         width: '100%'
                         }}>
                         <h1>Login</h1>
-                        <TextField id="email" label="Email" variant="outlined" style={{marginBottom: '30px', width: '100%'}} />
-                        <TextField id="password" label="Senha" variant="outlined" style={{marginBottom: '30px', width: '100%'}} />
+                        <TextField 
+                            required 
+                            id="email"
+                            type='email' 
+                            label="Email" 
+                            variant="outlined" 
+                            style={{marginBottom: '30px', width: '100%'}} 
+                        />
+                        <TextField 
+                            required 
+                            id="password" 
+                            type='password' 
+                            label="Senha" 
+                            variant="outlined" 
+                            style={{marginBottom: '30px', width: '100%'}} 
+                        />
                         <Button variant="contained" color="primary" style={{width: '200px', height: '50px'}} onClick={handleLogin}>Entrar</Button>
+                        <p style={{color: 'red', marginTop: '20px'}} id='error'></p>
                     </Grid>
                 </Grid>
             </Container>
