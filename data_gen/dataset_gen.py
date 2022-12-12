@@ -75,6 +75,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
     for i in range(1, 4):
         name = f"{random.choice(fnames).strip()} {random.choice(lnames).strip()}"
         cliente = {
+            "type": "insert",
             "id": i,
             "email": name.replace(" ", "").lower() + "@ua.pt",
             "password_hash": sha256(fake.password().encode('utf-8')).hexdigest(),
