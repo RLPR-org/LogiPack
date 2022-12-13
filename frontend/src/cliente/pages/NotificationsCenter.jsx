@@ -18,8 +18,7 @@ function NotificationsCenter() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [notifications, setNotifications] = useState([])
 
-    function clearNotificationCenter(e) {
-        e.preventDefault();
+    function clearNotificationCenter() {
         const url = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + clientId + "/notificacoes";
         axios.delete(url);
         setNotifications([]);
