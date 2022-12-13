@@ -6,12 +6,19 @@ import TableContainer from '@mui/material/TableContainer';
 import Chip from '@mui/material/Chip';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { FormControl , FormLabel , FormHelperText,RadioGroup,FormControlLabel,Radio ,Button} from '@mui/material';
+import axios from 'axios';
+
+
 
 function CarrierDetails(props) {
 
     const carrierInfo = props.carrierInfo;
     const carrierDetails = props.carrierDetails;
     var componentID = 0;
+
+    var estados = ["INATIVO","EM_TRANSITO","PARADO","EM_PAUSA"];
+
 
     const status = {
         "INATIVO": <Chip label="Inativo" color="success" size="small" style={{backgroundColor: "#ABABAB", color: "white"}}/>,
@@ -27,11 +34,50 @@ function CarrierDetails(props) {
         'EM_PAUSA': "Em pausa"
     }
 
+
+
+    const [value, setValue] = React.useState('');
+    const [error, setError] = React.useState(false);
+    const [helperText, setHelperText] = React.useState('Escolha uma Opção');
+
+
+
+
+    const handleRadioChange = (event) => {
+        setValue(event.target.value);
+        setHelperText(' ');
+        setError(false);
+      };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (value === '') {
+            setHelperText('Selectione uma opção.');
+            setError(true);
+        } else {
+            var str = 'estado='+value
+            const response = await axios.put('http://localhost:8080/estados/transportadores/'+ carrierInfo.id, str);
+            console.log(response);
+            window.location.reload();
+        } 
+        
+      };
+
+
+
+    const index = estados.indexOf(carrierInfo.estado);
+      if (index > -1) { // only splice array when item is found
+          estados.splice(index, 1); // 2nd parameter means remove one item only
+      }
+
+
   return (
     <>
         {/* ---------------------- Carrier info table ---------------------- */}
 
         <div>
+
             <h2>As suas informações</h2>
 
             <TableContainer component={Paper}>
@@ -122,8 +168,11 @@ function CarrierDetails(props) {
             </div>
         }
 
+        <div style={{marginTop: "80px"}}>
+        <h2>Estado Atual {status[carrierInfo.estado]}</h2>
+            {MudarEstado()}
 
-
+        </div>
         {/* ---------------------- Carrier event history ---------------------- */}
 
         <div style={{marginTop: "80px"}}>
@@ -148,6 +197,31 @@ function CarrierDetails(props) {
 
     </>
   );
+
+
+  function MudarEstado() {
+    return <form onSubmit={handleSubmit}>
+        <FormControl error={error} variant="standard">
+            <RadioGroup
+                aria-labelledby="demo-error-radios"
+                name="quiz"
+                value={value}
+                onChange={handleRadioChange}
+            >
+
+                {estados.map((estado) => (
+                    <FormControlLabel key={estado} value={estado} control={<Radio />} label={estado} />
+                ))}
+
+            </RadioGroup>
+            <FormHelperText>{helperText}</FormHelperText>
+            <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+                Atualizar
+            </Button>
+        </FormControl>
+    </form>;
+    }
+
 }
 
 export { CarrierDetails };

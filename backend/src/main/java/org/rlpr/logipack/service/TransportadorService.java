@@ -3,9 +3,16 @@ package org.rlpr.logipack.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.rlpr.logipack.model.*;
-import org.rlpr.logipack.model.Mongo.TransportadorMongo;
+import org.rlpr.logipack.model.Mongo.*;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
+
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import java.util.List;
 
@@ -36,6 +43,28 @@ public class TransportadorService {
     }
 
     public Transportador updateEstado(TransportadorEstado estado, int id) {
-        return transportadorRepository.updateEstado(estado, id);
+        Transportador transportador = transportadorRepository.findById(id);
+        transportador.setEstado(estado);
+        transportadorRepository.save(transportador);
+
+        TransportadorEstadoMongo transportadorEstado = new TransportadorEstadoMongo();
+        transportadorEstado.setEstado(estado.toString());
+        transportadorEstado.setTimestamp(getDate());
+
+        TransportadorMongo transportadorMongo = transportadorMongoRepository.findByTransportador(id);
+        transportadorMongo.getHistory().add(transportadorEstado);
+        transportadorMongoRepository.save(transportadorMongo);
+
+
+        return transportador;
+    }
+
+
+
+    public String getDate() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date currentDate = Calendar.getInstance().getTime();        
+        String currentDateStr = df.format(currentDate);
+        return currentDateStr;
     }
 }
