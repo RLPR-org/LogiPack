@@ -25,6 +25,8 @@ registos = []
 while True:
     if not registos:
         registos = registos_src.copy()
+        print("Starting queue [~10 seconds]...", flush=True)
+        time.sleep(10)
     registo = registos.pop(0)
     prox_registo = registos[0]
     channel.basic_publish(exchange='LogiPack', routing_key="queue_logipack", body=json.dumps(registo))
@@ -33,7 +35,7 @@ while True:
     elif registo["entity"] == "encomenda":
         print(" [x] (Encomenda) Sent %r" % registo, flush=True)
         if prox_registo["entity"] == "transportador":
-            time.sleep(10)
+            time.sleep(60)
             continue
         time.sleep(1)
     else:
