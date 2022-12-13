@@ -7,5 +7,7 @@ import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 public interface EncomendaMongoRepository extends MongoRepository<EncomendaMongo, String> {
     
     EncomendaMongo findByEncomenda(int encomenda);
+    boolean existsByEncomenda(int encomenda);
+    void deleteByEncomenda(int encomenda);
 
 }

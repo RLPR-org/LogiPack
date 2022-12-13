@@ -38,8 +38,8 @@ public class EncomendaController {
     }
 
     @PutMapping("cliente/{id}/confirmar/{packageId}")
-    public Encomenda updateConfirmacao(@PathVariable int packageId) {
-        return encomendaService.updateConfirmacao(packageId);
+    public void confirmacaoEncomenda(@PathVariable int packageId) {
+        encomendaService.confirmarEncomenda(packageId);
     }
 
     @GetMapping("/cliente/{id}/encomendas")

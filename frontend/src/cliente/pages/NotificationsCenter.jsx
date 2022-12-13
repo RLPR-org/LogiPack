@@ -18,8 +18,7 @@ function NotificationsCenter() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [notifications, setNotifications] = useState([])
 
-    function clearNotificationCenter(e) {
-        e.preventDefault();
+    const clearNotificationCenter = () => {
         const url = "http://localhost:8080/cliente/" + clientId + "/notificacoes";
         axios.delete(url);
         setNotifications([]);
@@ -76,7 +75,7 @@ function NotificationsCenter() {
                     {notifications.length > 0 ? (
                         <>
                             <div style={{"marginBottom": "20px", "textAlign": "end"}}>
-                                <form id='deleteForm' onSubmit={clearNotificationCenter}>
+                                <form id='deleteForm' onSubmit={ () => {clearNotificationCenter()}}>
                                     <Button style={{"backgroundColor": "#d52323", "textTransform": "unset"}} type="submit"variant="contained" endIcon={<DeleteIcon />}>Limpar central de notificações</Button>
                                 </form>
                             </div>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.rlpr.logipack.model.*;
+import org.rlpr.logipack.model.Mongo.EncomendaEstadoMongo;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.repository.*;
@@ -46,8 +47,19 @@ public class EncomendaService {
         return encomendaRepository.updateEstado(estado, id);
     }
 
-    public Encomenda updateConfirmacao(int id) {
-        return encomendaRepository.updateConfirmacao(id);
+    public void confirmarEncomenda(int id) {
+
+        //update in rel db
+        Encomenda encomenda = encomendaRepository.findById(id);
+        encomenda.setEstado(EncomendaEstado.CONFIRMADA);
+        encomendaRepository.save(encomenda);
+
+        //update in mongo
+        EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(id);
+        //EncomendaEstadoMongo newState = new EncomendaEstadoMongo(null, null, false)
+
+
+
     }
 
     public List<Encomenda> getEncomendasByClienteId(int id) {
