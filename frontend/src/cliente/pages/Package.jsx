@@ -1,31 +1,82 @@
 import '../../App.css';
 
+import React, { useEffect, useState } from 'react';
+
 import Container from '@mui/material/Container';
 import { useParams } from "react-router-dom";
-
-import { ClienteBox } from '../components/ClienteBox';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import axios from 'axios';
 import { PackageDetails } from '../components/PackageDetails';
+import { ClienteBox } from '../components/ClienteBox';
 
 
 function Package() {
-    let packageId = useParams().id;
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [packageInfo, setPackageInfo] = useState(null)
+    const [packageDetails, setPackageDetails] = useState(null)
 
-    //make an API call with the packageId and pass to component
-    const packageData = null
+    let clientId = useParams().id;
+    let packageId = useParams().package;
 
-    return (
-        <>
-            <ClienteBox>
-                <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
-                <hr style={{height: "1px"}}/>
+    //API CALLs
+    function fetchData() {
+        const infoURL = "http://localhost:8080/encomendas/" + packageId;
+        const detailsURL = "http://localhost:8080/encomendas/" + packageId + "/details";
 
-                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                    <PackageDetails packageId={packageId} packageData={packageData}></PackageDetails>
-                </Container> 
+        const getInfo = axios.get(infoURL);
+        const getDetails = axios.get(detailsURL);
 
-            </ClienteBox>
-        </>
-    )
+        axios.all([getInfo, getDetails]).then(
+            axios.spread(
+                (...allData) => {
+                    setPackageInfo(allData[0].data);
+                    setPackageDetails(allData[1].data);
+                    setIsLoaded(true);
+                }
+            )
+        )
+
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    if (!isLoaded) {
+        return (
+            <>
+                <ClienteBox clientId={clientId}>
+
+                    <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
+                    <hr style={{height: "1px"}}/>
+
+                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                        <Box sx={{ display: 'flex' }}>
+                                <CircularProgress />
+                        </Box>
+                    </Container>
+
+                </ClienteBox>
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <ClienteBox clientId={clientId}>
+                    <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
+                    <hr style={{height: "1px"}}/>
+
+                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                        <PackageDetails packageInfo={packageInfo} packageDetails={packageDetails}></PackageDetails>
+                    </Container> 
+
+                </ClienteBox>
+            </>
+        )
+    }
 }
 
 export default Package;

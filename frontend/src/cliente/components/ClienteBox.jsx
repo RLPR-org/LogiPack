@@ -20,10 +20,10 @@ import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DeleteIcon from '@mui/icons-material/Delete';
+import PersonIcon from '@mui/icons-material/Person';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const drawerWidth = 250;
 
@@ -140,7 +140,17 @@ function ClienteBox(props) {
 
 
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/cliente')}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/cliente/' + props.clientId)}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                      <DashboardIcon></DashboardIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Dashboard'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/cliente/' + props.clientId + '/encomendas')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
                         <Inventory2Icon></Inventory2Icon>
@@ -148,8 +158,25 @@ function ClienteBox(props) {
                     <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        </List>
 
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/cliente/' + props.clientId + '/notificacoes')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <NotificationsActiveIcon></NotificationsActiveIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Notificações'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/cliente/' + props.clientId + '/confirmar')}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <CheckBoxIcon></CheckBoxIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Confirmar encomenda'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
+        </List>
         {/* ------------------------------------------- end nav-links -------------------------------------------- */}
 
         
