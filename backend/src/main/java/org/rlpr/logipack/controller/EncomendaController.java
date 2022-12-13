@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.rlpr.logipack.model.*;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
+import org.rlpr.logipack.service.ClienteService;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public class EncomendaController {
     
     @Autowired
     private EncomendaService encomendaService;
+
+    @Autowired
+    private ClienteService clienteService;
+
     
     @GetMapping("/encomendas")
     public List<Encomenda> getAllEncomendas() {
@@ -45,10 +50,13 @@ public class EncomendaController {
 
     @GetMapping("/cliente/{id}/notificacoes")
     public List<NotificacaoCliente> getNotificacoesByClienteId(@PathVariable int id) {
-        return encomendaService.getNotificacoesByCliente(id);
+        return clienteService.getNotificacoesByCliente(id);
     }
 
-
+    @DeleteMapping("/cliente/{id}/notificacoes")
+    public void deleteNotificacoesByClienteId(@PathVariable int id) {
+        clienteService.deleteNotificacoesByCliente(id);
+    }
 
 
     @PutMapping("estados/encomendas/{id}")
