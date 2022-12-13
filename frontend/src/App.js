@@ -26,9 +26,6 @@ import CarrierPath from './transportador/pages/PathInfo';
 
 
 function App() {
-  
-  sessionStorage.setItem('user', null);
-  sessionStorage.setItem('id', -1);
 
   return (
     <>

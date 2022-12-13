@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +50,7 @@ function Dashboard() {
     if (!isLoaded) {
         return (
             <>
-                {/* <CheckLogin user="cliente"></CheckLogin> */}
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
     
                     <h1 style={{margin: "0"}}>Dashboard</h1>
@@ -68,7 +69,7 @@ function Dashboard() {
 
     return (
         <>
-            {/* <CheckLogin user="cliente"></CheckLogin> */}
+            <CheckLogin user="cliente"/>
             <ClienteBox clientId={clientId}>
 
                 <h1 style={{margin: "0"}}>Dashboard</h1>

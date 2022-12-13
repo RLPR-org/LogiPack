@@ -22,7 +22,7 @@ function ClienteLogin() {
 
         // call api
         // returns id, if not found returns -1
-        let id = 0;
+        let id = 1;
 
         if (id === -1) {
             document.getElementById('error').innerHTML = 'Email ou senha incorretos';
