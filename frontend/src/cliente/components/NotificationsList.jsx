@@ -8,9 +8,11 @@ function NotificationsList(props) {
 
     return (
         <>
-            {notifications.map((notification) => (
-                <Notification key={componentId++} notification={notification}/>
-            ))}
+            <div id={"notifications"}>
+                {notifications.map((notification) => (
+                    <Notification key={componentId++} notification={notification}/>
+                ))}
+            </div>
         </>
     );
 }
