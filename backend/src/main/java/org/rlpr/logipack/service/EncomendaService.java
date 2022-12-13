@@ -3,10 +3,7 @@ package org.rlpr.logipack.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.client.MongoClient;
-
 import org.rlpr.logipack.model.*;
-import org.rlpr.logipack.model.Mongo.ClienteMongo;
 import org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.repository.*;
@@ -21,8 +18,6 @@ public class EncomendaService {
     @Autowired
     private EncomendaRepository encomendaRepository;
 
-    @Autowired
-    private ClienteRepository clienteRepository;
 
     @Autowired
     private EncomendaMongoRepository encomendaMongoRepository;
