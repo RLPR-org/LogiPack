@@ -32,7 +32,7 @@ public class TransportadorController {
     }
 
     @PutMapping("estados/transportadores/{id}")
-    public Transportador updateEstado(@PathVariable int id, @RequestBody TransportadorEstado estado) {
+    public Transportador updateEstado(@PathVariable int id, @RequestParam TransportadorEstado estado) {
         return transportadorService.updateEstado(estado, id);
     }
 }

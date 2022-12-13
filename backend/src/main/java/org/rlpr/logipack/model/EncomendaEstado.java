@@ -5,4 +5,5 @@ public enum EncomendaEstado {
     EM_TRANSITO,
     ENTREGUE,
     EM_DISTRIBUICAO,
+    CONFIRMADA
 }

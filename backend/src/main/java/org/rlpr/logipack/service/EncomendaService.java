@@ -64,8 +64,20 @@ public class EncomendaService {
         return encomenda;
     }
 
-    public Encomenda updateConfirmacao(int id) {
-        return encomendaRepository.updateConfirmacao(id);
+    public void confirmarEncomenda(int id) {
+
+        //update in rel db
+        Encomenda encomenda = encomendaRepository.findById(id);
+        encomenda.setEstado(EncomendaEstado.CONFIRMADA);
+        encomenda.setConfirmacao(true);
+        encomendaRepository.save(encomenda);
+
+        //update in mongo
+        EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(id);
+        EncomendaEstadoMongo newState = new EncomendaEstadoMongo("CONFIRMADA", getDate(), true);
+        encomendaMongo.getHistory().add(newState);
+        encomendaMongoRepository.save(encomendaMongo);
+
     }
 
     public List<Encomenda> getEncomendasByClienteId(int id) {
