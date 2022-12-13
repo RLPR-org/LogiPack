@@ -60,7 +60,7 @@ public class EncomendaController {
 
 
     @PutMapping("estados/encomendas/{id}")
-    public Encomenda updateEstado(@PathVariable int id, @RequestBody EncomendaEstado estado) {
+    public Encomenda updateEstado(@PathVariable int id, @RequestParam EncomendaEstado estado) {
         return encomendaService.updateEstado(estado, id);
     }
 
