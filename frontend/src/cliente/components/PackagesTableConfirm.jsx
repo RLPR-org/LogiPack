@@ -8,7 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
-import InfoIcon from '@mui/icons-material/Info';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import Button from '@mui/material/Button';
+import axios from 'axios';
+
 
 
 const status = {
@@ -20,9 +23,15 @@ const status = {
 }
 
 
-function PackagesTable(props) {
+function PackagesTableConfirm(props) {
   const navigate = useNavigate();
   const packages = props.packages
+
+  const confirm = (packageId) => {
+    const url = "http://localhost:8080/cliente/" + props.clientId + "/confirmar/" + packageId;
+    axios.put(url);
+    console.log("Boas");
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -33,8 +42,7 @@ function PackagesTable(props) {
             <TableCell style={{fontWeight: "bold"}}>Estado</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Destino</TableCell>
             <TableCell style={{fontWeight: "bold"}}>Transportador</TableCell>
-            <TableCell align="right" style={{fontWeight: "bold"}}>Última atualização</TableCell>
-            <TableCell align="right" style={{fontWeight: "bold"}}>Info.</TableCell>
+            <TableCell align="right" style={{fontWeight: "bold"}}>Confirmar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -44,9 +52,10 @@ function PackagesTable(props) {
               <TableCell>{status[row.estado]}</TableCell>
               <TableCell>{row.localizacao.distrito}</TableCell>
               <TableCell>{row.transportador}</TableCell>
-              <TableCell align="right" style={{color: "gray"}}>{row.timestamp}</TableCell>
               <TableCell align="right">
-                <InfoIcon className='info-btn' onClick={()=> navigate("/cliente/" + row.destinatarioId + "/encomendas/" + row.id)} />
+                <form id='confirm' onSubmit={()=>{confirm(row.id)}}>
+                    <Button style={{"backgroundColor": "green", "textTransform": "unset"}} type="submit"variant="contained" endIcon={<CheckCircleIcon />}>Confirmar receção</Button>
+                </form>
               </TableCell>
             </TableRow>
           ))}
@@ -56,4 +65,4 @@ function PackagesTable(props) {
   );
 }
 
-export { PackagesTable };
+export { PackagesTableConfirm };
