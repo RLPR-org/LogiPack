@@ -16,6 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -138,7 +139,7 @@ function DistribuidoraBox(props) {
 
         {/* -------------------------------------------- nav-links -------------------------------------------- */}
 
-        <List>
+        <List style={{height: '100%'}}>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/distribuidora')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -147,9 +148,7 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Dashboard'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        </List>
-
-        <List>
+      
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/distribuidora/transportadores')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -158,9 +157,7 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Transportadores'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        </List>
-
-        <List>
+     
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/distribuidora/encomendas')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -169,9 +166,7 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        </List>
-
-        <List>
+        
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -180,9 +175,7 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Registar veículo'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        </List>
-
-        <List>
+        
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -191,7 +184,18 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Remover veículo'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/')} style={{position: 'absolute', bottom: 0}}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <LogoutIcon></LogoutIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Logout'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
         </List>
+
+        
 
         {/* ------------------------------------------- end nav-links -------------------------------------------- */}
 

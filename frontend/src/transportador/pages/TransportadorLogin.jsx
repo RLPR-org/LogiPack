@@ -21,7 +21,7 @@ function TransportadorLogin() {
             return;
         }
 
-        const url = 'http://localhost:8080/clientes/login';
+        const url = 'http://localhost:8080/transportador/login';
         const data = {
             'email': email,
             'password': password
