@@ -23,7 +23,8 @@ function NotificationsCenter() {
 
         axios.get(packagesURL).then(
             (response) => {
-                setNotifications(response.data);
+                const notificationsAux = response.data;
+                setNotifications(notificationsAux.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1));
                 setIsLoaded(true);
             }
         )
