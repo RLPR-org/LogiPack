@@ -20,14 +20,14 @@ function NotificationsCenter() {
 
     function clearNotificationCenter(e) {
         e.preventDefault();
-        const url = "http://localhost:8080/cliente/" + clientId + "/notificacoes";
+        const url = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + clientId + "/notificacoes";
         axios.delete(url);
         setNotifications([]);
     }
 
     //API call
     function fetchData() {
-        const packagesURL = "http://localhost:8080/cliente/" + clientId + "/notificacoes";
+        const packagesURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + clientId + "/notificacoes";
 
         axios.get(packagesURL).then(
             (response) => {

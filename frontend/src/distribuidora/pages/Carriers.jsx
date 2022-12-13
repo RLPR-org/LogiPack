@@ -16,7 +16,7 @@ function Carriers() {
 
     //API call
     function fetchData() {
-        const carriersURL = "http://localhost:8080/transportadores";
+        const carriersURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/transportadores";
 
         axios.get(carriersURL).then(
             (response) => {

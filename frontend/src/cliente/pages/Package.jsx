@@ -21,8 +21,8 @@ function Package() {
 
     //API CALLs
     function fetchData() {
-        const infoURL = "http://localhost:8080/encomendas/" + packageId;
-        const detailsURL = "http://localhost:8080/encomendas/" + packageId + "/details";
+        const infoURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/encomendas/" + packageId;
+        const detailsURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/encomendas/" + packageId + "/details";
 
         const getInfo = axios.get(infoURL);
         const getDetails = axios.get(detailsURL);
