@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import NotificationsList from '../components/NotificationsList';
+import { PackagesTable } from '../../transportador/components/PackagesTable';
 
 
 function Dashboard() {
@@ -68,7 +69,7 @@ function Dashboard() {
     return (
         <>
             {/* <CheckLogin user="cliente"></CheckLogin> */}
-            <ClienteBox>
+            <ClienteBox clientId={clientId}>
 
                 <h1 style={{margin: "0"}}>Dashboard</h1>
                 <hr style={{height: "1px"}}/>
@@ -79,6 +80,16 @@ function Dashboard() {
                     <NotificationsList notifications={notifications}></NotificationsList>
                     <div style={{"textAlign": "center", "paddingTop": "10px"}}>
                         <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/notificacoes")}>Ver mais notificações</span>
+                    </div>
+                </Container>
+
+
+                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                    <h3>Encomendas atualizadas recentemente</h3>
+                    <PackagesTable packages={packages}></PackagesTable>
+
+                    <div style={{"textAlign": "center", "paddingTop": "15px"}}>
+                        <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/encomendas")}>Ver todas as encomendas</span>
                     </div>
                 </Container>
 

@@ -8,6 +8,9 @@ import DistribuidoraLogin from './distribuidora/pages/DistribuidoraLogin';
 import TransportadorLogin from './transportador/pages/TransportadorLogin';
 
 import ClientePage from './cliente/pages/Dashboard';
+import ClientePackages from './cliente/pages/Packages';
+import ClientePackage from './cliente/pages/Package';
+import ClienteNotificationCenter from './cliente/pages/NotificationsCenter';
 
 import DistribuidoraPage from './distribuidora/pages/Dashboard.jsx';
 import Carrier from './distribuidora/pages/Carrier.jsx';
@@ -38,6 +41,9 @@ function App() {
           <Route path="/transportador/login" element={<TransportadorLogin />} />
 
           <Route path="/cliente/:id" element={<ClientePage />} />
+          <Route path="/cliente/:id/notificacoes" element={<ClienteNotificationCenter />} />
+          <Route path="/cliente/:id/encomendas" element={<ClientePackages />} />
+          <Route path="/cliente/:id/encomendas/:package" element={<ClientePackage />} />
 
           <Route path="/distribuidora" element={<DistribuidoraPage />} />
           <Route path="/distribuidora/transportadores" element={<Carriers />} />
