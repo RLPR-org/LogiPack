@@ -21,7 +21,7 @@ function DistribuidoraLogin() {
             return;
         }
 
-        const url = 'http://localhost:8080/administrador/login';
+        const url = "http://" + process.env.REACT_APP_API_HOST + ':8080/administrador/login';
         const data = {
             'email': email,
             'password': password

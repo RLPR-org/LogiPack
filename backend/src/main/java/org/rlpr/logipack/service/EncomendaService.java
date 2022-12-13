@@ -10,6 +10,11 @@ import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.ClienteMongoRepository;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -44,7 +49,19 @@ public class EncomendaService {
     }
 
     public Encomenda updateEstado(EncomendaEstado estado, int id) {
-        return encomendaRepository.updateEstado(estado, id);
+        Encomenda encomenda = encomendaRepository.findById(id);
+        encomenda.setEstado(estado);
+        encomendaRepository.save(encomenda);
+
+        EncomendaEstadoMongo newState = new EncomendaEstadoMongo();
+        newState.setEstado(estado.toString());
+        newState.setTimestamp(getDate());
+        
+        EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(id);
+        encomendaMongo.getHistory().add(newState);
+        encomendaMongoRepository.save(encomendaMongo);
+        
+        return encomenda;
     }
 
     public void confirmarEncomenda(int id) {
@@ -68,5 +85,12 @@ public class EncomendaService {
 
     public List<NotificacaoCliente> getNotificacoesByCliente(int id) {
         return clienteMongoRepo.findByCliente(id).getNotifications();
+    }
+
+    public String getDate() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date currentDate = Calendar.getInstance().getTime();        
+        String currentDateStr = df.format(currentDate);
+        return currentDateStr;
     }
 }

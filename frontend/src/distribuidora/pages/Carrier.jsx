@@ -19,8 +19,8 @@ function Carrier() {
     const [carrierDetails, setCarrierDetails] = useState(null)
 
     function fetchData() {
-        const infoURL = "http://localhost:8080/transportadores/" + carrierId;
-        const detailsURL = "http://localhost:8080/transportadores/" + carrierId + "/details";
+        const infoURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/transportadores/" + carrierId;
+        const detailsURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/transportadores/" + carrierId + "/details";
 
         const getInfo = axios.get(infoURL);
         const getDetails = axios.get(detailsURL);

@@ -21,8 +21,8 @@ function Dashboard() {
 
     //API call
     function fetchData() {
-        const notificationsURL = "http://localhost:8080/cliente/" + clientId + "/notificacoes";
-        const packagesURL = "http://localhost:8080/cliente/" + clientId + "/encomendas";
+        const notificationsURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + clientId + "/notificacoes";
+        const packagesURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + clientId + "/encomendas";
 
         const getNotifications = axios.get(notificationsURL);
         const getPackages = axios.get(packagesURL);

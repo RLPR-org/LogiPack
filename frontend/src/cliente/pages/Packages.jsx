@@ -18,7 +18,7 @@ function Packages() {
 
     //API call
     function fetchData() {
-        const packagesURL = "http://localhost:8080/cliente/" +  clientId + "/encomendas";
+        const packagesURL = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" +  clientId + "/encomendas";
 
         axios.get(packagesURL).then(
             (response) => {

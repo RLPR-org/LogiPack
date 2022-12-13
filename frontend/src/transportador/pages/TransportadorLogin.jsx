@@ -21,7 +21,7 @@ function TransportadorLogin() {
             return;
         }
 
-        const url = 'http://localhost:8080/transportador/login';
+        const url = "http://" + process.env.REACT_APP_API_HOST + ':8080/transportador/login';
         const data = {
             'email': email,
             'password': password
