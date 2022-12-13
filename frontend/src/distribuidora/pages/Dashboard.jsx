@@ -1,5 +1,7 @@
 import '../../App.css';
 
+import { CheckLogin } from '../../CheckLogin';
+
 import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -54,6 +56,7 @@ function Dashboard() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="distribuidora" />
                 <DistribuidoraBox>
 
                     <h1 style={{margin: "0"}}>Dashboard</h1>
@@ -73,6 +76,7 @@ function Dashboard() {
     else {
         return (
             <>
+                <CheckLogin user="distribuidora" />
                 <DistribuidoraBox>
 
                     <h1 style={{margin: "0"}}>Dashboard</h1>

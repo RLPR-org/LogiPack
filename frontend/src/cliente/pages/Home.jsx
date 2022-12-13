@@ -12,7 +12,7 @@ function Home() {
 
     return (
         <>
-            <CheckLogin user="cliente"></CheckLogin>
+            <CheckLogin user="cliente" />
 
             <ClienteBox>
                 <h1 style={{margin: "0"}}>Encomendas</h1>

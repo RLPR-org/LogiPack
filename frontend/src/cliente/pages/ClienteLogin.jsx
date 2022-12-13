@@ -29,8 +29,8 @@ function ClienteLogin() {
             return;
         }
         sessionStorage.setItem('user', 'cliente');
-        sessionStorage.setItem('id', id);
-        navigate('/cliente/' + id); 
+        sessionStorage.setItem('id', id);        
+        navigate('/cliente/' + id);
     }
 
     return (
