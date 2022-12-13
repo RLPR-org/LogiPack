@@ -32,17 +32,14 @@ spring:
 # Rabbitmq env variables
 rabbitmq:
   queues:
-    encomendas: queue_encomendas
-    transportadores: queue_transportadores
-    clientes: queue_clientes
+    logipack: queue_logipack
 
   exchange: logipack_exchange
 
   routing:
     keys:
-      encomendas: routing_key_encomendas
-      transportadores: routing_key_transportadores
-      clientes: routing_key_clientes
+      logipack: routing_key_logipack
+
 
 
 logging:
