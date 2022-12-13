@@ -16,6 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -137,7 +138,7 @@ function TransportadorBox(props) {
 
         {/* -------------------------------------------- nav-links -------------------------------------------- */}
 
-        <List>
+        <List style={{height: '100%'}}>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={() => navigate('/transportador/' + props.carrierId)}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
@@ -175,7 +176,14 @@ function TransportadorBox(props) {
                 </ListItemButton>
             </ListItem>
 
-
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/')} style={{position: 'absolute', bottom: 0}}>
+                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                        <LogoutIcon></LogoutIcon>
+                    </ListItemIcon>
+                    <ListItemText primary={'Logout'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+            </ListItem>
 
         </List>
 

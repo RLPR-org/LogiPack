@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import NotificationsList from '../components/NotificationsList';
-import { PackagesTable } from '../../transportador/components/PackagesTable';
+import { PackagesTable } from '../components/PackagesTable';
 
 
 function Dashboard() {

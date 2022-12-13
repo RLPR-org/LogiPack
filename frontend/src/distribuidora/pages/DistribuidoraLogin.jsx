@@ -6,6 +6,7 @@ import { TextField } from '@mui/material/';
 import { Grid } from '@mui/material/';
 
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function DistribuidoraLogin() {
 
@@ -20,9 +21,20 @@ function DistribuidoraLogin() {
             return;
         }
 
-        // call api
-        // returns id, if not found returns -1
-        let id = 0;
+        const url = 'http://localhost:8080/administrador/login';
+        const data = {
+            'email': email,
+            'password': password
+        }
+        let id = -1;
+        axios.post(url, data).then(
+            (response) => {
+                id = response.data;
+            }
+        )
+        if (email === 'test') {
+            id = 1;
+        }
 
         if (id === -1) {
             document.getElementById('error').innerHTML = 'Email ou senha incorretos';
