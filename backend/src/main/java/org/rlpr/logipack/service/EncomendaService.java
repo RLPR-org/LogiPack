@@ -69,13 +69,14 @@ public class EncomendaService {
         //update in rel db
         Encomenda encomenda = encomendaRepository.findById(id);
         encomenda.setEstado(EncomendaEstado.CONFIRMADA);
+        encomenda.setConfirmacao(true);
         encomendaRepository.save(encomenda);
 
         //update in mongo
         EncomendaMongo encomendaMongo = encomendaMongoRepository.findByEncomenda(id);
-        //EncomendaEstadoMongo newState = new EncomendaEstadoMongo(null, null, false)
-
-
+        EncomendaEstadoMongo newState = new EncomendaEstadoMongo("CONFIRMADA", getDate(), true);
+        encomendaMongo.getHistory().add(newState);
+        encomendaMongoRepository.save(encomendaMongo);
 
     }
 
