@@ -14,5 +14,6 @@ echo "Booting up backend containers"
 docker compose up -d
 
 # FRONTEND (LOCALHOST SEM DOCKER)
+cd ../frontend
 echo "REACT_APP_API_HOST = 'localhost'" > .env
 npm start
