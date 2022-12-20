@@ -22,7 +22,7 @@ function ClienteLogin() {
             return;
         }
     
-        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/clientes/login';
+        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/cliente/login';
         const data = {
             'email': email,
             'password': password
