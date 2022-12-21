@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.rlpr.logipack.mobile_app">
+    <!-- Required to fetch data from the internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="mobile_app"
-        android:name="${applicationName}"
+        android:name="${LogiPack}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
