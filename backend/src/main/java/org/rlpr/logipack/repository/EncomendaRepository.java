@@ -14,6 +14,11 @@ public interface EncomendaRepository extends JpaRepository<Encomenda, Integer> {
 
     List<Encomenda> findAll();
 
+
+//    @Query(value = "SELECT * FROM tbl_encomenda", nativeQuery = true)
+
+    List<Encomenda> findByEstado(EncomendaEstado estado);
+
     List<Encomenda> findByDestinatarioId(int destinatarioId);
 
     // update encomenda set estado = ? where id = ?
