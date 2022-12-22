@@ -109,7 +109,8 @@ class EncomendasPage extends StatelessWidget {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const EncomendaDetailsPage()));
+                                              EncomendaDetailsPage(
+                                                  encomendaid: encomenda.id)));
                                 },
                               ),
                             )
