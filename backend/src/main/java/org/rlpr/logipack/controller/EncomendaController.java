@@ -32,6 +32,21 @@ public class EncomendaController {
     public Encomenda getEncomendaById(@PathVariable int id) {
         return encomendaService.getEncomendaById(id);
     }
+    
+    @GetMapping("/encomendas/ano")
+    public List<Integer> getHistoricoAnual() {
+        return encomendaService.getHistoricoAnual();
+    }
+    
+    @GetMapping("/encomendas/mes")
+    public List<Integer> getHistoricoMensal() {
+        return encomendaService.getHistoricoMensal();
+    }
+
+    @GetMapping("/encomendas/semana")
+    public List<Integer> getHistoricoSemanal() {
+        return encomendaService.getHistoricoSemanal();
+    }
 
     @GetMapping("/encomendas/{id}/details")
     public EncomendaMongo getEncomendaDetailsById(@PathVariable int id) {
@@ -58,7 +73,6 @@ public class EncomendaController {
     public void deleteNotificacoesByClienteId(@PathVariable int id) {
         clienteService.deleteNotificacoesByCliente(id);
     }
-
 
     @PutMapping("estados/encomendas/{id}")
     public Encomenda updateEstado(@PathVariable int id, @RequestParam EncomendaEstado estado) {

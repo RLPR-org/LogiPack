@@ -13,6 +13,7 @@ import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -101,4 +102,26 @@ public class EncomendaService {
         String currentDateStr = df.format(currentDate);
         return currentDateStr;
     }
+
+
+
+    /*
+     * Historico de encomendas
+    */
+
+    public List<Integer> getHistoricoAnual() {
+        List<Integer> history = new ArrayList<>();
+        return history;
+    }
+
+    public List<Integer> getHistoricoMensal() {
+        List<Integer> history = new ArrayList<>();
+        return history;
+    }
+
+    public List<Integer> getHistoricoSemanal() {
+        List<Integer> history = new ArrayList<>();
+        return history;
+    }
+
 }
