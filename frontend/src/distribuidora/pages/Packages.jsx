@@ -20,7 +20,7 @@ function Packages() {
 
         axios.get(packagesURL).then(
             (response) => {
-                setPackages(response.data);
+                setPackages(response.data.filter((p) => p.estado != "CONFIRMADA"));
                 setIsLoaded(true);
             }
         )

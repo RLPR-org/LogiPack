@@ -38,8 +38,8 @@ function Dashboard() {
                     setPackages(packages);
                     setCarriers(carriers);
 
-                    setPackagesView(packages.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
-                    setCarriersView(carriers.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                    setPackagesView(packages.filter((p) => p.estado != "CONFIRMADA").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
+                    setCarriersView(carriers.filter((c) => c.estado != "INATIVO").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
 
                     setIsLoaded(true);
                 }
