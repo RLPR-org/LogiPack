@@ -60,7 +60,7 @@ function Carriers() {
 
                 {/* ------- Encomendas ativas ------- */}
                 <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
-                    <h3>Transportadores Ativos</h3>
+                    <h3>Transportadores da rede de distribuição</h3>
                     <CarriersTable carriers={carriers}></CarriersTable>
                 </Container>
 

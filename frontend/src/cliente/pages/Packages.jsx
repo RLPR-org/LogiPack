@@ -61,8 +61,19 @@ function Packages() {
                     <hr style={{height: "1px"}}/>
     
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>As suas encomendas</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
+
+                        {packages.length == 0 ?
+                            <div style={{"textAlign": "center"}}>
+                                <h3 style={{"color": "gray"}}>Não existem encomendas ativas</h3> 
+                            </div>
+
+                            :
+
+                            <>
+                                <h3>As suas encomendas</h3>
+                                <PackagesTable packages={packages}></PackagesTable>
+                            </>
+                        }
                     </Container>
     
                 </ClienteBox>

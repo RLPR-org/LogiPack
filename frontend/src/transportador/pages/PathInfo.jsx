@@ -35,7 +35,7 @@ function PathInfo() {
 
         axios.get(packagesURL).then(
             (response) => {
-                setPackages(response.data.encomendas);
+                setPackages(response.data.encomendas.filter((p) => p.estado != "CONFIRMADA"));
                 setIsLoaded(true);
             }
         )
