@@ -26,8 +26,7 @@ Future<List<dynamic>> fetchEncomendas(int id) async {
     Map<String, dynamic> bodyDetails =
         jsonDecode(utf8.decode(responseDetails.bodyBytes));
     EncomendaDetails encomendaDetails = EncomendaDetails.fromJson(bodyDetails);
-    print(encomendaDetails.history);
-    //debugPrint(posts.toString());
+    //print(encomendaDetails.history);
     return [encomenda, encomendaDetails];
   } else {
     // If the server did not return a 200 OK response,
@@ -84,260 +83,501 @@ class EncomendaDetailsPage extends StatelessWidget {
                 "EM_DISTRIBUICAO": const Color.fromARGB(238, 241, 17, 222)
               };
 
+              List<Estado> historico = encomendaDetails.history;
+
+              Estado lastEstado = historico.removeLast();
+
               return Scaffold(
-                  body: Column(
-                children: [
-                  Title(
-                      color: Color.fromARGB(255, 3, 3, 3),
-                      child: Text("Encomenda")),
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Table(
-                        border: TableBorder.all(
-                            color: Colors.black,
-                            style: BorderStyle.none,
-                            borderRadius: BorderRadius.circular(20),
-                            width: 0.5),
-                        children: [
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Id",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.id}",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Emissor",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.emissor}",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Recetor",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.destinatario}",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Peso",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.peso.toStringAsFixed(2)} kg",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Estado",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 3, bottom: 3),
-                                  child: Container(
+                  body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 25, top: 10, bottom: 10),
+                          child: Text(
+                            "Encomeda ${encomendaid}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )),
+                    ),
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Table(
+                          border: TableBorder.all(
+                              color: Colors.black,
+                              style: BorderStyle.none,
+                              borderRadius: BorderRadius.circular(20),
+                              width: 0.5),
+                          children: [
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
                                     padding: EdgeInsets.only(
-                                        top: 5.0,
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Id",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.id}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Emissor",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.emissor}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Recetor",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.destinatario}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Peso",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.peso.toStringAsFixed(2)} kg",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Estado",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 3, bottom: 3),
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0,
+                                          left: 8.0,
+                                          right: 8.0,
+                                          bottom: 5.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: colors["${encomenda.estado}"],
+                                      ),
+                                      child: Text(
+                                        "${encomenda.estado}",
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Transportador",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.transportador}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Última atualização",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.timestamp}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0,
                                         left: 8.0,
                                         right: 8.0,
-                                        bottom: 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: colors["${encomenda.estado}"],
-                                    ),
+                                        bottom: 8.0),
                                     child: Text(
-                                      "${encomenda.estado}",
+                                      "Confirmação da receção",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Transportador",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.transportador}",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "Última atualização",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Text(
-                                    "${encomenda.timestamp}",
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]),
-                          TableRow(children: [
-                            Column(
-                              children: const [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0,
-                                      left: 8.0,
-                                      right: 8.0,
-                                      bottom: 8.0),
-                                  child: Text(
-                                    "Confirmação da receção",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 3.0, bottom: 3.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(
-                                        top: 5.0,
-                                        left: 8.0,
-                                        right: 8.0,
-                                        bottom: 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: confirmacao,
-                                    ),
-                                    child: Text(
-                                      confirmcaoString,
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 3.0, bottom: 3.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0,
+                                          left: 8.0,
+                                          right: 8.0,
+                                          bottom: 5.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: confirmacao,
+                                      ),
+                                      child: Text(
+                                        confirmcaoString,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ]),
-                        ],
+                                ],
+                              )
+                            ]),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding:
+                              EdgeInsets.only(left: 25, top: 10, bottom: 10),
+                          child: Text(
+                            "Destino",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )),
+                    ),
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Table(
+                          border: TableBorder.all(
+                              color: Colors.black,
+                              style: BorderStyle.none,
+                              borderRadius: BorderRadius.circular(20),
+                              width: 0.5),
+                          children: [
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Distrito",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.localizacao.distrito}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Concelho",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.localizacao.concelho}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Freguesia",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.localizacao.freguesia}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "Rua",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0, right: 8.0),
+                                    child: Text(
+                                      "${encomenda.localizacao.rua}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.0,
+                                        left: 8.0,
+                                        right: 8.0,
+                                        bottom: 8.0),
+                                    child: Text(
+                                      "Código Postal",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0,
+                                        left: 8.0,
+                                        right: 8.0,
+                                        bottom: 8.0),
+                                    child: Text(
+                                      "${encomenda.localizacao.codigopostal}",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ])
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding:
+                              EdgeInsets.only(left: 25, top: 10, bottom: 10),
+                          child: Text(
+                            "Histórico da Encomenda",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )),
+                    ),
+                    Column(
+                        children: encomendaDetails.history
+                            .map((Estado estado) => Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 35),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${estado.estado}  ",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(estado.timestamp),
+                                          ],
+                                        ),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.blueGrey,
+                                            size: 26.0,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                            .toList()),
+                    Column(children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 35),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "${lastEstado.estado}  ",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  Text(lastEstado.timestamp),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ])
+                  ],
+                ),
               ));
             } else {
               return const Center(child: CircularProgressIndicator());
