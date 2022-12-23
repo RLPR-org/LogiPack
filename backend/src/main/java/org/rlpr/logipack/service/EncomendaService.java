@@ -24,7 +24,6 @@ public class EncomendaService {
     @Autowired
     private EncomendaRepository encomendaRepository;
 
-
     @Autowired
     private EncomendaMongoRepository encomendaMongoRepository;
 
@@ -42,6 +41,13 @@ public class EncomendaService {
 
     public List<Encomenda> getAllEncomendas() {
         return encomendaRepository.findAll();
+    }
+
+    public List<Encomenda> getEncomendas(String estado){
+        if (estado.equals("")){
+            return encomendaRepository.findAll();
+        }
+        return encomendaRepository.findByEstado(EncomendaEstado.valueOf(estado));
     }
 
     public Encomenda createEncomenda(Encomenda encomenda) {

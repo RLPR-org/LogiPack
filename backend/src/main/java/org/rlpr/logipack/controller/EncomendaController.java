@@ -21,10 +21,11 @@ public class EncomendaController {
     @Autowired
     private ClienteService clienteService;
 
-    
     @GetMapping("/encomendas")
-    public List<Encomenda> getAllEncomendas() {
-        return encomendaService.getAllEncomendas();
+    public List<Encomenda> getEncomendas(
+            @RequestParam(value = "estado", defaultValue = "", required = false) String estado
+    ) {
+        return encomendaService.getEncomendas(estado);
     }
 
     @GetMapping("/encomendas/{id}")
