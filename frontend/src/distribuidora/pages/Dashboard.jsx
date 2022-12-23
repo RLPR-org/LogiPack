@@ -12,6 +12,7 @@ import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
 import { CarriersTable } from '../components/CarriersTable';
 import { GeneralInfo } from '../components/GeneralInfo';
+import {PackageHistory} from '../components/PackageHistory';
 
 
 function Dashboard() {
@@ -106,6 +107,13 @@ function Dashboard() {
                         <h3>Transportadores Ativos</h3>
                         <CarriersTable carriers={carriersView}></CarriersTable>
                     </Container>
+
+
+                    {/* ------- Historico Encomendas ------- */}
+                    <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
+                        <PackageHistory></PackageHistory> 
+                    </Container>
+
 
                 </DistribuidoraBox>
             </>
