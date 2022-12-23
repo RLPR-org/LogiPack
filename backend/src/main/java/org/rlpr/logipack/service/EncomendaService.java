@@ -76,6 +76,7 @@ public class EncomendaService {
         Encomenda encomenda = encomendaRepository.findById(id);
         encomenda.setEstado(EncomendaEstado.CONFIRMADA);
         encomenda.setConfirmacao(true);
+        encomenda.setTimestamp(getDate());
         encomendaRepository.save(encomenda);
 
         //update in mongo
