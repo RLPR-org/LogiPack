@@ -97,7 +97,7 @@ public class EncomendaService {
     }
 
     public String getDate() {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date currentDate = Calendar.getInstance().getTime();        
         String currentDateStr = df.format(currentDate);
         return currentDateStr;

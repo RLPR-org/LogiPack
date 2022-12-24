@@ -24,6 +24,7 @@ import org.rlpr.logipack.repository.Mongo.HistoricoTemporalRepository;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
 import org.rlpr.logipack.model.Mongo.HistoricoMeses;
+import org.rlpr.logipack.model.Mongo.HistoricoTemporal;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.model.Mongo.TransportadorEstadoMongo;
 import org.rlpr.logipack.model.Mongo.TransportadorMongo;
@@ -97,8 +98,8 @@ public class LoggingService {
             encomendaMongoRepository.save(encomendaMongo);
 
             //add new package to temporal history
+            System.out.println("\n\nAQUIIIIIIIIIIIIIIII\n\n");
             updateTemporalHistory(encomenda.getTimestamp());
-
 
             //create and save client notification
             sendNotification(encomenda);
@@ -233,7 +234,7 @@ public class LoggingService {
     public void sendNotification(Encomenda encomenda) {
 
         //get current date
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date currentDate = Calendar.getInstance().getTime();        
         String currentDateStr = df.format(currentDate);
         
@@ -249,20 +250,28 @@ public class LoggingService {
 
 
     public void updateTemporalHistory(String timestamp) {
-        String year = timestamp.split(" ")[0].split("/")[0];
-        String month = timestamp.split(" ")[0].split("/")[1];
-        int day = Integer.parseInt(timestamp.split(" ")[0].split("/")[2]);
+        int day = Integer.parseInt(timestamp.split(" ")[0].split("-")[0]);
+        String month = timestamp.split(" ")[0].split("-")[1];
+        String year = timestamp.split(" ")[0].split("-")[2];
 
-        Map<String, HistoricoMeses> history =  historicoTemporalRepo.findAll().get(0).getHistorico_anos();  //0 bc there is only one document
-
-        if (!history.containsKey(year)) {
-            history.put(year, new HistoricoMeses());
-            HistoricoMeses histMonths = history.get(year);
+        //check if already exists any package
+        if (historicoTemporalRepo.findAll().size() == 0) {
+            historicoTemporalRepo.save(new HistoricoTemporal());
+        }
+        System.out.printf(" ---->  %d\n", historicoTemporalRepo.findAll().size());
+        
+        HistoricoTemporal history = historicoTemporalRepo.findAll().get(0);
+        System.out.println(history);
+        Map<String, HistoricoMeses> historyAnos =  history.getHistorico_anos();  //0 bc there is only one document
+        
+        if (!historyAnos.containsKey(year)) {
+            historyAnos.put(year, new HistoricoMeses());
+            HistoricoMeses histMonths = historyAnos.get(year);
             histMonths.initilizeMonth(month);
             histMonths.getHistorico_meses().get(month).set(day-1, 1);
         }
         else {
-            HistoricoMeses histMonths = history.get(year);
+            HistoricoMeses histMonths = historyAnos.get(year);
 
             if (!histMonths.getHistorico_meses().containsKey(month)) {
                 histMonths.initilizeMonth(month);
@@ -273,6 +282,8 @@ public class LoggingService {
                 histMonths.getHistorico_meses().get(month).set(day-1, total+1);
             }
         }
+
+        historicoTemporalRepo.save(history);
 
     }
     
