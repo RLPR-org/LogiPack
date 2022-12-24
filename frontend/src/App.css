@@ -50,6 +50,14 @@ body {
   cursor: pointer;
 }
 
+.history-chart-div {
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 4%;
+  padding: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
 
 
 /* ------------- Package page ------------- */

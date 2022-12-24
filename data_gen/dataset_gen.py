@@ -50,7 +50,7 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
                 "entity": "transportador",
                 "transportador": transportador["transportador"],
                 "estado": estado_transportador,
-                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                "timestamp": datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
             }
             f.write("\t" + str(transportador_up).replace("'", '"') + ",\n")
         encomendas_t = encomendas[transportador["transportador"]].copy()
@@ -63,7 +63,7 @@ def update_encomendas(f, estado_encomenda, estado_transportador=None):
                 "encomenda": encomenda["encomenda"],
                 "transportador": transportador["transportador"],
                 "estado": estado_encomenda,
-                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "timestamp": datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
                 "confirmacao": 1
             }
             f.write("\t" + str(encomenda).replace("'", '"'))
@@ -100,7 +100,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
             "telefone": fake.phone_number(),
             "matricula": fake.license_plate(),
             "estado": "INATIVO",
-            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "timestamp": datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
         }
         transportadores.append(transportador)
         f.write("\t" + str(transportador).replace("'", '"') + ",\n")
@@ -120,7 +120,7 @@ with open("dataset.json", "w", encoding='utf-8') as f:
                 "localizacao": location,
                 "peso": 1 + random.random() * 100,
                 "transportador": i,
-                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "timestamp": datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
                 "confirmacao": 0
             }
             n_encomendas += 1
