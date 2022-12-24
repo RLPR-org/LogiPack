@@ -6,9 +6,12 @@ import com.fasterxml.jackson.databind.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 import org.rlpr.logipack.model.Cliente;
@@ -19,8 +22,10 @@ import org.rlpr.logipack.model.TransportadorEstado;
 import org.rlpr.logipack.repository.*;
 import org.rlpr.logipack.repository.Mongo.ClienteMongoRepository;
 import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
+import org.rlpr.logipack.repository.Mongo.HistoricoTemporalRepository;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
+import org.rlpr.logipack.model.Mongo.HistoricoTemporal;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.model.Mongo.TransportadorEstadoMongo;
 import org.rlpr.logipack.model.Mongo.TransportadorMongo;
@@ -50,6 +55,9 @@ public class LoggingService {
 
     @Autowired
     private ClienteMongoRepository clienteMongoRepo;
+
+    @Autowired
+    private HistoricoTemporalRepository historicoTemporalRepo;
     
 
     public void insertEncomenda(String message) {
@@ -90,6 +98,8 @@ public class LoggingService {
             encomendaMongo.initalizeHistory(encomenda.getTimestamp());
             encomendaMongoRepository.save(encomendaMongo);
 
+            //add new package to temporal history
+            updateTemporalHistory(encomenda.getTimestamp());
 
             //create and save client notification
             sendNotification(encomenda);
@@ -224,7 +234,7 @@ public class LoggingService {
     public void sendNotification(Encomenda encomenda) {
 
         //get current date
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date currentDate = Calendar.getInstance().getTime();        
         String currentDateStr = df.format(currentDate);
         
@@ -237,5 +247,48 @@ public class LoggingService {
         clienteMongoRepo.save(cliente);
 
     }
+
+
+    public void updateTemporalHistory(String timestamp) {
+        int day = Integer.parseInt(timestamp.split(" ")[0].split("-")[0]);
+        String month = timestamp.split(" ")[0].split("-")[1];
+        String year = timestamp.split(" ")[0].split("-")[2];
+
+        //check if already exists any package
+        if (historicoTemporalRepo.findAll().size() == 0)
+            historicoTemporalRepo.save(new HistoricoTemporal());
+        
+        HistoricoTemporal history = historicoTemporalRepo.findAll().get(0); //0 bc there is only one document
+        Map<String, Map<String, List<Integer>>> histYears =  history.getHistory();
+        
+        if (!histYears.containsKey(year))
+            histYears.put(year, initilizeMonths());
+
+        if (histYears.get(year).get(month).size() == 0)
+            createDays(histYears.get(year).get(month));
+
+        int total = histYears.get(year).get(month).get(day-1); 
+        histYears.get(year).get(month).set(day-1, total+1);
+        historicoTemporalRepo.save(history);
+    }
+
     
+    public Map<String, List<Integer>> initilizeMonths() {
+        Map<String, List<Integer>> histMonth = new HashMap<>();
+
+        String month = "";
+        for (int m=1; m<=12; m++) {
+            month += m < 10 ? ("0" + m) : m;
+            histMonth.put(month, new ArrayList<>());
+            month = "";
+        }
+
+        return histMonth;
+    }
+    
+    public void createDays(List<Integer> lst) {
+        for (int i=0; i<31; i++)
+            lst.add(0);
+    }
+
 }

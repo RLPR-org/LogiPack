@@ -12,6 +12,7 @@ import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
 import { CarriersTable } from '../components/CarriersTable';
 import { GeneralInfo } from '../components/GeneralInfo';
+import {PackageHistory} from '../components/PackageHistory';
 
 
 function Dashboard() {
@@ -40,7 +41,6 @@ function Dashboard() {
 
                     setPackagesView(packages.filter((p) => p.estado != "CONFIRMADA").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
                     setCarriersView(carriers.filter((c) => c.estado != "INATIVO").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
-
                     setIsLoaded(true);
                 }
             )
