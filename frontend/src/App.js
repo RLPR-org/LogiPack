@@ -14,6 +14,7 @@ import ClienteNotificationCenter from './cliente/pages/NotificationsCenter';
 import ClienteConfirmPackages from './cliente/pages/ConfirmPackages';
 
 import DistribuidoraPage from './distribuidora/pages/Dashboard.jsx';
+import TemporalHistory from './distribuidora/pages/TemporalHistory';
 import Carrier from './distribuidora/pages/Carrier.jsx';
 import Carriers from './distribuidora/pages/Carriers.jsx';
 import Packages from './distribuidora/pages/Packages';
@@ -45,6 +46,7 @@ function App() {
           <Route path="/cliente/:id/encomendas/:package" element={<ClientePackage />} />
 
           <Route path="/distribuidora" element={<DistribuidoraPage />} />
+          <Route path="/distribuidora/historico" element={<TemporalHistory />} />
           <Route path="/distribuidora/transportadores" element={<Carriers />} />
           <Route path="/distribuidora/transportadores/:id" element={<Carrier />} />
           <Route path="/distribuidora/encomendas" element={<Packages />} />

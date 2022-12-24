@@ -41,7 +41,6 @@ function Dashboard() {
 
                     setPackagesView(packages.filter((p) => p.estado != "CONFIRMADA").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
                     setCarriersView(carriers.filter((c) => c.estado != "INATIVO").sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
-
                     setIsLoaded(true);
                 }
             )
@@ -107,13 +106,6 @@ function Dashboard() {
                         <h3>Transportadores Ativos</h3>
                         <CarriersTable carriers={carriersView}></CarriersTable>
                     </Container>
-
-
-                    {/* ------- Historico Encomendas ------- */}
-                    <Container maxWidth="xl" style={{padding: "40px 0 20px 0"}}>
-                        <PackageHistory></PackageHistory> 
-                    </Container>
-
 
                 </DistribuidoraBox>
             </>

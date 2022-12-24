@@ -13,21 +13,35 @@ ChartJS.register(
     Legend
 );
 
-const labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
+function getLabels(data) {
+    const labels = [];
+    for (let l=0; l<Object.keys(data).length; l++) {
+        let lStr = Object.keys(data)[l];
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Encomendas processadas',
-            data: [33, 25, 35, 51, 54, 0, 0],
-            borderColor: '#890dff',
-            backgroundColor: '#a74bff',
-        }
-    ],
-};
-  
-function PackageHistoryWeek() {
+        if (lStr.startsWith("...")) 
+            labels.push("...");
+        else
+            labels.push(Object.keys(data)[l]);
+    }
+    
+    return labels;
+}
+
+
+function PackageHistoryWeek(props) {
+    const labels = getLabels(props.data);
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Encomendas processadas nesta semana',
+                data: Object.values(props.data),
+                borderColor: '#890dff',
+                backgroundColor: '#a74bff',
+            }
+        ],
+    }
+
     return (
         <Line data={data} options={{ maintainAspectRatio: false }} />
       );

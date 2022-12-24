@@ -13,21 +13,21 @@ ChartJS.register(
     Legend
 );
 
-const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-export const data = {
-labels,
-datasets: [
-    {
-    label: 'Encomendas processadas',
-    data: [33, 25, 35, 51, 54, 0, 0, 33, 25, 35, 51, 54, 0, 0, 33, 25, 35, 51, 54, 0, 0, 33, 25, 35, 51, 54, 0, 0 ],
-    borderColor: '#299227',
-    backgroundColor: '#4f994d',
-    }
-],
-};
-  
-function PackageHistoryMonth() {
+function PackageHistoryMonth(props) {
+  const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+  const data = {
+    labels,
+    datasets: [
+        {
+        label: 'Encomendas processadas neste mês',
+        data: props.data,
+        borderColor: '#299227',
+        backgroundColor: '#4f994d',
+        }
+    ],
+  };
+
   return (
     <Line data={data} options={{ maintainAspectRatio: false }} />
   );
