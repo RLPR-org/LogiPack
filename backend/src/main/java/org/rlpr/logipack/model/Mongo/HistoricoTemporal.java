@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -13,10 +14,10 @@ import lombok.Data;
 public class HistoricoTemporal {
     @Id
     private String _id;
-    private Map<String, HistoricoMeses> historico_anos;
+    private Map<String, Map<String, List<Integer>>> history;
 
     public HistoricoTemporal() {
-        this.historico_anos = new HashMap<>();
+        this.history = new HashMap<>();
     }
 
 }

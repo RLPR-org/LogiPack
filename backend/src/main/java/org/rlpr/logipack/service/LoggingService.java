@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +25,6 @@ import org.rlpr.logipack.repository.Mongo.EncomendaMongoRepository;
 import org.rlpr.logipack.repository.Mongo.HistoricoTemporalRepository;
 import org.rlpr.logipack.repository.Mongo.TransportadorMongoRepository;
 import  org.rlpr.logipack.model.Mongo.EncomendaMongo;
-import org.rlpr.logipack.model.Mongo.HistoricoMeses;
 import org.rlpr.logipack.model.Mongo.HistoricoTemporal;
 import org.rlpr.logipack.model.Mongo.NotificacaoCliente;
 import org.rlpr.logipack.model.Mongo.TransportadorEstadoMongo;
@@ -98,7 +99,6 @@ public class LoggingService {
             encomendaMongoRepository.save(encomendaMongo);
 
             //add new package to temporal history
-            System.out.println("\n\nAQUIIIIIIIIIIIIIIII\n\n");
             updateTemporalHistory(encomenda.getTimestamp());
 
             //create and save client notification
@@ -258,33 +258,33 @@ public class LoggingService {
         if (historicoTemporalRepo.findAll().size() == 0) {
             historicoTemporalRepo.save(new HistoricoTemporal());
         }
-        System.out.printf(" ---->  %d\n", historicoTemporalRepo.findAll().size());
         
-        HistoricoTemporal history = historicoTemporalRepo.findAll().get(0);
-        System.out.println(history);
-        Map<String, HistoricoMeses> historyAnos =  history.getHistorico_anos();  //0 bc there is only one document
+        HistoricoTemporal history = historicoTemporalRepo.findAll().get(0); //0 bc there is only one document
+        Map<String, Map<String, List<Integer>>> histYears =  history.getHistory();
         
-        if (!historyAnos.containsKey(year)) {
-            historyAnos.put(year, new HistoricoMeses());
-            HistoricoMeses histMonths = historyAnos.get(year);
-            histMonths.initilizeMonth(month);
-            histMonths.getHistorico_meses().get(month).set(day-1, 1);
+        if (!histYears.containsKey(year))
+            histYears.put(year, new HashMap<>());
+
+        Map<String, List<Integer>> histMonths = histYears.get(year);
+        if (!histMonths.containsKey(month)) {
+            histMonths.put(month, daysList());
+            histMonths.get(month).set(day-1, 1);
         }
         else {
-            HistoricoMeses histMonths = historyAnos.get(year);
-
-            if (!histMonths.getHistorico_meses().containsKey(month)) {
-                histMonths.initilizeMonth(month);
-                histMonths.getHistorico_meses().get(month).set(day-1, 1);
-            }
-            else {
-                int total = histMonths.getHistorico_meses().get(month).get(day-1); 
-                histMonths.getHistorico_meses().get(month).set(day-1, total+1);
-            }
+            int total = histMonths.get(month).get(day-1); 
+            histMonths.get(month).set(day-1, total+1);
         }
 
         historicoTemporalRepo.save(history);
+    }
 
+    public List<Integer> daysList() {
+        List<Integer> days = new ArrayList<>();
+
+        for (int i=0; i<31; i++)
+            days.add(0);
+        
+        return days;
     }
     
 }
