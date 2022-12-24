@@ -10,6 +10,7 @@ import org.rlpr.logipack.service.ClienteService;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -33,18 +34,18 @@ public class EncomendaController {
         return encomendaService.getEncomendaById(id);
     }
     
-    @GetMapping("/encomendas/ano")
-    public List<Integer> getHistoricoAnual() {
+    @GetMapping("/encomendas/historico/ano")
+    public Map<String, Integer> getHistoricoAnual() {
         return encomendaService.getHistoricoAnual();
     }
     
-    @GetMapping("/encomendas/mes")
+    @GetMapping("/encomendas/historico/mes")
     public List<Integer> getHistoricoMensal() {
         return encomendaService.getHistoricoMensal();
     }
 
-    @GetMapping("/encomendas/semana")
-    public List<Integer> getHistoricoSemanal() {
+    @GetMapping("/encomendas/historico/semana")
+    public Map<String, Integer> getHistoricoSemanal() {
         return encomendaService.getHistoricoSemanal();
     }
 

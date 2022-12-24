@@ -255,36 +255,40 @@ public class LoggingService {
         String year = timestamp.split(" ")[0].split("-")[2];
 
         //check if already exists any package
-        if (historicoTemporalRepo.findAll().size() == 0) {
+        if (historicoTemporalRepo.findAll().size() == 0)
             historicoTemporalRepo.save(new HistoricoTemporal());
-        }
         
         HistoricoTemporal history = historicoTemporalRepo.findAll().get(0); //0 bc there is only one document
         Map<String, Map<String, List<Integer>>> histYears =  history.getHistory();
         
         if (!histYears.containsKey(year))
-            histYears.put(year, new HashMap<>());
+            histYears.put(year, initilizeMonths());
 
-        Map<String, List<Integer>> histMonths = histYears.get(year);
-        if (!histMonths.containsKey(month)) {
-            histMonths.put(month, daysList());
-            histMonths.get(month).set(day-1, 1);
-        }
-        else {
-            int total = histMonths.get(month).get(day-1); 
-            histMonths.get(month).set(day-1, total+1);
-        }
+        if (histYears.get(year).get(month).size() == 0)
+            createDays(histYears.get(year).get(month));
 
+        int total = histYears.get(year).get(month).get(day-1); 
+        histYears.get(year).get(month).set(day-1, total+1);
         historicoTemporalRepo.save(history);
     }
 
-    public List<Integer> daysList() {
-        List<Integer> days = new ArrayList<>();
+    
+    public Map<String, List<Integer>> initilizeMonths() {
+        Map<String, List<Integer>> histMonth = new HashMap<>();
 
-        for (int i=0; i<31; i++)
-            days.add(0);
-        
-        return days;
+        String month = "";
+        for (int m=1; m<=12; m++) {
+            month += m < 10 ? ("0" + m) : m;
+            histMonth.put(month, new ArrayList<>());
+            month = "";
+        }
+
+        return histMonth;
     }
     
+    public void createDays(List<Integer> lst) {
+        for (int i=0; i<31; i++)
+            lst.add(0);
+    }
+
 }
