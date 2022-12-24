@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'ConfirmPage.dart';
 import 'Encomenda.dart';
+import 'EncomendasPage.dart';
 import 'homePage.dart';
 import 'EncomendaDetailsPage.dart';
 import 'dart:convert' show utf8;
@@ -25,8 +25,14 @@ Future<List<Encomenda>> fetchEncomendas() async {
           (dynamic item) => Encomenda.fromJson(item),
         )
         .toList();
+    List<Encomenda> post2 = [];
+    for (Encomenda i in posts) {
+      if (i.estado == "ENTREGUE") {
+        post2.add(i);
+      }
+    }
     //debugPrint(posts.toString());
-    return posts;
+    return post2;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -34,8 +40,25 @@ Future<List<Encomenda>> fetchEncomendas() async {
   }
 }
 
-class EncomendasPage extends StatelessWidget {
-  const EncomendasPage({Key? key}) : super(key: key);
+class ConfirmPage extends StatefulWidget {
+  const ConfirmPage({Key? key}) : super(key: key);
+
+  @override
+  State<ConfirmPage> createState() => _ConfirmPageState();
+}
+
+class _ConfirmPageState extends State<ConfirmPage> {
+  void confirmEncomenda(int id, int clientid) async {
+    String url =
+        "${globals.apiEndpoint}cliente/${clientid.toString()}/confirmar/${id.toString()}";
+
+    try {
+      final response = await http.put(Uri.parse(url));
+      debugPrint(url);
+      if (response.statusCode == 200) {}
+      return;
+    } catch (er) {}
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -69,7 +92,8 @@ class EncomendasPage extends StatelessWidget {
               };
 
               return Scaffold(
-                  body: Center(
+                  body: Align(
+                alignment: Alignment.topCenter,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SingleChildScrollView(
@@ -82,7 +106,7 @@ class EncomendasPage extends StatelessWidget {
                         columns: const <DataColumn>[
                           DataColumn(label: Text("id")),
                           DataColumn(label: Text("estado")),
-                          DataColumn(label: Text("Destino")),
+                          DataColumn(label: Text("Confirmar")),
                         ],
                         rows: encomendas!
                             .map(
@@ -102,8 +126,16 @@ class EncomendasPage extends StatelessWidget {
                                     ),
                                   ),
                                   DataCell(
-                                    Text("${encomenda.localizacao.distrito}"),
-                                  ),
+                                    ElevatedButton(
+                                        child: Icon(Icons.check_box_outlined),
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                238, 86, 221, 33)),
+                                        onPressed: () => setState(() {
+                                              confirmEncomenda(encomenda.id,
+                                                  encomenda.destinatarioId);
+                                            })),
+                                  )
                                 ],
                                 onSelectChanged: (newValue) {
                                   Navigator.of(context).pushReplacement(

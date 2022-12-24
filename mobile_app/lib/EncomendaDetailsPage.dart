@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'ConfirmPage.dart';
 import 'EncomendasPage.dart';
 import 'Encomenda.dart';
 import 'homePage.dart';
@@ -35,10 +36,27 @@ Future<List<dynamic>> fetchEncomendas(int id) async {
   }
 }
 
-class EncomendaDetailsPage extends StatelessWidget {
+Future<void> confirmEncomenda(int id, int clientid) async {
+  String url =
+      "${globals.apiEndpoint}cliente/${clientid.toString()}/confirmar/${id.toString()}";
+
+  try {
+    final response = await http.put(Uri.parse(url));
+    debugPrint(url);
+    if (response.statusCode == 200) {}
+    return;
+  } catch (er) {}
+}
+
+class EncomendaDetailsPage extends StatefulWidget {
   int encomendaid;
   EncomendaDetailsPage({Key? key, required this.encomendaid}) : super(key: key);
 
+  @override
+  State<EncomendaDetailsPage> createState() => _EncomendaDetailsPageState();
+}
+
+class _EncomendaDetailsPageState extends State<EncomendaDetailsPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -57,7 +75,7 @@ class EncomendaDetailsPage extends StatelessWidget {
           ],
         ),
         body: FutureBuilder(
-          future: fetchEncomendas(encomendaid),
+          future: fetchEncomendas(widget.encomendaid),
           builder:
               (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
             if (snapshot.hasData) {
@@ -83,9 +101,35 @@ class EncomendaDetailsPage extends StatelessWidget {
                 "EM_DISTRIBUICAO": const Color.fromARGB(238, 241, 17, 222)
               };
 
+              Widget validateEncomenda = Text("");
+
               List<Estado> historico = encomendaDetails.history;
 
               Estado lastEstado = historico.removeLast();
+
+              if (lastEstado.estado == "ENTREGUE") {
+                validateEncomenda = Padding(
+                  padding: EdgeInsets.only(left: 35),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Validar Receção ",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => setState(() {
+                          confirmEncomenda(
+                              widget.encomendaid, encomenda.destinatarioId);
+                        }),
+                        child: Icon(Icons.check_box_outlined),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green[400]),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
               return Scaffold(
                   body: SingleChildScrollView(
@@ -97,7 +141,7 @@ class EncomendaDetailsPage extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 25, top: 10, bottom: 10),
                           child: Text(
-                            "Encomeda ${encomendaid}",
+                            "Encomeda ${widget.encomendaid}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           )),
@@ -574,8 +618,11 @@ class EncomendaDetailsPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                      )
-                    ])
+                      ),
+                    ]),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: validateEncomenda)
                   ],
                 ),
               ));
@@ -609,6 +656,12 @@ class NavigationDrawer extends StatelessWidget {
               onTap: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                       builder: (context) => const EncomendasPage())),
+            ),
+            ListTile(
+              leading: const Icon(Icons.check_circle_outlined),
+              title: const Text("Confirmar"),
+              onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const ConfirmPage())),
             ),
           ],
         )),
