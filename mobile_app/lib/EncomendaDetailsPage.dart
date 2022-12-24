@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'ConfirmPage.dart';
 import 'EncomendasPage.dart';
 import 'Encomenda.dart';
 import 'homePage.dart';
@@ -655,6 +656,12 @@ class NavigationDrawer extends StatelessWidget {
               onTap: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                       builder: (context) => const EncomendasPage())),
+            ),
+            ListTile(
+              leading: const Icon(Icons.check_circle_outlined),
+              title: const Text("Confirmar"),
+              onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const ConfirmPage())),
             ),
           ],
         )),
