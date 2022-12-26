@@ -29,7 +29,7 @@ function DistribuidoraLogin() {
         let id = -1;
         axios.post(url, data).then(
             (response) => {
-                id = response.data;
+                id = response.data["id"];
             }
         )
         if (email === 'test') {

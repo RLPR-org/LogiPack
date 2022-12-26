@@ -29,7 +29,8 @@ function TransportadorLogin() {
         let id = -1;
         axios.post(url, data).then(
             (response) => {
-                id = response.data;
+                id = response.data["id"];
+                console.log(response.data);
             }
         )
         if (email === 'test') {
