@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.3.0
 
+  fl_chart: ^0.55.2
+
 dev_dependencies:
   http: ^0.13.5
   flutter_test:
