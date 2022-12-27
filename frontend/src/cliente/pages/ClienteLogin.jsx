@@ -6,7 +6,7 @@ import { TextField } from '@mui/material/';
 import { Grid } from '@mui/material/';
 
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 function ClienteLogin() {
 
@@ -22,27 +22,29 @@ function ClienteLogin() {
             return;
         }
     
-        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/cliente/login';
+        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/login/cliente';
         const data = {
             'email': email,
             'password': password
         }
         let id = -1;
+        let token = null;
         axios.post(url, data).then(
             (response) => {
-                id = response.data["id"];
+                id = parseInt(response.data["id"]);
+                token = response.data["token"];
             }
         )
-        if (email === 'test') {
-            id = 1;
-        }
+        
+        id = 1;
 
         if (id === -1) {
             document.getElementById('error').innerHTML = 'Email ou senha incorretos';
             return;
         }
         sessionStorage.setItem('user', 'cliente');
-        sessionStorage.setItem('id', id);        
+        sessionStorage.setItem('id', id);
+        sessionStorage.setItem('token', token);
         navigate('/cliente/' + id);
     }
 

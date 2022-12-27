@@ -8,6 +8,7 @@ function Home() {
 
     sessionStorage.setItem('user', null);
     sessionStorage.setItem('id', -1);
+    sessionStorage.setItem('token', null);
 
     const navigate = useNavigate();
 

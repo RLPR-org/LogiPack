@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { CarrierDetails } from '../components/CarrierDetails';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 function Carrier() {
 

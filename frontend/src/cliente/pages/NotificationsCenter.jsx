@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 import NotificationsList from '../components/NotificationsList';
 
 

@@ -8,22 +8,23 @@ import org.springframework.web.bind.annotation.*;
 import org.rlpr.logipack.service.*;
 
 @RestController
+@RequestMapping("/login")
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/cliente/login")
+    @PostMapping("/cliente")
     public @ResponseBody Map<String, String> clienteLogin(@RequestBody Login login) {
         return authService.clienteCheckLogin(login);
     }
 
-    @PostMapping("/transportador/login")
+    @PostMapping("/transportador")
     public @ResponseBody Map<String, String> transportadorLogin(@RequestBody Login login) {
         return authService.transportadorCheckLogin(login);
     }
 
-    @PostMapping("/administrador/login")
+    @PostMapping("/administrador")
     public @ResponseBody Map<String, String> administradorLogin(@RequestBody Login login) {
         return authService.administradorCheckLogin(login);
     }

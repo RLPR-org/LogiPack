@@ -6,7 +6,7 @@ import { TextField } from '@mui/material/';
 import { Grid } from '@mui/material/';
 
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 function DistribuidoraLogin() {
 
@@ -21,20 +21,19 @@ function DistribuidoraLogin() {
             return;
         }
 
-        const url = "http://" + process.env.REACT_APP_API_HOST + ':8080/administrador/login';
+        const url = "http://" + process.env.REACT_APP_API_HOST + ':8080/login/administrador';
         const data = {
             'email': email,
             'password': password
         }
         let id = -1;
+        let token = null;
         axios.post(url, data).then(
             (response) => {
-                id = response.data["id"];
+                id = ("error" in response.data) ? parseInt(response.data["id"]) : -1;
+                token = response.data["token"];
             }
         )
-        if (email === 'test') {
-            id = 1;
-        }
 
         if (id === -1) {
             document.getElementById('error').innerHTML = 'Email ou senha incorretos';
@@ -42,6 +41,7 @@ function DistribuidoraLogin() {
         }
         sessionStorage.setItem('user', 'distribuidora');
         sessionStorage.setItem('id', id);
+        sessionStorage.setItem('token', token);
         navigate('/distribuidora');
     }
 

@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import { useParams } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 import { TransportadorBox } from '../components/TransportadorBox';
 import { PackageDetails } from '../components/PackageDetails';
 import { FormControl , FormLabel , FormHelperText,RadioGroup,FormControlLabel,Radio ,Button} from '@mui/material';

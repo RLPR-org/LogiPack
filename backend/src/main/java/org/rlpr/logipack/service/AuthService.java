@@ -58,7 +58,7 @@ public class AuthService {
             String token = generateToken(authentication);
             Map<String, String> map = Map.of(
                 "token", token,
-                "id", email.startsWith("test") ? "0" : String.valueOf(cliente.getId())
+                "id", email.startsWith("test") ? "1" : String.valueOf(cliente.getId())
             );
             return map;
         }
@@ -75,7 +75,7 @@ public class AuthService {
             String token = generateToken(authentication);
             Map<String, String> map = Map.of(
                 "token", token,
-                "id", (email.startsWith(token) ? "0" : String.valueOf(transportador.getId()))
+                "id", email.startsWith("test") ? "1" : String.valueOf(transportador.getId())
             );
             return map;
         }
@@ -92,7 +92,7 @@ public class AuthService {
             String token = generateToken(authentication);
             Map<String, String> map = Map.of(
                 "token", token,
-                "id", email.startsWith("test") ? "0" : String.valueOf(administrador.getId())
+                "id", email.startsWith("test") ? "1" : String.valueOf(administrador.getId())
             );
             return map;
         }

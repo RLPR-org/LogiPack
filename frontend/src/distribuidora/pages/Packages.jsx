@@ -3,7 +3,7 @@ import '../../App.css';
 import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackagesTable } from '../components/PackagesTable';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';

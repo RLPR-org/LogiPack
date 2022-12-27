@@ -7,7 +7,7 @@ import Chip from '@mui/material/Chip';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FormControl , FormLabel , FormHelperText,RadioGroup,FormControlLabel,Radio ,Button} from '@mui/material';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 
 

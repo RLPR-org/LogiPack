@@ -7,7 +7,7 @@ import { CarriersTable } from '../components/CarriersTable';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import axios from 'axios';
+import axios from '../../CustomAxios';
 
 
 function Carriers() {
