@@ -22,28 +22,30 @@ function ClienteLogin() {
             return;
         }
     
-        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/cliente/login';
+        const url = 'http://' + process.env.REACT_APP_API_HOST + ':8080/login/cliente';
         const data = {
             'email': email,
             'password': password
         }
         let id = -1;
+        let token = null;
         axios.post(url, data).then(
             (response) => {
-                id = response.data;
+                id = ! ("error" in response.data) ? parseInt(response.data["id"]) : 0;
+                token = response.data["token"];
+                sessionStorage.setItem('user', 'cliente');
+                sessionStorage.setItem('id', id);
+                sessionStorage.setItem('token', token);
+                if (id === 0) {
+                    document.getElementById('error').innerHTML = 'Email ou password errados';
+                    sessionStorage.setItem('user', undefined);
+                    sessionStorage.setItem('id', undefined);
+                    sessionStorage.setItem('token', undefined);
+                    return;
+                }
+                navigate('/cliente/' + id);
             }
         )
-        if (email === 'test') {
-            id = 1;
-        }
-
-        if (id === -1) {
-            document.getElementById('error').innerHTML = 'Email ou senha incorretos';
-            return;
-        }
-        sessionStorage.setItem('user', 'cliente');
-        sessionStorage.setItem('id', id);        
-        navigate('/cliente/' + id);
     }
 
     return (

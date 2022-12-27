@@ -17,7 +17,7 @@ function Package() {
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
 
-    let packageId = useParams().id;
+    let packageId = useParams().id_package;
 
     //API CALLs
     function fetchData() {

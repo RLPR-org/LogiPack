@@ -13,7 +13,7 @@ import axios from 'axios';
 
 function Carrier() {
 
-    let carrierId = useParams().id;
+    let carrierId = useParams().id_carrier;
     const [isLoaded, setIsLoaded] = useState(false);
     const [carrierInfo, setCarrierInfo] = useState(null)
     const [carrierDetails, setCarrierDetails] = useState(null)

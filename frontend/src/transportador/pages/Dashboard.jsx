@@ -12,7 +12,6 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-
 function Dashboard() {
     const API_KEY = "AIzaSyBhIQVqF_gxcKuvVy0f5q-Nif5u5MWCAto";
 
