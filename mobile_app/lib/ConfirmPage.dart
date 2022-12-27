@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'globals.dart' as globals;
 
 Future<List<Encomenda>> fetchEncomendas() async {
-  String url = "${globals.apiEndpoint}cliente/1/encomendas";
+  String url = "${globals.apiEndpoint}cliente/${globals.userId}/encomendas";
 
   final response = await http.get(Uri.parse(url));
 

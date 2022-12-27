@@ -89,7 +89,7 @@ class _LoginDemoState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 15, bottom: 15),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: passController,
@@ -104,7 +104,7 @@ class _LoginDemoState extends State<LoginPage> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.black, borderRadius: BorderRadius.circular(80)),
               child: ElevatedButton(
                 onPressed: () async {
                   if (await validate()) {
@@ -117,6 +117,13 @@ class _LoginDemoState extends State<LoginPage> {
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.black)))),
               ),
             ),
             SizedBox(
