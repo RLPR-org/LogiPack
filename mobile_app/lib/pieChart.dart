@@ -52,7 +52,7 @@ class Indicator extends StatelessWidget {
 }
 
 fetchEncomendas() async {
-  String url = "${globals.apiEndpoint}cliente/1/encomendas";
+  String url = "${globals.apiEndpoint}cliente/${globals.userId}/encomendas";
 
   final response = await http.get(Uri.parse(url));
 
@@ -95,7 +95,7 @@ class PieChartSample2 extends StatefulWidget {
 
 class PieChart2State extends State {
   int touchedIndex = -1;
-  Map<String, int> mapa = {};
+  Map<String, int> mapa = {"REGISTADA": 1};
 
   @override
   void initState() {

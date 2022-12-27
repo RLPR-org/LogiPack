@@ -6,6 +6,7 @@ import 'EncomendasPage.dart';
 import 'pieChart.dart';
 import 'package:http/http.dart' as http;
 import 'globals.dart' as globals;
+import 'notifications.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,18 +29,30 @@ class HomePage extends StatelessWidget {
           ],
         ),
         drawer: const NavigationDrawer(),
-        body: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Title(
-                color: Colors.black,
-                child: const Text(
-                  "DashBoard",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                )),
-          ),
-          const PieChartSample2()
-        ]),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Title(
+                  color: Colors.black,
+                  child: const Text(
+                    "DashBoard",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  )),
+            ),
+            const PieChartSample2(),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Title(
+                  color: Colors.black,
+                  child: const Text(
+                    "Ultimas Notificações",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  )),
+            ),
+            Notifications()
+          ]),
+        ),
       );
 }
 
