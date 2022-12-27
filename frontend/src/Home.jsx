@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
-    sessionStorage.setItem('user', null);
+    sessionStorage.setItem('user', undefined);
     sessionStorage.setItem('id', -1);
-    sessionStorage.setItem('token', null);
+    sessionStorage.setItem('token', undefined);
 
     const navigate = useNavigate();
 

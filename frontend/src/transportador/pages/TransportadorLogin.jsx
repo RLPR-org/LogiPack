@@ -6,7 +6,7 @@ import { TextField } from '@mui/material/';
 import { Grid } from '@mui/material/';
 
 import { useNavigate } from 'react-router-dom';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 function TransportadorLogin() {
 
@@ -30,21 +30,21 @@ function TransportadorLogin() {
         let token = null;
         axios.post(url, data).then(
             (response) => {
-                id = ("error" in response.data) ? parseInt(response.data["id"]) : -1;
+                id = ! ("error" in response.data) ? parseInt(response.data["id"]) : 0;
                 token = response.data["token"];
+                sessionStorage.setItem('user', 'transportador');
+                sessionStorage.setItem('id', id);
+                sessionStorage.setItem('token', token);
+                if (id === 0) {
+                    document.getElementById('error').innerHTML = 'Email ou password errados';
+                    sessionStorage.setItem('user', undefined);
+                    sessionStorage.setItem('id', undefined);
+                    sessionStorage.setItem('token', undefined);
+                    return;
+                }
+                navigate('/transportador/' + id);
             }
         )
-
-        id = 1;
-
-        // if (id === -1) {
-        //     document.getElementById('error').innerHTML = 'Email ou senha incorretos';
-        //     return;
-        // }
-        sessionStorage.setItem('user', 'transportador');
-        sessionStorage.setItem('id', id);
-        sessionStorage.setItem('token', token);
-        navigate('/transportador/' + id); 
     }
 
     return (

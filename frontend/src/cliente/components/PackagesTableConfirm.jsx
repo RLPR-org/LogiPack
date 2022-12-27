@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Button from '@mui/material/Button';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 
 

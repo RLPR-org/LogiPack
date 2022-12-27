@@ -48,9 +48,9 @@ function App() {
           <Route path="/distribuidora" element={<DistribuidoraPage />} />
           <Route path="/distribuidora/historico" element={<TemporalHistory />} />
           <Route path="/distribuidora/transportadores" element={<Carriers />} />
-          <Route path="/distribuidora/transportadores/:id" element={<Carrier />} />
+          <Route path="/distribuidora/transportadores/:id_carrier" element={<Carrier />} />
           <Route path="/distribuidora/encomendas" element={<Packages />} />
-          <Route path="/distribuidora/encomendas/:id" element={<Package />} />
+          <Route path="/distribuidora/encomendas/:id_package" element={<Package />} />
 
           <Route path="/transportador/:id" element={<CarrierDashboar />} />
           <Route path="/transportador/:id/trajeto" element={<CarrierPath />} />

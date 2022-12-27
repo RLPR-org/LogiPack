@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import { useParams } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { PackageDetails } from '../components/PackageDetails';
@@ -17,7 +17,7 @@ function Package() {
     const [packageInfo, setPackageInfo] = useState(null)
     const [packageDetails, setPackageDetails] = useState(null)
 
-    let packageId = useParams().id;
+    let packageId = useParams().id_package;
 
     //API CALLs
     function fetchData() {

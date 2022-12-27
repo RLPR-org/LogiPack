@@ -1,7 +1,7 @@
 import '../../App.css';
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { PackageHistoryWeek } from './PackageHistoryWeek';

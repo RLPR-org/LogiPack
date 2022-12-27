@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import Container from '@mui/material/Container';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 import { TransportadorBox } from '../components/TransportadorBox';
 import CircularProgress from '@mui/material/CircularProgress';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';

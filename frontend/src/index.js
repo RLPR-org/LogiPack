@@ -3,6 +3,32 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+axios.interceptors.request.use(
+  (config) => new Promise((resolve, reject) => {
+    const token = sessionStorage.getItem('token');
+    if (!config.url.includes('login') && token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    resolve(config);
+  }),
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      let navigate = useNavigate();
+      navigate('/');
+    }
+    return Promise.reject(error);
+  }
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import { ClienteBox } from '../components/ClienteBox';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 import NotificationsList from '../components/NotificationsList';
 import { PackagesTable } from '../components/PackagesTable';
 

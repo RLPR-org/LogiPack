@@ -9,11 +9,11 @@ import Box from '@mui/material/Box';
 
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
 import { CarrierDetails } from '../components/CarrierDetails';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 function Carrier() {
 
-    let carrierId = useParams().id;
+    let carrierId = useParams().id_carrier;
     const [isLoaded, setIsLoaded] = useState(false);
     const [carrierInfo, setCarrierInfo] = useState(null)
     const [carrierDetails, setCarrierDetails] = useState(null)

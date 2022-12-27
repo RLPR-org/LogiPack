@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { ClienteBox } from '../components/ClienteBox';
 import { PackagesTable } from '../components/PackagesTable';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';

@@ -6,7 +6,7 @@ import { TextField } from '@mui/material/';
 import { Grid } from '@mui/material/';
 
 import { useNavigate } from 'react-router-dom';
-import axios from '../../CustomAxios';
+import axios from 'axios';
 
 function ClienteLogin() {
 
@@ -31,21 +31,21 @@ function ClienteLogin() {
         let token = null;
         axios.post(url, data).then(
             (response) => {
-                id = parseInt(response.data["id"]);
+                id = ! ("error" in response.data) ? parseInt(response.data["id"]) : 0;
                 token = response.data["token"];
+                sessionStorage.setItem('user', 'cliente');
+                sessionStorage.setItem('id', id);
+                sessionStorage.setItem('token', token);
+                if (id === 0) {
+                    document.getElementById('error').innerHTML = 'Email ou password errados';
+                    sessionStorage.setItem('user', undefined);
+                    sessionStorage.setItem('id', undefined);
+                    sessionStorage.setItem('token', undefined);
+                    return;
+                }
+                navigate('/cliente/' + id);
             }
         )
-        
-        id = 1;
-
-        if (id === -1) {
-            document.getElementById('error').innerHTML = 'Email ou senha incorretos';
-            return;
-        }
-        sessionStorage.setItem('user', 'cliente');
-        sessionStorage.setItem('id', id);
-        sessionStorage.setItem('token', token);
-        navigate('/cliente/' + id);
     }
 
     return (
