@@ -23,8 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DeleteIcon from '@mui/icons-material/Delete';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 const drawerWidth = 250;
 
@@ -166,22 +165,13 @@ function DistribuidoraBox(props) {
                     <ListItemText primary={'Encomendas'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
-        
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=> navigate('/distribuidora/historico')}>
                 <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
-                        <AddBoxIcon></AddBoxIcon>
+                        <TimelineIcon></TimelineIcon>
                     </ListItemIcon>
-                    <ListItemText primary={'Registar veículo'} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-            </ListItem>
-        
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>alert("Boas")}>
-                <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
-                    <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
-                        <DeleteIcon></DeleteIcon>
-                    </ListItemIcon>
-                    <ListItemText primary={'Remover veículo'} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary={'Histórico'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
             </ListItem>
 

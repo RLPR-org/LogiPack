@@ -75,24 +75,35 @@ function Dashboard() {
                 <h1 style={{margin: "0"}}>Dashboard</h1>
                 <hr style={{height: "1px"}}/>
 
-
-                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>Notificações recentes</h3>
-                    <NotificationsList notifications={notifications}></NotificationsList>
-                    <div style={{"textAlign": "center", "paddingTop": "10px"}}>
-                        <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/notificacoes")}>Ver mais notificações</span>
+                {notifications.length === 0 && packages.length === 0 &&
+                    <div style={{"textAlign": "center"}}>
+                        <h3 style={{"color": "gray"}}>Não existe conteúdo a mostrar</h3> 
                     </div>
-                </Container>
+                }
 
 
-                <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                    <h3>Encomendas atualizadas recentemente</h3>
-                    <PackagesTable packages={packages}></PackagesTable>
+                {notifications.length > 0 &&
+                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                            <h3>Notificações recentes</h3>
+                        <NotificationsList notifications={notifications}></NotificationsList>
+                        <div style={{"textAlign": "center", "paddingTop": "10px"}}>
+                            <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/notificacoes")}>Ver mais notificações</span>
+                        </div>
+                    </Container>
+                }
 
-                    <div style={{"textAlign": "center", "paddingTop": "15px"}}>
-                        <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/encomendas")}>Ver todas as encomendas</span>
-                    </div>
-                </Container>
+
+                {packages.length > 0 &&
+                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                        <h3>Encomendas atualizadas recentemente</h3>
+                        <PackagesTable packages={packages}></PackagesTable>
+
+                        <div style={{"textAlign": "center", "paddingTop": "15px"}}>
+                            <span className='seeMoreLink' onClick={()=> navigate('/cliente/' + clientId + "/encomendas")}>Ver todas as encomendas</span>
+                        </div>
+                    </Container>
+                }
+
 
 
             </ClienteBox>

@@ -22,7 +22,7 @@ function Packages() {
 
         axios.get(packagesURL).then(
             (response) => {
-                setPackages(response.data.encomendas);
+                setPackages(response.data.encomendas.filter((p) => p.estado != "CONFIRMADA"));
                 setIsLoaded(true);
             }
         )
@@ -61,8 +61,22 @@ function Packages() {
                     <hr style={{height: "1px"}}/>
     
                     <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>A sua mercadoria</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
+
+                        {packages.length > 0 ?
+                            <>
+                                <h3>A sua mercadoria</h3>
+                                <PackagesTable packages={packages}></PackagesTable>
+                            </>
+
+                            :
+
+                            <>
+                                <div style={{"textAlign": "center"}}>
+                                    <h3 style={{"color": "gray"}}>Não existem encomendas ativas</h3> 
+                                </div>
+                            </>
+                        }
+
                     </Container>
     
                 </TransportadorBox>

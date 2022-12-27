@@ -36,7 +36,8 @@ function Dashboard() {
 
         axios.get(packagesURL).then(
             (response) => {
-                const packagesAux = response.data.encomendas;
+                let packagesAux = response.data.encomendas;
+                packagesAux =  packagesAux.filter((p) => p.estado != "CONFIRMADA");
                 setPackages(packagesAux.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1).slice(0, 5));
                 setIsLoaded(true);
             }
@@ -75,112 +76,115 @@ function Dashboard() {
                     <h1 style={{margin: "0"}}>Dashboard</h1>
                     <hr style={{height: "1px"}}/>
 
+                    {packages.length > 0 ?
+                        <>
+                            <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                                <h3>Alguma da sua mercadoria</h3>
+                                <PackagesTable packages={packages}></PackagesTable>
 
-                    {/* ------- Encomendas ativas ------- */}
-                    <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                        <h3>Alguma da sua mercadoria</h3>
-                        <PackagesTable packages={packages}></PackagesTable>
+                                <div style={{"textAlign": "center", "paddingTop": "10px"}}>
+                                    <span className='seeMoreLink' onClick={()=> navigate('/transportador/' + carrierId + "/mercadoria")}>Ver toda a mercadoria</span>
+                                </div>
+                            </Container>
 
-                        <div style={{"textAlign": "center", "paddingTop": "10px"}}>
-                            <span className='seeMoreLink' onClick={()=> navigate('/transportador/' + carrierId + "/mercadoria")}>Ver toda a mercadoria</span>
+                            <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
+                                <h2>Trajeto de entrega</h2>
+
+                                <Box sx={{ flexGrow: 1 }} style={{"margin": "20px 0 30px 0"}}>
+                                    
+                                    <Grid container spacing={0}>
+
+                                        <Grid item xs={5} className='locationContainer'>
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Distrito</p>
+                                                <p className='location'>{ORIGIN.distrito}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Concelho</p>
+                                                <p className='location'>{ORIGIN.concelho}</p>
+                                            </div>
+
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Freguesia</p>
+                                                <p className='location'>{ORIGIN.freguesia}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Rua</p>
+                                                <p className='location'>{ORIGIN.rua}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Código Postal</p>
+                                                <p className='location'>{ORIGIN.codigopostal}</p>
+                                            </div>  
+                                        </Grid>
+
+                                        <Grid item xs={2} container display="flex" justifyContent="center" alignItems="center" style={{"padding": "0px"}}>
+                                            <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
+                                            <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
+                                            <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
+                                            <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
+                                        </Grid>
+
+                                        <Grid item xs={5} className='locationContainer'>
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Distrito</p>
+                                                <p className='location'>{packages[0].localizacao.distrito}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Concelho</p>
+                                                <p className='location'>{packages[0].localizacao.concelho}</p>
+                                            </div>
+
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Freguesia</p>
+                                                <p className='location'>{packages[0].localizacao.freguesia}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Rua</p>
+                                                <p className='location'>{packages[0].localizacao.rua}</p>
+                                            </div>
+
+                                            <div style={{"padding": "5px 0 5px 0"}}>
+                                                <p className='labelLocation'>Código Postal</p>
+                                                <p className='location'>{packages[0].localizacao.codigopostal}</p>
+                                            </div>  
+                                        </Grid>
+
+                                    </Grid>
+                                </Box>
+
+                                <iframe
+                                    title="map"
+                                    width="100%"
+                                    height="500px"
+                                    style={{border:0}}
+                                    loading="lazy"
+                                    allowFullScreen
+                                    src={
+                                        "https://www.google.com/maps/embed/v1/directions"
+                                        + "?key=" + API_KEY
+                                        + "&origin=Portugal+" + ORIGIN.distrito + "+" + ORIGIN.rua
+                                        + "&destination=Portugal+" + packages[0].localizacao.distrito + "+" + packages[0].localizacao.rua
+                                    }
+                                    className='map'
+                                >
+                                </iframe>
+                            
+                            </Container>
+                        </>
+
+                        :
+
+                        <div style={{"textAlign": "center", "marginTop": "30px"}}>
+                            <h3 style={{"color": "gray"}}>Não existem encomendas ativas</h3> 
                         </div>
-                    </Container>
-
-
-                    {packages.length > 0 &&
-
-                        <Container maxWidth="xl" style={{padding: "30px 0 20px 0"}}>
-                            <h2>Trajeto de entrega</h2>
-
-                            <Box sx={{ flexGrow: 1 }} style={{"margin": "20px 0 30px 0"}}>
-                                
-                                <Grid container spacing={0}>
-
-                                    <Grid item xs={5} className='locationContainer'>
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Distrito</p>
-                                            <p className='location'>{ORIGIN.distrito}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Concelho</p>
-                                            <p className='location'>{ORIGIN.concelho}</p>
-                                        </div>
-
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Freguesia</p>
-                                            <p className='location'>{ORIGIN.freguesia}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Rua</p>
-                                            <p className='location'>{ORIGIN.rua}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Código Postal</p>
-                                            <p className='location'>{ORIGIN.codigopostal}</p>
-                                        </div>  
-                                    </Grid>
-
-                                    <Grid item xs={2} container display="flex" justifyContent="center" alignItems="center" style={{"padding": "0px"}}>
-                                        <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
-                                        <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
-                                        <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
-                                        <KeyboardDoubleArrowRightIcon fontSize='large'></KeyboardDoubleArrowRightIcon>
-                                    </Grid>
-
-                                    <Grid item xs={5} className='locationContainer'>
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Distrito</p>
-                                            <p className='location'>{packages[0].localizacao.distrito}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Concelho</p>
-                                            <p className='location'>{packages[0].localizacao.concelho}</p>
-                                        </div>
-
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Freguesia</p>
-                                            <p className='location'>{packages[0].localizacao.freguesia}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Rua</p>
-                                            <p className='location'>{packages[0].localizacao.rua}</p>
-                                        </div>
-
-                                        <div style={{"padding": "5px 0 5px 0"}}>
-                                            <p className='labelLocation'>Código Postal</p>
-                                            <p className='location'>{packages[0].localizacao.codigopostal}</p>
-                                        </div>  
-                                    </Grid>
-
-                                </Grid>
-                            </Box>
-
-                            <iframe
-                                title="map"
-                                width="100%"
-                                height="500px"
-                                style={{border:0}}
-                                loading="lazy"
-                                allowFullScreen
-                                src={
-                                    "https://www.google.com/maps/embed/v1/directions"
-                                    + "?key=" + API_KEY
-                                    + "&origin=Portugal+" + ORIGIN.distrito + "+" + ORIGIN.rua
-                                    + "&destination=Portugal+" + packages[0].localizacao.distrito + "+" + packages[0].localizacao.rua
-                                }
-                                className='map'
-                            >
-                            </iframe>
-                        
-                        </Container>
-                        
                     }
 
                 </TransportadorBox>

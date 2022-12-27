@@ -11,6 +11,7 @@ import { PackagesTable } from '../components/PackagesTable';
 function CarrierDetails(props) {
 
     const carrierInfo = props.carrierInfo;
+    const activePackages = carrierInfo.encomendas.filter((p) => p.estado != "CONFIRMADA");
     const carrierDetails = props.carrierDetails;
     var componentID = 0;
 
@@ -83,7 +84,7 @@ function CarrierDetails(props) {
 
 
         {/* ---------------------- Transportador destiny table (if there is at leat 1 package) ---------------------- */}
-        {carrierInfo.encomendas.length > 0 &&
+        {activePackages.length > 0 &&
 
             <div style={{marginTop: "80px"}}>
                 <h2>Destino atribuído</h2>
@@ -94,27 +95,27 @@ function CarrierDetails(props) {
 
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>Distrito</TableCell>
-                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.distrito}</TableCell>
+                                <TableCell align="right">{activePackages[0].localizacao.distrito}</TableCell>
                             </TableRow>
 
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>Concelho</TableCell>
-                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.concelho}</TableCell>
+                                <TableCell align="right">{activePackages[0].localizacao.concelho}</TableCell>
                             </TableRow>
 
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>Freguesia</TableCell>
-                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.freguesia}</TableCell>
+                                <TableCell align="right">{activePackages[0].localizacao.freguesia}</TableCell>
                             </TableRow>
 
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>Rua</TableCell>
-                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.rua}</TableCell>
+                                <TableCell align="right">{activePackages[0].localizacao.rua}</TableCell>
                             </TableRow>
 
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell>Código Postal</TableCell>
-                                <TableCell align="right">{carrierInfo.encomendas[0].localizacao.codigopostal} {carrierInfo.encomendas[0].localizacao.distrito}</TableCell>
+                                <TableCell align="right">{activePackages[0].localizacao.codigopostal} {activePackages[0].localizacao.distrito}</TableCell>
                             </TableRow>
                                                                         
                         </TableBody>
@@ -151,8 +152,8 @@ function CarrierDetails(props) {
         {/* ---------------------- Carrier packages ---------------------- */}
 
         <div style={{marginTop: "80px"}}>
-            <h2>Encomendas atribuídas</h2>
-            <PackagesTable packages={carrierInfo.encomendas}></PackagesTable>
+            <h2>Encomendas ativas</h2>
+            <PackagesTable packages={activePackages}></PackagesTable>
         </div>
     </>
   );

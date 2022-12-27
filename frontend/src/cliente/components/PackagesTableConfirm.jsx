@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,16 +22,28 @@ const status = {
     'CONFIRMADA': <Chip label="Confirmada" size="small" style={{backgroundColor: "#8618ee", color: "white"}}/>
 }
 
+function getPackagesIds (packages) {
+    const packagesId = [];
+    for (var i=0; i<packages.length; i++) {
+        packagesId.push(packages[i].id);
+    }
+    return packagesId;
+}
 
 function PackagesTableConfirm(props) {
   const navigate = useNavigate();
-  const packages = props.packages
+  const [packagesIds, setPackagesIds] = useState([]);
+  const packages = props.packages;
 
   const confirm = (packageId) => {
     const url = "http://localhost:8080/cliente/" + props.clientId + "/confirmar/" + packageId;
     axios.put(url);
-    console.log("Boas");
+    setPackagesIds(packagesIds.filter(id => id !== packageId));
   }
+
+  useEffect(() => {
+    setPackagesIds(getPackagesIds(props.packages));
+  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -47,17 +59,23 @@ function PackagesTableConfirm(props) {
         </TableHead>
         <TableBody>
           {packages.map((row) => (
-            <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{status[row.estado]}</TableCell>
-              <TableCell>{row.localizacao.distrito}</TableCell>
-              <TableCell>{row.transportador}</TableCell>
-              <TableCell align="right">
-                <form id='confirm' onSubmit={()=>{confirm(row.id)}}>
-                    <Button style={{"backgroundColor": "green", "textTransform": "unset"}} type="submit"variant="contained" endIcon={<CheckCircleIcon />}>Confirmar receção</Button>
-                </form>
-              </TableCell>
+            <TableRow id={row.id} key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              {packagesIds.includes(row.id) &&
+                <>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{status[row.estado]}</TableCell>
+                  <TableCell>{row.localizacao.distrito}</TableCell>
+                  <TableCell>{row.transportador}</TableCell>
+                  <TableCell align="right">
+                    <form id='confirm' onSubmit={()=>{confirm(row.id)}}>
+                        <Button style={{"backgroundColor": "green", "textTransform": "unset"}} type="submit"variant="contained" endIcon={<CheckCircleIcon />}>Confirmar receção</Button>
+                    </form>
+                  </TableCell>
+                </>
+              }
+
             </TableRow>
+
           ))}
         </TableBody>
       </Table>

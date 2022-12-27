@@ -10,6 +10,7 @@ import org.rlpr.logipack.service.ClienteService;
 import org.rlpr.logipack.service.EncomendaService;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -21,15 +22,31 @@ public class EncomendaController {
     @Autowired
     private ClienteService clienteService;
 
-    
     @GetMapping("/encomendas")
-    public List<Encomenda> getAllEncomendas() {
-        return encomendaService.getAllEncomendas();
+    public List<Encomenda> getEncomendas(
+            @RequestParam(value = "estado", defaultValue = "", required = false) String estado
+    ) {
+        return encomendaService.getEncomendas(estado);
     }
 
     @GetMapping("/encomendas/{id}")
     public Encomenda getEncomendaById(@PathVariable int id) {
         return encomendaService.getEncomendaById(id);
+    }
+    
+    @GetMapping("/encomendas/historico/ano")
+    public Map<String, Integer> getHistoricoAnual() {
+        return encomendaService.getHistoricoAnual();
+    }
+    
+    @GetMapping("/encomendas/historico/mes")
+    public List<Integer> getHistoricoMensal() {
+        return encomendaService.getHistoricoMensal();
+    }
+
+    @GetMapping("/encomendas/historico/semana")
+    public Map<String, Integer> getHistoricoSemanal() {
+        return encomendaService.getHistoricoSemanal();
     }
 
     @GetMapping("/encomendas/{id}/details")
@@ -57,7 +74,6 @@ public class EncomendaController {
     public void deleteNotificacoesByClienteId(@PathVariable int id) {
         clienteService.deleteNotificacoesByCliente(id);
     }
-
 
     @PutMapping("estados/encomendas/{id}")
     public Encomenda updateEstado(@PathVariable int id, @RequestParam EncomendaEstado estado) {
