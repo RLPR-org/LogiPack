@@ -28,8 +28,11 @@ Future<List<Map<String, dynamic>>> fetchNotificacoes() async {
 
     listBody.sort((a, b) => (a["timestamp"].compareTo(b["timestamp"])));
     //debugPrint(listBody.toString());
-
-    return listBody.sublist(listBody.length - 6, listBody.length - 1);
+    if (listBody.length > 5) {
+      return listBody.sublist(listBody.length - 6, listBody.length - 1);
+    } else {
+      return [];
+    }
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -53,42 +56,44 @@ class _NotificationsState extends State<Notifications> {
             AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
             List<Map<String, dynamic>>? noticacoes = snapshot.data;
-
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                  onSelectAll: (b) {},
-                  sortColumnIndex: 0,
-                  sortAscending: true,
-                  showCheckboxColumn: false,
-                  columns: const <DataColumn>[
-                    DataColumn(label: Text("id")),
-                    DataColumn(label: Text("Novo Estado")),
-                    DataColumn(label: Text("TimeStamp")),
-                  ],
-                  rows: noticacoes!
-                      .map((Map<String, dynamic> e) => DataRow(
-                              cells: [
-                                DataCell(
-                                  Text("${e["encomendaId"].toString()}"),
-                                ),
-                                DataCell(
-                                  Text("${e["newState"]}"),
-                                ),
-                                DataCell(
-                                  Text("${e["timestamp"].split(' ')[1]}"),
-                                ),
-                              ],
-                              onSelectChanged: (newValue) {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            EncomendaDetailsPage(
-                                                encomendaid:
-                                                    e["encomendaId"])));
-                              }))
-                      .toList()),
-            );
+            if (noticacoes!.length > 0) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                    onSelectAll: (b) {},
+                    sortColumnIndex: 0,
+                    sortAscending: true,
+                    showCheckboxColumn: false,
+                    columns: const <DataColumn>[
+                      DataColumn(label: Text("id")),
+                      DataColumn(label: Text("Novo Estado")),
+                      DataColumn(label: Text("TimeStamp")),
+                    ],
+                    rows: noticacoes!
+                        .map((Map<String, dynamic> e) => DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text("${e["encomendaId"].toString()}"),
+                                  ),
+                                  DataCell(
+                                    Text("${e["newState"]}"),
+                                  ),
+                                  DataCell(
+                                    Text("${e["timestamp"].split(' ')[1]}"),
+                                  ),
+                                ],
+                                onSelectChanged: (newValue) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EncomendaDetailsPage(
+                                                  encomendaid:
+                                                      e["encomendaId"])));
+                                }))
+                        .toList()),
+              );
+            }
+            return Container();
           } else {
             return const Center(child: CircularProgressIndicator());
           }
