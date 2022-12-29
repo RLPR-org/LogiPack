@@ -23,8 +23,7 @@ class HomePage extends StatelessWidget {
                 icon: const Icon(Icons.notifications),
                 tooltip: 'View Notifications',
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('This is does nothing for now')));
+                  _showFullModal(context);
                 })
           ],
         ),
@@ -50,7 +49,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),
-            Notifications()
+            NotificationsShort()
           ]),
         ),
       );
@@ -87,4 +86,73 @@ class NavigationDrawer extends StatelessWidget {
           ],
         )),
       );
+}
+
+_showFullModal(context) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false, // should dialog be dismissed when tapped outside
+    barrierLabel: "Notificações", // label for barrier
+    transitionDuration: Duration(
+        milliseconds:
+            500), // how long it takes to popup dialog after button click
+    pageBuilder: (_, __, ___) {
+      // your widget implementation
+      return Scaffold(
+        appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            actions: [
+              IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ],
+            leading: IconButton(
+                icon: Icon(
+                  Icons.delete_forever,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  deleteNotifications();
+                  Navigator.pop(context);
+                }),
+            title: Text(
+              "Notifications",
+              style: TextStyle(
+                  color: Colors.black87, fontFamily: 'Overpass', fontSize: 20),
+            ),
+            elevation: 0.0),
+        backgroundColor: Colors.white.withOpacity(0.90),
+        body: Container(
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: const Color(0xfff8f8f8),
+                  width: 1,
+                ),
+              ),
+            ),
+            child:
+                Center(child: SingleChildScrollView(child: Notifications()))),
+      );
+    },
+  );
+}
+
+Future<void> deleteNotifications() async {
+  String url =
+      "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
+
+  try {
+    final response = await http.delete(Uri.parse(url));
+    debugPrint(url);
+    if (response.statusCode == 200) {}
+    return;
+  } catch (er) {}
 }
