@@ -9,7 +9,7 @@ jobs:
         wget https://www.ua.pt/file/60626
         unzip 60626
         chmod a+rx ./snx_install_linux30.sh
-        ./snx_install_linux30.sh
+        sudo ./snx_install_linux30.sh
         sudo apt install libstdc++5:i386 libpam0g:i386
     - name: Connect to VPN
       run: echo ${{ secrets.VPN_PASSWORD }} | sns -s go.ua.pt -u rfg@ua.pt
