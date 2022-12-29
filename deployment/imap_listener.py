@@ -6,35 +6,24 @@ import email
 from time import sleep
 from datetime import datetime
 
-#------------------------------------------------------------
-
-from cryptography.fernet import Fernet
-with open('filekey.key', 'rb') as filekey:
-    key = filekey.read()
-fernet = Fernet(key)
-x = "terces"
-with open(f"{x[::-1]}.txt", 'rb') as enc_file:
-	encrypted = enc_file.read()
-decrypted = fernet.decrypt(encrypted)
-y = decrypted.decode('utf-8')
-z = 'tp.au@gfr'
-
-#------------------------------------------------------------
+email_user = "logipack-cd@outlook.pt"
+email_pass = "rlpr2022"
 
 mail = imaplib.IMAP4_SSL('outlook.office365.com',993)
-mail.login(z[::-1], y)
+mail.login(email_user, email_pass)
 mail.select("inbox")
 #print("Listening for new emails...")
 
 while True:
     result, data = mail.uid('search', None, "UNSEEN")
-    i = len(data[0].split())
+    if data[0].split() == []:
+        #print(f"{datetime.now()} - No new emails")
+        sleep(10*60)
+        continue
 
+    i = len(data[0].split())
     latest_email_uid = data[0].split()[-1]
     result, email_data = mail.uid('fetch', latest_email_uid, '(RFC822)')
-    if not email_data:
-        sleep(20)
-        continue
     raw_email = email_data[0][1]
     try:
         raw_email_string = raw_email.decode('utf-8')
@@ -50,7 +39,7 @@ while True:
         email_from = str(email.header.make_header(email.header.decode_header(email_message['From'])))
         email_to = str(email.header.make_header(email.header.decode_header(email_message['To'])))
         subject = str(email.header.make_header(email.header.decode_header(email_message['Subject'])))
-        #print(subject)
+        print(subject)
         if subject == "deploy":
             print(f"{datetime.now()} - Deploying...")
             sys.stdout.flush()
@@ -61,4 +50,4 @@ while True:
     except Exception as e:
         print(e)
         pass
-    sleep(20)
+    sleep(10*60)
