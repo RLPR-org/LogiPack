@@ -4,42 +4,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install CheckPoint Mobile
-      run: |
-        wget https://www.ua.pt/file/60626
-        unzip 60626
-        chmod a+rx ./snx_install_linux30.sh
-        ./snx_install_linux30.sh
-        sudo dpkg --add-architecture i386
-        sudo apt-get update && sudo apt-get upgrade
-        sudo apt install libstdc++6:i386
-        sudo apt install libstdc++5:i386
-    - name: Connect to VPN
-      run: echo ${{ secrets.VPN_PASSWORD }} | snx -s go.ua.pt -u rfg@ua.pt
-    - name: SSH connection to virtual machine
-      run: echo "rlpr2022" | ssh deti-ies-03.ua.pt 
-    - name: Stop and remove all Docker containers
-      run: docker rm -f $(docker ps -a -q)
-    - name: Build frontend
-      run: |
-        cd frontend
-        echo "REACT_APP_API_HOST = '192.168.160.224'" > .env
-        docker build -t logipack-frontend .
-    - name: Build data generator
-      run: |
-        cd ../data_gen
-        docker build -t logipack-datagen .
-    - name: Build backend
-      run: |
-        cd ../backend
-        mvn clean install
-        docker build -t logipack-backend .
-        docker compose down
-        docker compose down -vh
-    - name: Boot up backend containers
-      run: |
-        docker compose up -d
-    - name: Boot up frontend container
-      run: |
-        cd ../frontend
-        docker run --name logipack-frontend -p 3000:3000 --rm -d logipack-frontend:latest
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v2
+      with:
+        server_address: smtp.office365.com
+        server_port: 587
+        username: ${{ secrets.EMAIL_ADDRESS }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: deploy
+        body: deploy
+        to: rfg@ua.pt
+        from: Rafael Fernandes Gonçalves
