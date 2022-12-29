@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
@@ -37,6 +38,7 @@ function Packages() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="transportador"/>
                 <TransportadorBox carrierId={carrierId}>
     
                     <h1 style={{margin: "0"}}>Mercadoria</h1>
@@ -55,6 +57,7 @@ function Packages() {
     else {
         return (
             <>
+                <CheckLogin user="transportador"/>
                 <TransportadorBox carrierId={carrierId}>
     
                     <h1 style={{margin: "0"}}>Mercadoria</h1>

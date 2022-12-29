@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -45,6 +46,7 @@ function NotificationsCenter() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
     
                     <h1 style={{margin: "0"}}>Central de Notificações</h1>
@@ -63,6 +65,7 @@ function NotificationsCenter() {
 
     return (
         <>
+            <CheckLogin user="cliente"/>
             <ClienteBox clientId={clientId}>
 
                 <h1 style={{margin: "0"}}>Central de Notificações</h1>

@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -50,6 +51,7 @@ function PathInfo() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="transportador"/>
                 <TransportadorBox carrierId={carrierId}>
     
                     <h1 style={{margin: "0"}}>Trajeto</h1>
@@ -70,6 +72,7 @@ function PathInfo() {
         if (packages.length == 0) {
             return (
                 <>
+                    <CheckLogin user="transportador"/>
                     <TransportadorBox carrierId={carrierId}>
         
                         <h1 style={{margin: "0"}}>Trajeto</h1>

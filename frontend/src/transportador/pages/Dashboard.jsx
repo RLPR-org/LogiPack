@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -52,6 +53,7 @@ function Dashboard() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="transportador"/>
                 <TransportadorBox carrierId={carrierId}>
     
                     <h1 style={{margin: "0"}}>Encomendas</h1>
@@ -70,6 +72,7 @@ function Dashboard() {
     else {
         return (
             <>
+                <CheckLogin user="transportador"/>
                 <TransportadorBox carrierId={carrierId}>
 
                     <h1 style={{margin: "0"}}>Dashboard</h1>

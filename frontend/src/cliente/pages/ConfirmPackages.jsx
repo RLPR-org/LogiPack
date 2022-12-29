@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
@@ -44,6 +45,7 @@ function ConfirmPackages() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
     
                     <h1 style={{margin: "0"}}>Encomendas</h1>
@@ -62,6 +64,7 @@ function ConfirmPackages() {
     else {
         return (
             <>
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
     
                     <h1 style={{margin: "0"}}>Encomendas</h1>

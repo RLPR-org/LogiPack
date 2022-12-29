@@ -1,5 +1,4 @@
 import '../../App.css';
-
 import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
