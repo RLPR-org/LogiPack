@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 
@@ -47,6 +48,7 @@ function Package() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
 
                     <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
@@ -65,6 +67,7 @@ function Package() {
     else {
         return (
             <>
+                <CheckLogin user="cliente"/>
                 <ClienteBox clientId={clientId}>
                     <h1 style={{margin: "0"}}>Encomenda {packageId}</h1>
                     <hr style={{height: "1px"}}/>

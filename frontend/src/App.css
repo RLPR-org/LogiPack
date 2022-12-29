@@ -11,6 +11,12 @@ body {
   margin: 0 30px 0 30px !important;
 }
 
+.index-btn-text {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
 .linkPage {
   text-decoration: underline;
   color: rgb(8, 0, 117);

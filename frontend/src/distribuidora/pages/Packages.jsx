@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
@@ -46,6 +47,7 @@ function Packages() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="distribuidora"/>
                 <DistribuidoraBox>
     
                     <h1 style={{margin: "0"}}>Encomendas</h1>
@@ -64,6 +66,7 @@ function Packages() {
     else {
         return (
             <>
+                <CheckLogin user="distribuidora"/>
                 <DistribuidoraBox>
     
                     <h1 style={{margin: "0"}}>Encomendas</h1>

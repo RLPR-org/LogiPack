@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
@@ -45,6 +46,7 @@ function Carrier() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="distribuidora"/>
                 <DistribuidoraBox>
 
                     <h1 style={{margin: "0"}}>Transportador {carrierId}</h1>
@@ -63,6 +65,7 @@ function Carrier() {
     else {
         return (
             <>
+                <CheckLogin user="distribuidora"/>
                 <DistribuidoraBox>
 
                     <h1 style={{margin: "0"}}>Transportador {carrierId}</h1>

@@ -1,4 +1,5 @@
 import '../../App.css';
+import { CheckLogin } from '../../CheckLogin';
 
 import React, { useEffect, useState } from 'react';
 import { DistribuidoraBox } from '../components/DistribuidoraBox';
@@ -35,6 +36,7 @@ function Carriers() {
     if (!isLoaded) {
         return (
             <>
+                <CheckLogin user="distribuidora"/>
                 <DistribuidoraBox>
     
                     <h1 style={{margin: "0"}}>Transportadores</h1>
@@ -53,6 +55,7 @@ function Carriers() {
     else {
         return (
             <>
+            <CheckLogin user="distribuidora"/>
             <DistribuidoraBox>
 
                 <h1 style={{margin: "0"}}>Transportadores</h1>
