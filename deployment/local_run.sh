@@ -1,13 +1,16 @@
-# Deployment workflow
+# Check arguments
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <backend_host> <with_frontend_bool>"
+    exit 1
+fi
 
+cd ../ # Go to project root folder
+
+# BACKEND (LOCALHOST)
 echo "Stopping and removing all Docker containers"
 docker rm -f $(docker ps -a -q)
-echo "Building frontend"
-cd frontend
-echo "REACT_APP_API_HOST = '192.168.160.224'" > .env
-docker build -t logipack-frontend .
 echo "Building data generator"
-cd ../data_gen
+cd data_gen
 docker build -t logipack-datagen .
 echo "Building backend"
 cd ../backend
@@ -17,6 +20,12 @@ docker compose down
 docker compose down -v
 echo "Booting up backend containers"
 docker compose up -d
-echo "Booting up frontend container"
+
+# FRONTEND (LOCALHOST SEM DOCKER)
+if [ $2 = "false" ]; then
+    echo "Skipped frontend"
+    exit 0
+fi
 cd ../frontend
-docker run --name logipack-frontend -p 3000:3000 --rm -d logipack-frontend:latest
+echo "REACT_APP_API_HOST = '$1'" > .env
+npm start
