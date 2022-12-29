@@ -3,10 +3,11 @@ cd ../ # Go to project root folder
 # Deployment workflow
 echo "Pulling latest changes from GitHub"
 git pull origin main
-echo "Stopping and removing all Docker containers / pm2 processes"
+echo "Stopping and removing all Docker containers / Docker volumes / pm2 processes"
 pm2 kill > /dev/null 2>&1
 pm2 delete npm > /dev/null 2>&1
 docker rm -f $(docker ps -a -q)
+docker volume rm $(docker volume ls -q)
 echo "Building data generator"
 cd data_gen
 docker build -t logipack-datagen .
