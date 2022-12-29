@@ -6,9 +6,8 @@ jobs:
     steps:
     - name: Install CheckPoint Mobile
       run: |
-        sudo apt install unzip
         wget https://www.ua.pt/file/60626
-        unzip snx_install_linux30.zip
+        unzip 60626
         chmod a+rx ./snx_install_linux30.sh
         ./snx_install_linux30.sh
         sudo apt install libstdc++5:i386 libpam0g:i386
