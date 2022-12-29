@@ -32,8 +32,17 @@ while True:
 
     latest_email_uid = data[0].split()[-1]
     result, email_data = mail.uid('fetch', latest_email_uid, '(RFC822)')
+    if not email_data:
+        sleep(20)
+        continue
     raw_email = email_data[0][1]
-    raw_email_string = raw_email.decode('utf-8')
+    try:
+        raw_email_string = raw_email.decode('utf-8')
+    except:
+        mail.uid('store', latest_email_uid, '-FLAGS', '(\Seen)')
+        print("(Fixing errors) Marking email as not seen")
+        sys.stdout.flush()
+        continue
     email_message = email.message_from_string(raw_email_string)
 
     # Header Details
