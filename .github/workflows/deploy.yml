@@ -13,5 +13,5 @@ jobs:
         password: ${{ secrets.EMAIL_PASSWORD }} # GitHub Actions secret
         subject: deploy
         body: deploy
-        to: rfg@ua.pt
-        from: Rafael Fernandes Gonçalves
+        to: logipack-cd@outlook.pt
+        from: Logi Pack
