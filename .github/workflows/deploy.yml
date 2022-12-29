@@ -9,8 +9,8 @@ jobs:
       with:
         server_address: smtp.office365.com
         server_port: 587
-        username: ${{ secrets.EMAIL_ADDRESS }}
-        password: ${{ secrets.EMAIL_PASSWORD }}
+        username: ${{ secrets.EMAIL_ADDRESS }} # GitHub Actions secret
+        password: ${{ secrets.EMAIL_PASSWORD }} # GitHub Actions secret
         subject: deploy
         body: deploy
         to: rfg@ua.pt
