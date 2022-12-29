@@ -17,7 +17,7 @@ jobs:
     - name: SSH connection to virtual machine
       run: echo "rlpr2022" | ssh deti-ies-03.ua.pt 
     - name: Stop and remove all Docker containers
-    - run: docker rm -f $(docker ps -a -q)
+      run: docker rm -f $(docker ps -a -q)
     - name: Build frontend
       run: |
         cd frontend
