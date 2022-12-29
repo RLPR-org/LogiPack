@@ -61,7 +61,7 @@ Future<List<Map<String, dynamic>>> fetchNotificacoes() async {
 
     listBody.sort((a, b) => (b["timestamp"]).compareTo(a["timestamp"]));
     //debugPrint(listBody.toString());
-
+    globals.notificationsNumber = listBody.length;
     return listBody;
   } else {
     // If the server did not return a 200 OK response,

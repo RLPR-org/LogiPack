@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app/pieChart.dart';
@@ -7,9 +9,66 @@ import 'pieChart.dart';
 import 'package:http/http.dart' as http;
 import 'globals.dart' as globals;
 import 'notifications.dart';
+import 'dart:convert' show utf8;
+import 'dart:convert';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Timer? timer;
+
+  Widget ico = Icon(Icons.notifications);
+  Widget pie = PieChartSample2();
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(
+        Duration(seconds: 5), (Timer t) => checkForNotifications());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  checkForNotifications() async {
+    String url =
+        "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      // need to use utf8 decode because of special chars
+      List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
+
+      //debugPrint(listBody.toString());
+      if (body.length > globals.notificationsNumber) {
+        debugPrint("here" + body.length.toString());
+
+        setState(() {
+          pie = PieChartSample2();
+          ico = Icon(
+            Icons.notifications_active,
+            color: Colors.red,
+          );
+        });
+      }
+      return;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -20,10 +79,13 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
                 color: Colors.black,
-                icon: const Icon(Icons.notifications),
+                icon: ico,
                 tooltip: 'View Notifications',
                 onPressed: () {
-                  _showFullModal(context);
+                  setState(() {
+                    ico = Icon(Icons.notifications);
+                    _showFullModal(context);
+                  });
                 })
           ],
         ),
@@ -39,7 +101,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),
-            const PieChartSample2(),
+            pie,
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Title(
