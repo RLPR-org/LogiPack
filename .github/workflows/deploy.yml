@@ -15,7 +15,7 @@ jobs:
         sudo apt install libstdc++6:i386
         sudo apt install libstdc++5:i386
     - name: Connect to VPN
-      run: echo ${{ secrets.VPN_PASSWORD }} | sns -s go.ua.pt -u rfg@ua.pt
+      run: echo ${{ secrets.VPN_PASSWORD }} | snx -s go.ua.pt -u rfg@ua.pt
     - name: SSH connection to virtual machine
       run: echo "rlpr2022" | ssh deti-ies-03.ua.pt 
     - name: Stop and remove all Docker containers
