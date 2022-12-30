@@ -25,7 +25,8 @@ class _LoginDemoState extends State<LoginPage> {
 
   Future<bool> validate() async {
     int id;
-    String url = "${globals.apiEndpoint}cliente/login";
+    String url = "${globals.apiEndpoint}login/cliente";
+
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
@@ -36,18 +37,18 @@ class _LoginDemoState extends State<LoginPage> {
         'password': passController.text
       }),
     );
-    id = int.parse(response.body);
-    if (emailCOntroller.text == "test") {
-      id = 1;
-    }
-    if (id != -1) {
-      globals.userId = id;
-      return true;
-    }
 
-    if (response.body.toString() == "-1") {
-      showAlertDialog(context);
-      return false;
+    debugPrint(jsonEncode(<String, String>{
+      'email': emailCOntroller.text,
+      'password': passController.text
+    }));
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
+      globals.token = body["token"];
+      globals.userId = int.parse(body["id"]);
+      debugPrint(globals.token);
+      return true;
     }
 
     return false;

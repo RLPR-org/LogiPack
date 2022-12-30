@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,9 @@ class Indicator extends StatelessWidget {
 fetchEncomendas() async {
   String url = "${globals.apiEndpoint}cliente/${globals.userId}/encomendas";
 
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url), headers: {
+    HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+  });
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,

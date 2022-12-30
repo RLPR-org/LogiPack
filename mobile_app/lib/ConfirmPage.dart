@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Encomenda.dart';
@@ -13,7 +14,9 @@ import 'globals.dart' as globals;
 Future<List<Encomenda>> fetchEncomendas() async {
   String url = "${globals.apiEndpoint}cliente/${globals.userId}/encomendas";
 
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url), headers: {
+    HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+  });
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -53,8 +56,9 @@ class _ConfirmPageState extends State<ConfirmPage> {
         "${globals.apiEndpoint}cliente/${clientid.toString()}/confirmar/${id.toString()}";
 
     try {
-      final response = await http.put(Uri.parse(url));
-      debugPrint(url);
+      final response = await http.put(Uri.parse(url), headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+      });
       if (response.statusCode == 200) {}
       return;
     } catch (er) {}
