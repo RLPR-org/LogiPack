@@ -1,0 +1,1347 @@
+{
+	"info": {
+		"_postman_id": "0879720f-23c8-40bb-9de3-95383482f290",
+		"name": "Logipack",
+		"description": "Logistics Managment System for a dsitributition company, allowing fleet and package managment and tracking by clients",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "24868726-0879720f-23c8-40bb-9de3-95383482f290"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Validates client Login",
+					"id": "e40df0ef-e488-4ff3-9ab1-82013c79d2f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/login/cliente",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login",
+								"cliente"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "c9384fae-02b5-4304-9a29-6bbd81b4a254",
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/cliente",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"cliente"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"token\": \"laboris officia adipisicing\",\n  \"id\": \"dolor proident Duis quis consequat\"\n}"
+						},
+						{
+							"id": "f688c3c8-4c7f-4b0a-9050-dbb4f8477664",
+							"name": "Wrong credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/cliente",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"cliente"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "Validates Transportador Login",
+					"id": "60283f4b-0563-44b7-9c44-061fbf8575f6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/login/transportador",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login",
+								"transportador"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "e7076e73-7a84-43ea-b5bd-7a9519ac4a2c",
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/transportador",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"transportador"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"token\": \"laboris officia adipisicing\",\n  \"id\": \"dolor proident Duis quis consequat\"\n}"
+						},
+						{
+							"id": "6c5a998a-379e-4bfd-89fe-83a02d409e53",
+							"name": "Wrong credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/transportador",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"transportador"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "Validates Administrador Login",
+					"id": "44e823d4-4cec-46a9-a3e4-288a70c26eaf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/login/administrador",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login",
+								"administrador"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "c3678916-21e9-4401-9ecc-8bdbcc25aa59",
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/administrador",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"administrador"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"token\": \"laboris officia adipisicing\",\n  \"id\": \"dolor proident Duis quis consequat\"\n}"
+						},
+						{
+							"id": "4961a429-4c01-46a3-bbd5-fb3f39112873",
+							"name": "Wrong credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/login/administrador",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login",
+										"administrador"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				}
+			],
+			"id": "5ed84ff3-fdb6-4550-96f2-fb7c9c59a3fa"
+		},
+		{
+			"name": "encomendas",
+			"item": [
+				{
+					"name": "{encomenda ID}",
+					"item": [
+						{
+							"name": "Read Encomenda by unique identifier",
+							"id": "45cd62f3-4671-4c32-bb5f-b8f49f4eaecf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/encomendas/:encomendaID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"encomendas",
+										":encomendaID"
+									],
+									"variable": [
+										{
+											"key": "encomendaID",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Encomenda"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "46fad6ef-552e-4002-813a-afdd78236f87",
+									"name": "Read Encomenda",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/encomendas/:encomendaID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"encomendas",
+												":encomendaID"
+											],
+											"variable": [
+												{
+													"key": "encomendaID",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Encomenda"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": 66942813,\n  \"EncomendaEstado\": \"ENTREGUE\",\n  \"emissor\": \"labore\",\n  \"destinatario\": \"ipsum cillum velit\",\n  \"Localizacao\": {},\n  \"peso\": -15686998.190198496,\n  \"transportador\": 90299021,\n  \"timestamp\": \"dolore in non\",\n  \"confirmacao\": true,\n  \"cliente\": -79163159\n}"
+								}
+							]
+						},
+						{
+							"name": "/encomendas/:encomendaID/details",
+							"id": "63783860-d42e-4914-86c5-842c1bef93c5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/encomendas/:encomendaID/details",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"encomendas",
+										":encomendaID",
+										"details"
+									],
+									"variable": [
+										{
+											"key": "encomendaID",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Encomenda"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "8670e0ae-9e7a-42ac-84f7-ebb451b6c28a",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/encomendas/:encomendaID/details",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"encomendas",
+												":encomendaID",
+												"details"
+											],
+											"variable": [
+												{
+													"key": "encomendaID",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Encomenda"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"_id\": \"ullamco sed magna\",\n  \"encomenda\": -63896044\n}"
+								}
+							]
+						}
+					],
+					"id": "7ec7cd13-0658-4abb-830e-195494d3049a"
+				},
+				{
+					"name": "historico",
+					"item": [
+						{
+							"name": "History of Packages in a year by month",
+							"id": "486e9ebf-8f62-46a2-82e0-c088f1960bcc",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/encomendas/historico/ano",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"encomendas",
+										"historico",
+										"ano"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "d21c1b4a-545e-4dbb-baae-e2a285624a78",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/encomendas/historico/ano",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"encomendas",
+												"historico",
+												"ano"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						},
+						{
+							"name": "History of Packages in a month by weak",
+							"id": "40734eaf-7dbc-4b3a-b062-bfd317c6e6cb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/encomendas/historico/mes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"encomendas",
+										"historico",
+										"mes"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "c2b7f819-45fe-430c-9981-286151417f5c",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/encomendas/historico/mes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"encomendas",
+												"historico",
+												"mes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						},
+						{
+							"name": "History of Packages in a weak by day",
+							"id": "6028c2be-cfec-432c-9aad-9372989bb5a6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/encomendas/historico/semana",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"encomendas",
+										"historico",
+										"semana"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "e01ebfdf-af1c-4008-a753-630f0da84295",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/encomendas/historico/semana",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"encomendas",
+												"historico",
+												"semana"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								}
+							]
+						}
+					],
+					"id": "154f75c9-4247-4d91-9f19-f1db5a561a2e"
+				}
+			],
+			"id": "06c7a751-9788-48d1-b088-d82a2a520649"
+		},
+		{
+			"name": "estados",
+			"item": [
+				{
+					"name": "Update State of an Encomenda",
+					"id": "42fe3bcc-b6bb-49bf-a813-c62ba0592e54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estados/encomendas/:encomendaID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estados",
+								"encomendas",
+								":encomendaID"
+							],
+							"variable": [
+								{
+									"key": "encomendaID",
+									"value": "92924843",
+									"description": "(Required) The unique identifier of a Encomenda"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "19a5f80f-7320-4b9c-8560-cb45f63aadd7",
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/estados/encomendas/:encomendaID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estados",
+										"encomendas",
+										":encomendaID"
+									],
+									"variable": [
+										{
+											"key": "encomendaID",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Encomenda"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update State of a Transportador",
+					"id": "513a1f97-775c-4424-921f-f6499ea4164f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estados/transportadores/:TrasnportadorId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estados",
+								"transportadores",
+								":TrasnportadorId"
+							],
+							"variable": [
+								{
+									"key": "TrasnportadorId",
+									"value": "92924843",
+									"description": "(Required) The unique identifier of a Trasnportador"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "1e8d5efd-99de-421a-8e37-e8be2b32d72e",
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/estados/transportadores/:TrasnportadorId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"estados",
+										"transportadores",
+										":TrasnportadorId"
+									],
+									"variable": [
+										{
+											"key": "TrasnportadorId",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Trasnportador"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"id": "dc77f873-866b-4b6c-baf9-dfde5e768af1"
+		},
+		{
+			"name": "cliente",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "notificacoes",
+							"item": [
+								{
+									"name": "Notifications of specific Client",
+									"id": "4b44d673-d2ca-4cfb-a656-3a3e04dc1a50",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cliente/:id/notificacoes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cliente",
+												":id",
+												"notificacoes"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Client"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "d413552b-c590-4885-91ee-7c90bf995906",
+											"name": "Ok",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/cliente/:id/notificacoes",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cliente",
+														":id",
+														"notificacoes"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "92924843",
+															"description": "(Required) The unique identifier of a Client"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"value\": \"reference #/components/schemas/ArrayofNotification not found in the OpenAPI spec\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete all Notifications of specific Client",
+									"id": "fe2f6b65-3cdd-4484-8cdf-a56e6d87ada2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cliente/:id/notificacoes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cliente",
+												":id",
+												"notificacoes"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Client"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "d9d9df4e-cef8-4902-a474-ee6fcaed6fc4",
+											"name": "Ok",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/cliente/:id/notificacoes",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cliente",
+														":id",
+														"notificacoes"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "92924843",
+															"description": "(Required) The unique identifier of a Client"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							],
+							"id": "695b4aac-dcdc-43c0-9ae3-3e3a734d1620"
+						},
+						{
+							"name": "all Encomendas corresponding to a specific Client",
+							"id": "13727c6e-dc94-4045-adbc-76a32c087912",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cliente/:id/encomendas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cliente",
+										":id",
+										"encomendas"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Client"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "61d809fc-7662-4026-b0ae-884a3268df1e",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cliente/:id/encomendas",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cliente",
+												":id",
+												"encomendas"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Client"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": -12400158,\n    \"EncomendaEstado\": \"EM_TRANSITO\",\n    \"emissor\": \"consectetur dolor\",\n    \"destinatario\": \"occaecat ex amet\",\n    \"Localizacao\": {},\n    \"peso\": 29668965.709212765,\n    \"transportador\": -29933906,\n    \"timestamp\": \"amet enim est magna\",\n    \"confirmacao\": false,\n    \"cliente\": 8282997\n  },\n  {\n    \"id\": 99732957,\n    \"EncomendaEstado\": \"ENTREGUE\",\n    \"emissor\": \"ex laboris\",\n    \"destinatario\": \"deserunt\",\n    \"Localizacao\": {},\n    \"peso\": -75517058.74832332,\n    \"transportador\": -68079610,\n    \"timestamp\": \"et proident dolor\",\n    \"confirmacao\": true,\n    \"cliente\": 68990562\n  }\n]"
+								}
+							]
+						}
+					],
+					"id": "477af943-0e28-4619-99ae-ef6af17632d8"
+				},
+				{
+					"name": "Confirm arrival of Encomenda by Client",
+					"id": "b04a008c-2401-410d-a449-01aa360d6666",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cliente/confirmar/:encomendaID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cliente",
+								"confirmar",
+								":encomendaID"
+							],
+							"variable": [
+								{
+									"key": "encomendaID",
+									"value": "92924843",
+									"description": "(Required) The unique identifier of a Encomenda"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "3733591d-43c9-4da3-abe7-878073d7fac7",
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/cliente/confirmar/:encomendaID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cliente",
+										"confirmar",
+										":encomendaID"
+									],
+									"variable": [
+										{
+											"key": "encomendaID",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Encomenda"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"id": "d198a8bc-80e2-451d-94c1-8ab4e00c95bf"
+		},
+		{
+			"name": "transportadores",
+			"item": [
+				{
+					"name": "{Trasnportador Id}",
+					"item": [
+						{
+							"name": "Read Transportador by unique identifier",
+							"id": "251a5093-0d45-4e38-8fae-bf6b60d7df1c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/transportadores/:TrasnportadorId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transportadores",
+										":TrasnportadorId"
+									],
+									"variable": [
+										{
+											"key": "TrasnportadorId",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Transportador"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "6d24b214-770d-44a4-bc74-efa7d4d29334",
+									"name": "Read Transportador",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/transportadores/:TrasnportadorId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"transportadores",
+												":TrasnportadorId"
+											],
+											"variable": [
+												{
+													"key": "TrasnportadorId",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Transportador"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": 56377928,\n  \"nome\": \"in et\",\n  \"email\": \"adipisicing fugiat Ut\",\n  \"telefone\": \"consequat laboris consect\",\n  \"matricula\": \"in laboris\",\n  \"timestamp\": \"veniam cupidatat proident\",\n  \"TransportadorEstado\": \"EM_PAUSA\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Return history of transportador's states",
+							"id": "8d3d12d6-eca8-4f2b-b2c8-f4b2e12703ad",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/transportadores/:TrasnportadorId/details",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transportadores",
+										":TrasnportadorId",
+										"details"
+									],
+									"variable": [
+										{
+											"key": "TrasnportadorId",
+											"value": "92924843",
+											"description": "(Required) The unique identifier of a Trasnportador"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "0464f2cb-0f5c-4bd2-b10c-d74ac5ba0180",
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/transportadores/:TrasnportadorId/details",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"transportadores",
+												":TrasnportadorId",
+												"details"
+											],
+											"variable": [
+												{
+													"key": "TrasnportadorId",
+													"value": "92924843",
+													"description": "(Required) The unique identifier of a Trasnportador"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"_id\": \"aliquip ut sint\",\n  \"transportador\": 56303745\n}"
+								}
+							]
+						}
+					],
+					"id": "e72b50e5-4867-4060-8256-251cd4f5722d"
+				},
+				{
+					"name": "Read all Transportadores",
+					"id": "9026f588-7546-43fc-a779-21df7293d3f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/transportadores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transportadores"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a926ec42-b521-4f94-a3f1-ae8a315ada1d",
+							"name": "List of all Transportadores",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/transportadores",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transportadores"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": -92433738,\n    \"nome\": \"aliqua do laboris\",\n    \"email\": \"Excepteur Ut pariatur et\",\n    \"telefone\": \"occaecat commodo\",\n    \"matricula\": \"Duis nisi in est\",\n    \"timestamp\": \"al\",\n    \"TransportadorEstado\": \"PARADO\"\n  },\n  {\n    \"id\": 25387517,\n    \"nome\": \"commodo anim culpa sed\",\n    \"email\": \"amet do enim eu\",\n    \"telefone\": \"eius\",\n    \"matricula\": \"ut anim voluptate\",\n    \"timestamp\": \"eu enim Lorem qui nisi\",\n    \"TransportadorEstado\": \"PARADO\"\n  }\n]"
+						}
+					]
+				}
+			],
+			"id": "0b3887e2-684f-45e8-83b2-e510b4644741"
+		},
+		{
+			"name": "Read all Encomendas",
+			"id": "8723a9b0-b8ec-4a19-a9d6-9d3f2b058c75",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/encomendas?status=estado&estado=elit dolore ex incididunt",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"encomendas"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "estado"
+						},
+						{
+							"key": "estado",
+							"value": "elit dolore ex incididunt",
+							"description": "Encomendas only with that type"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "e4d2114d-78b9-41a7-bd04-9e368a1f71bc",
+					"name": "List of all Encomendas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/encomendas?estado=elit dolore ex incididunt",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"encomendas"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "elit dolore ex incididunt"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"id\": -65603409,\n    \"EncomendaEstado\": \"ENTREGUE\",\n    \"emissor\": \"et ipsum\",\n    \"destinatario\": \"ex aliqua elit\",\n    \"Localizacao\": {},\n    \"peso\": -73376790.74253613,\n    \"transportador\": -72194113,\n    \"timestamp\": \"ad nostrud\",\n    \"confirmacao\": true,\n    \"cliente\": -49570432\n  },\n  {\n    \"id\": -9801044,\n    \"EncomendaEstado\": \"REGISTADA\",\n    \"emissor\": \"incididunt sint adipisicing qui\",\n    \"destinatario\": \"Ut pariatur\",\n    \"Localizacao\": {},\n    \"peso\": -92181619.11729217,\n    \"transportador\": -9329513,\n    \"timestamp\": \"elit ipsum\",\n    \"confirmacao\": false,\n    \"cliente\": -10893521\n  }\n]"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "49d2df03-efdf-48fc-9c55-347035bd9351",
+			"key": "baseUrl",
+			"value": "logipack",
+			"type": "string"
+		}
+	]
+}
