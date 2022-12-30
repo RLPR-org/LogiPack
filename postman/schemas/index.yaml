@@ -8,8 +8,71 @@ servers:
   - url: logipack
 
 paths:
-  /encomendas:
+
+  /login/cliente:
+    post:
+      summary: Validates client Login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Credentials'
+
+        '401':
+          description: Wrong credentials 
+          content:
+            application/json:
+              schema: {}
+
+    
+  /login/transportador:
+    post:
+      summary: Validates Transportador Login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Credentials'
+
+        '401':
+          description: Wrong credentials 
+          content:
+            application/json:
+              schema: {}
+    
+
+  /login/administrador:
+    post:
+      summary: Validates Administrador Login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Credentials'
+
+        '401':
+          description: Wrong credentials 
+          content:
+            application/json:
+              schema: {}
+    
+
+  /encomendas?status=estado:
     get:
+      parameters:
+        - in: query
+          name: estado
+          required: false
+          schema:
+              type : string
+          description: Encomendas only with that type
+
       summary: Read all Encomendas
       responses:
         '200':
@@ -37,6 +100,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Encomenda'
+
+
+  /encomendas/{encomendaID}/details:
+    get:
+      parameters:
+      - name: encomendaID
+        description: The unique identifier of a Encomenda
+        in: path
+        required: true
+        schema:
+            type : integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncomendaMongo'
+
+
 
   /estados/encomendas/{encomendaID}:
     put:
@@ -71,12 +155,12 @@ paths:
           description: OK
 
   
-  /cliente/encomendas/{encomendaID}:
+  /cliente/{id}/encomendas:
     get:
       summary:  all Encomendas corresponding to a specific Client
       parameters:
-        - name: encomendaID
-          description: The unique identifier of a Encomenda
+        - name: id
+          description: The unique identifier of a Client
           in: path
           required: true
           schema:
@@ -89,6 +173,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArrayofAllEncomendas'
+
+  /cliente/{id}/notificacoes:
+    get:
+      summary: Notifications of specific Client
+      parameters:
+        - name: id
+          description: The unique identifier of a Client
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayofNotification'
+
+
+    delete:
+      summary: Delete all Notifications of specific Client
+      parameters:
+        - name: id
+          description: The unique identifier of a Client
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      responses:
+        '200':
+          description: Ok
+  
+
 
   /transportadores:
     get:
@@ -137,9 +257,86 @@ paths:
       responses:
         '200':
           description: OK
+  
+  /transportadores/{TrasnportadorId}/details:
+    get:
+      summary: Return history of transportador's states
+      parameters:
+        - name: TrasnportadorId
+          description: The unique identifier of a Trasnportador
+          in: path
+          required: true
+          schema:
+              type : integer
+              format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportadorMongo'
+
+  /encomendas/historico/ano:
+    get:
+      summary: History of Packages in a year by month
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {}
+                
+
+  /encomendas/historico/mes:
+    get:
+      summary: History of Packages in a month by weak
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {}
+
+
+  /encomendas/historico/semana:
+    get:
+      summary: History of Packages in a weak by day
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {}
 
 components:
   schemas:
+    Login:
+      type: object
+      properties:
+        email: 
+          type: string
+        password: 
+          type: string
+
+    
+    Credentials:
+      type: object
+      properties:
+        token: 
+          type: string
+        id: 
+          type: string
+
+    Notification:
+      type: object
+      properties:
+        encomendaId:
+          type: string
+        newState:
+          type: string
+        timestamp:
+          type: string
 
     Encomenda:
       type: object
@@ -270,6 +467,13 @@ components:
       items: 
         type: object
         $ref: '#/components/schemas/Encomenda'
+
+    
+    ArrayofNotifications:
+      type: array
+      items: 
+        type: object
+        $ref: '#/components/schemas/Notification'
     
     ArrayofAllTransportadores:
       type: array
@@ -277,3 +481,4 @@ components:
         type: object
         $ref: '#/components/schemas/Transportador'
 
+          
