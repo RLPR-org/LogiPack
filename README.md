@@ -54,6 +54,8 @@ https://pedro535.atlassian.net/jira/software/projects/LOG/boards/1
 
 https://docs.google.com/document/d/1NsjOoFR-VR5tmH4ELemQEX0nGNToCANMTpgr-9esZek
 
+<br />
+
 ## API Documentation
 
-https://www.postman.com/winter-firefly-28253/workspace/logipack/collection/24868726-abb70091-db75-4aef-9e37-f37017061d0a
+https://www.postman.com/winter-firefly-28253/workspace/logipack/collection/24868726-e2c5afbe-407f-4200-a0b1-cbb25324ee2a?ctx=documentation
