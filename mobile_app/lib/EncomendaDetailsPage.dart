@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'ConfirmPage.dart';
@@ -14,8 +16,10 @@ Future<List<dynamic>> fetchEncomendas(int id) async {
       "${globals.apiEndpoint}encomendas/${id.toString()}/details";
   String url = "${globals.apiEndpoint}encomendas/${id.toString()}";
 
-  final response = await http.get(Uri.parse(url));
-  final responseDetails = await http.get(Uri.parse(urlDetails));
+  final response = await http.get(Uri.parse(url),
+      headers: {HttpHeaders.authorizationHeader: 'Bearer ${globals.token}'});
+  final responseDetails = await http.get(Uri.parse(urlDetails),
+      headers: {HttpHeaders.authorizationHeader: 'Bearer ${globals.token}'});
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -41,7 +45,8 @@ Future<void> confirmEncomenda(int id, int clientid) async {
       "${globals.apiEndpoint}cliente/${clientid.toString()}/confirmar/${id.toString()}";
 
   try {
-    final response = await http.put(Uri.parse(url));
+    final response = await http.put(Uri.parse(url),
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ${globals.token}'});
     debugPrint(url);
     if (response.statusCode == 200) {}
     return;

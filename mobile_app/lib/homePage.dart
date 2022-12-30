@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,7 +43,9 @@ class _HomePageState extends State<HomePage> {
     String url =
         "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
 
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url), headers: {
+      HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+    });
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -212,7 +215,10 @@ Future<void> deleteNotifications() async {
       "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
 
   try {
-    final response = await http.delete(Uri.parse(url));
+    final response = await http.delete(
+      Uri.parse(url),
+      headers: {HttpHeaders.authorizationHeader: 'Bearer ${globals.token}'},
+    );
     debugPrint(url);
     if (response.statusCode == 200) {}
     return;

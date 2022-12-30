@@ -1,5 +1,6 @@
 import 'dart:convert' show utf8;
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +12,9 @@ Future<List<Map<String, dynamic>>> fetchNotificacoesShort() async {
   String url =
       "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
 
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url), headers: {
+    HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+  });
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -44,7 +47,9 @@ Future<List<Map<String, dynamic>>> fetchNotificacoes() async {
   String url =
       "${globals.apiEndpoint}cliente/${globals.userId.toString()}/notificacoes";
 
-  final response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url), headers: {
+    HttpHeaders.authorizationHeader: 'Bearer ${globals.token}',
+  });
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
