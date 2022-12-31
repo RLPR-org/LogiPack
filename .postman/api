@@ -5,6 +5,7 @@ id = 49406f0f-5f3a-47e7-9f56-efb0fb3683c7
 
 [relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"24868726-0879720f-23c8-40bb-9de3-95383482f290","path":"Logipack.json","metaData":{}}
 
 [relations.collections.metaData]
 
