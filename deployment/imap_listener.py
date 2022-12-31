@@ -49,10 +49,16 @@ while True:
                 log(f"{datetime.now()} - Deployed successfully")
                 sys.stdout.flush()
 
-    except BrokenPipeError:
+    except imaplib.IMAP4.abort:
         log("Connection lost. Trying to reconnect...")
         sys.stdout.flush()
-        mail = imaplib.IMAP4_SSL('outlook.office365.com',993)
+        mail = imaplib.IMAP4_SSL('outlook.office365.com', 993)
         mail.login(email_user, email_pass)
         mail.select("inbox")
+        continue
+
+    except Exception as e:
+        log(f"Error: {e}")
+        exit(1)
+
     sleep(60)
