@@ -12,42 +12,53 @@ email_pass = "rlpr2022"
 mail = imaplib.IMAP4_SSL('outlook.office365.com',993)
 mail.login(email_user, email_pass)
 mail.select("inbox")
-#print("Listening for new emails...")
+
+def log(text):
+    print(f"{datetime.now()} - {text}")
+    sys.stdout.flush()
+
+log("Listening for new emails...")
 
 while True:
-    result, data = mail.uid('search', None, "UNSEEN")
-    if data[0].split() == []:
-        #print(f"{datetime.now()} - No new emails")
-        sleep(10*60)
-        continue
-
-    i = len(data[0].split())
-    latest_email_uid = data[0].split()[-1]
-    result, email_data = mail.uid('fetch', latest_email_uid, '(RFC822)')
-    raw_email = email_data[0][1]
     try:
-        raw_email_string = raw_email.decode('utf-8')
-    except:
-        mail.uid('store', latest_email_uid, '-FLAGS', '(\Seen)')
-        print("(Fixing errors) Marking email as not seen")
-        sys.stdout.flush()
-        continue
-    email_message = email.message_from_string(raw_email_string)
+        result, data = mail.uid('search', None, "UNSEEN")
+        if data[0].split() == []:
+            sleep(60)
+            continue
 
-    # Header Details
-    try:
-        email_from = str(email.header.make_header(email.header.decode_header(email_message['From'])))
-        email_to = str(email.header.make_header(email.header.decode_header(email_message['To'])))
+        i = len(data[0].split())
+        latest_email_uid = data[0].split()[-1]
+        result, email_data = mail.uid('fetch', latest_email_uid, '(RFC822)')
+        raw_email = email_data[0][1]
+        try:
+            raw_email_string = raw_email.decode('utf-8')
+        except:
+            mail.uid('store', latest_email_uid, '-FLAGS', '(\Seen)')
+            log("(Fixing errors) Marking email as not seen")
+            sys.stdout.flush()
+            continue
+
+        email_message = email.message_from_string(raw_email_string)
         subject = str(email.header.make_header(email.header.decode_header(email_message['Subject'])))
-        print(subject)
+
         if subject == "deploy":
-            print(f"{datetime.now()} - Deploying...")
+            log(f"{datetime.now()} - Deploying...")
             sys.stdout.flush()
             result = os.system("/home/ies/LogiPack/deployment/deploy.sh")
             if result == 0:
-                print(f"{datetime.now()} - Deployed successfully")
+                log(f"{datetime.now()} - Deployed successfully")
                 sys.stdout.flush()
+
+    except imaplib.IMAP4.abort:
+        log("Connection lost. Trying to reconnect...")
+        sys.stdout.flush()
+        mail = imaplib.IMAP4_SSL('outlook.office365.com', 993)
+        mail.login(email_user, email_pass)
+        mail.select("inbox")
+        continue
+
     except Exception as e:
-        print(e)
-        pass
-    sleep(10*60)
+        log(f"Error: {e}")
+        exit(1)
+
+    sleep(60)

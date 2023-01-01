@@ -157,7 +157,7 @@ public class EncomendaService {
                     history.put(dayStr, histYear.get(month).get(day-i));
                 }
                 else
-                    history.put(String.format("%d", day-i+1), 0);
+                    history.put(String.format("...%d", day-i+1), 0);
             }
             
             return history;
