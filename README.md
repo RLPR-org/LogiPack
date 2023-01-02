@@ -31,31 +31,13 @@ LogiPack é um sistema de gestão de transportes de mercadorias, destinado às e
 
 <br />
 
-## Tecnologias
 
-| **Tecnologia** | **Descrição** |
-|-|-|
-| Team repository | GitHub |
-| Backlog management | Atlassian Jira |
-| Frontend | React.js e Flutter |
-| Backend | SpringBoot (Java) |
-| Message queue | RabbitMQ |
-| Base de dados | PostgreSQL |
+## Links
+
+- [Repositório do projeto](https://github.com/RLPR-org/LogiPack)
+- [Jira](https://pedro535.atlassian.net/jira/software/projects/LOG/boards/1)
+- [Relatório (cloud)](https://docs.google.com/document/d/1NsjOoFR-VR5tmH4ELemQEX0nGNToCANMTpgr-9esZek)
+- [Apresentação (cloud)](https://docs.google.com/presentation/d/1XoDm5SptfXUUyHTmi3ZDW2IyFaaWRkk7LweCP7Fwt2k/edit?usp=sharing)
+- [Documentação da API (cloud)](https://www.postman.com/winter-firefly-28253/workspace/logipack/collection/24868726-e2c5afbe-407f-4200-a0b1-cbb25324ee2a?ctx=documentation)
 
 <br />
-
-## Jira 
-
-https://pedro535.atlassian.net/jira/software/projects/LOG/boards/1
-
-<br />
-
-## Report
-
-https://docs.google.com/document/d/1NsjOoFR-VR5tmH4ELemQEX0nGNToCANMTpgr-9esZek
-
-<br />
-
-## API Documentation
-
-https://www.postman.com/winter-firefly-28253/workspace/logipack/collection/24868726-e2c5afbe-407f-4200-a0b1-cbb25324ee2a?ctx=documentation
