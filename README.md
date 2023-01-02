@@ -27,7 +27,7 @@
 
 ## Descrição do projeto
 
-LogiPack é um sistema de logística de transportes que permite a uma distribuidora gerir a sua frota incluindo packages, ao cliente dar track do package e receber notificações, e aos transportadores gerir a sua rota.
+LogiPack é um sistema de gestão de transportes de mercadorias, destinado às entidades que operam na área da Logística (cadeias de abastecimento).
 
 <br />
 
