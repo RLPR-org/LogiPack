@@ -37,7 +37,7 @@ LogiPack é um sistema de logística de transportes que permite a uma distribuid
 |-|-|
 | Team repository | GitHub |
 | Backlog management | Atlassian Jira |
-| Frontend | React.js |
+| Frontend | React.js e Flutter |
 | Backend | SpringBoot (Java) |
 | Message queue | RabbitMQ |
 | Base de dados | PostgreSQL |
