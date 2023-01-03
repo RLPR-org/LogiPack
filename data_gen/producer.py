@@ -36,9 +36,9 @@ while True:
     elif registo["entity"] == "encomenda":
         print(" [x] (Encomenda) Sent %r" % registo, flush=True)
         if prox_registo["entity"] == "transportador":
-            time.sleep(random.randint(1, 3) * 60)
+            time.sleep(30)
             continue
-        time.sleep(random.randint(1, 3) * 60)
+        time.sleep(30)
     else:
         print(" [x] (Transportador) Sent %r" % registo, flush=True)
-        time.sleep(random.randint(1, 3) * 60)
+        time.sleep(30)
