@@ -66,7 +66,7 @@ function Package() {
             setError(true);
         } else {
             var str = 'estado='+value
-            const response = await axios.put('http://localhost:8080/estados/encomendas/'+ packageId, str);
+            const response = await axios.put("http://" + process.env.REACT_APP_API_HOST + ':8080/estados/encomendas/'+ packageId, str);
             console.log(response);
             window.location.reload();
         } 

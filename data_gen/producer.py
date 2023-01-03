@@ -1,6 +1,7 @@
 import pika
 import json
 import time
+import random
 
 with open("dataset.json", "r", encoding='utf-8') as f:
     registos_src = json.load(f)
@@ -35,9 +36,9 @@ while True:
     elif registo["entity"] == "encomenda":
         print(" [x] (Encomenda) Sent %r" % registo, flush=True)
         if prox_registo["entity"] == "transportador":
-            time.sleep(60)
+            time.sleep(random.randint(5, 10) * 60)
             continue
-        time.sleep(1)
+        time.sleep(random.randint(5, 10) * 60)
     else:
         print(" [x] (Transportador) Sent %r" % registo, flush=True)
-        time.sleep(1)
+        time.sleep(random.randint(5, 10) * 60)

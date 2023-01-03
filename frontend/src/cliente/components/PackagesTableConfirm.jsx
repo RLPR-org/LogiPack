@@ -36,7 +36,7 @@ function PackagesTableConfirm(props) {
   const packages = props.packages;
 
   const confirm = (packageId) => {
-    const url = "http://localhost:8080/cliente/" + props.clientId + "/confirmar/" + packageId;
+    const url = "http://" + process.env.REACT_APP_API_HOST + ":8080/cliente/" + props.clientId + "/confirmar/" + packageId;
     axios.put(url);
     setPackagesIds(packagesIds.filter(id => id !== packageId));
   }
