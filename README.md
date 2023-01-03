@@ -33,8 +33,8 @@ LogiPack é um sistema de gestão de transportes de mercadorias, destinado às e
 
 ## Links
 
-- [Website](192.168.160.224:3000/)
-- [API](192.168.160.224:8080/)
+- [Website](http://192.168.160.224:3000/)
+- [API](http://192.168.160.224:8080/)
 - [Repositório do projeto](https://github.com/RLPR-org/LogiPack)
 - [Jira](https://pedro535.atlassian.net/jira/software/projects/LOG/boards/1)
 - [Relatório (cloud)](https://docs.google.com/document/d/1NsjOoFR-VR5tmH4ELemQEX0nGNToCANMTpgr-9esZek)
